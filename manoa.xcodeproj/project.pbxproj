@@ -1,0 +1,477 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		85B7DC30145189BB00493C87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC2F145189BB00493C87 /* UIKit.framework */; };
+		85B7DC32145189BB00493C87 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC31145189BB00493C87 /* Foundation.framework */; };
+		85B7DC34145189BB00493C87 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC33145189BB00493C87 /* CoreGraphics.framework */; };
+		85B7DC36145189BB00493C87 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC35145189BB00493C87 /* GLKit.framework */; };
+		85B7DC38145189BB00493C87 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC37145189BB00493C87 /* OpenGLES.framework */; };
+		85B7DC3E145189BB00493C87 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC3C145189BB00493C87 /* InfoPlist.strings */; };
+		85B7DC40145189BB00493C87 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC3F145189BB00493C87 /* main.m */; };
+		85B7DC44145189BB00493C87 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC43145189BB00493C87 /* AppDelegate.m */; };
+		85B7DC47145189BB00493C87 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC45145189BB00493C87 /* MainStoryboard_iPhone.storyboard */; };
+		85B7DC4A145189BC00493C87 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC48145189BB00493C87 /* MainStoryboard_iPad.storyboard */; };
+		85B7DC4C145189BC00493C87 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC4B145189BC00493C87 /* Shader.fsh */; };
+		85B7DC4E145189BC00493C87 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC4D145189BC00493C87 /* Shader.vsh */; };
+		85B7DC51145189BC00493C87 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC50145189BC00493C87 /* ViewController.m */; };
+		85B7DC59145189BC00493C87 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC58145189BC00493C87 /* SenTestingKit.framework */; };
+		85B7DC5A145189BC00493C87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC2F145189BB00493C87 /* UIKit.framework */; };
+		85B7DC5B145189BC00493C87 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC31145189BB00493C87 /* Foundation.framework */; };
+		85B7DC63145189BC00493C87 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC61145189BC00493C87 /* InfoPlist.strings */; };
+		85B7DC66145189BD00493C87 /* manoaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC65145189BD00493C87 /* manoaTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		85B7DC5C145189BC00493C87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85B7DC22145189BB00493C87 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85B7DC2A145189BB00493C87;
+			remoteInfo = manoa;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		85B7DC2B145189BB00493C87 /* manoa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manoa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		85B7DC2F145189BB00493C87 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		85B7DC31145189BB00493C87 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		85B7DC33145189BB00493C87 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		85B7DC35145189BB00493C87 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		85B7DC37145189BB00493C87 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		85B7DC3B145189BB00493C87 /* manoa-Info.plist */ = {isa = PBXFileReference; path = "manoa-Info.plist"; sourceTree = "<group>"; };
+		85B7DC3D145189BB00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		85B7DC3F145189BB00493C87 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		85B7DC41145189BB00493C87 /* manoa-Prefix.pch */ = {isa = PBXFileReference; path = "manoa-Prefix.pch"; sourceTree = "<group>"; };
+		85B7DC42145189BB00493C87 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		85B7DC43145189BB00493C87 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		85B7DC46145189BB00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		85B7DC49145189BC00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		85B7DC4B145189BC00493C87 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		85B7DC4D145189BC00493C87 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		85B7DC4F145189BC00493C87 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		85B7DC50145189BC00493C87 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		85B7DC57145189BC00493C87 /* manoaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = manoaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		85B7DC58145189BC00493C87 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		85B7DC60145189BC00493C87 /* manoaTests-Info.plist */ = {isa = PBXFileReference; path = "manoaTests-Info.plist"; sourceTree = "<group>"; };
+		85B7DC62145189BC00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		85B7DC64145189BD00493C87 /* manoaTests.h */ = {isa = PBXFileReference; path = manoaTests.h; sourceTree = "<group>"; };
+		85B7DC65145189BD00493C87 /* manoaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = manoaTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		85B7DC28145189BB00493C87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85B7DC30145189BB00493C87 /* UIKit.framework in Frameworks */,
+				85B7DC32145189BB00493C87 /* Foundation.framework in Frameworks */,
+				85B7DC34145189BB00493C87 /* CoreGraphics.framework in Frameworks */,
+				85B7DC36145189BB00493C87 /* GLKit.framework in Frameworks */,
+				85B7DC38145189BB00493C87 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85B7DC53145189BC00493C87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85B7DC59145189BC00493C87 /* SenTestingKit.framework in Frameworks */,
+				85B7DC5A145189BC00493C87 /* UIKit.framework in Frameworks */,
+				85B7DC5B145189BC00493C87 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		85B7DC20145189BB00493C87 = {
+			isa = PBXGroup;
+			children = (
+				85B7DC39145189BB00493C87 /* manoa */,
+				85B7DC5E145189BC00493C87 /* manoaTests */,
+				85B7DC2E145189BB00493C87 /* Frameworks */,
+				85B7DC2C145189BB00493C87 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		85B7DC2C145189BB00493C87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC2B145189BB00493C87 /* manoa.app */,
+				85B7DC57145189BC00493C87 /* manoaTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		85B7DC2E145189BB00493C87 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC2F145189BB00493C87 /* UIKit.framework */,
+				85B7DC31145189BB00493C87 /* Foundation.framework */,
+				85B7DC33145189BB00493C87 /* CoreGraphics.framework */,
+				85B7DC35145189BB00493C87 /* GLKit.framework */,
+				85B7DC37145189BB00493C87 /* OpenGLES.framework */,
+				85B7DC58145189BC00493C87 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		85B7DC39145189BB00493C87 /* manoa */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC42145189BB00493C87 /* AppDelegate.h */,
+				85B7DC43145189BB00493C87 /* AppDelegate.m */,
+				85B7DC45145189BB00493C87 /* MainStoryboard_iPhone.storyboard */,
+				85B7DC48145189BB00493C87 /* MainStoryboard_iPad.storyboard */,
+				85B7DC4B145189BC00493C87 /* Shader.fsh */,
+				85B7DC4D145189BC00493C87 /* Shader.vsh */,
+				85B7DC4F145189BC00493C87 /* ViewController.h */,
+				85B7DC50145189BC00493C87 /* ViewController.m */,
+				85B7DC3A145189BB00493C87 /* Supporting Files */,
+			);
+			path = manoa;
+			sourceTree = "<group>";
+		};
+		85B7DC3A145189BB00493C87 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC3B145189BB00493C87 /* manoa-Info.plist */,
+				85B7DC3C145189BB00493C87 /* InfoPlist.strings */,
+				85B7DC3F145189BB00493C87 /* main.m */,
+				85B7DC41145189BB00493C87 /* manoa-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		85B7DC5E145189BC00493C87 /* manoaTests */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC64145189BD00493C87 /* manoaTests.h */,
+				85B7DC65145189BD00493C87 /* manoaTests.m */,
+				85B7DC5F145189BC00493C87 /* Supporting Files */,
+			);
+			path = manoaTests;
+			sourceTree = "<group>";
+		};
+		85B7DC5F145189BC00493C87 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC60145189BC00493C87 /* manoaTests-Info.plist */,
+				85B7DC61145189BC00493C87 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		85B7DC2A145189BB00493C87 /* manoa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85B7DC69145189BD00493C87 /* Build configuration list for PBXNativeTarget "manoa" */;
+			buildPhases = (
+				85B7DC27145189BB00493C87 /* Sources */,
+				85B7DC28145189BB00493C87 /* Frameworks */,
+				85B7DC29145189BB00493C87 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = manoa;
+			productName = manoa;
+			productReference = 85B7DC2B145189BB00493C87 /* manoa.app */;
+			productType = "com.apple.product-type.application";
+		};
+		85B7DC56145189BC00493C87 /* manoaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85B7DC6C145189BD00493C87 /* Build configuration list for PBXNativeTarget "manoaTests" */;
+			buildPhases = (
+				85B7DC52145189BC00493C87 /* Sources */,
+				85B7DC53145189BC00493C87 /* Frameworks */,
+				85B7DC54145189BC00493C87 /* Resources */,
+				85B7DC55145189BC00493C87 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				85B7DC5D145189BC00493C87 /* PBXTargetDependency */,
+			);
+			name = manoaTests;
+			productName = manoaTests;
+			productReference = 85B7DC57145189BC00493C87 /* manoaTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		85B7DC22145189BB00493C87 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Imber Studios LLC";
+			};
+			buildConfigurationList = 85B7DC25145189BB00493C87 /* Build configuration list for PBXProject "manoa" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 85B7DC20145189BB00493C87;
+			productRefGroup = 85B7DC2C145189BB00493C87 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				85B7DC2A145189BB00493C87 /* manoa */,
+				85B7DC56145189BC00493C87 /* manoaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		85B7DC29145189BB00493C87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85B7DC3E145189BB00493C87 /* InfoPlist.strings in Resources */,
+				85B7DC47145189BB00493C87 /* MainStoryboard_iPhone.storyboard in Resources */,
+				85B7DC4A145189BC00493C87 /* MainStoryboard_iPad.storyboard in Resources */,
+				85B7DC4C145189BC00493C87 /* Shader.fsh in Resources */,
+				85B7DC4E145189BC00493C87 /* Shader.vsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85B7DC54145189BC00493C87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85B7DC63145189BC00493C87 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		85B7DC55145189BC00493C87 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		85B7DC27145189BB00493C87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85B7DC40145189BB00493C87 /* main.m in Sources */,
+				85B7DC44145189BB00493C87 /* AppDelegate.m in Sources */,
+				85B7DC51145189BC00493C87 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85B7DC52145189BC00493C87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85B7DC66145189BD00493C87 /* manoaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		85B7DC5D145189BC00493C87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85B7DC2A145189BB00493C87 /* manoa */;
+			targetProxy = 85B7DC5C145189BC00493C87 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		85B7DC3C145189BB00493C87 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85B7DC3D145189BB00493C87 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		85B7DC45145189BB00493C87 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85B7DC46145189BB00493C87 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		85B7DC48145189BB00493C87 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85B7DC49145189BC00493C87 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		85B7DC61145189BC00493C87 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85B7DC62145189BC00493C87 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		85B7DC67145189BD00493C87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		85B7DC68145189BD00493C87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		85B7DC6A145189BD00493C87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "manoa/manoa-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		85B7DC6B145189BD00493C87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "manoa/manoa-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		85B7DC6D145189BD00493C87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/manoa.app/manoa";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
+				INFOPLIST_FILE = "manoaTests/manoaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		85B7DC6E145189BD00493C87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/manoa.app/manoa";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
+				INFOPLIST_FILE = "manoaTests/manoaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		85B7DC25145189BB00493C87 /* Build configuration list for PBXProject "manoa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85B7DC67145189BD00493C87 /* Debug */,
+				85B7DC68145189BD00493C87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85B7DC69145189BD00493C87 /* Build configuration list for PBXNativeTarget "manoa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85B7DC6A145189BD00493C87 /* Debug */,
+				85B7DC6B145189BD00493C87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		85B7DC6C145189BD00493C87 /* Build configuration list for PBXNativeTarget "manoaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85B7DC6D145189BD00493C87 /* Debug */,
+				85B7DC6E145189BD00493C87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 85B7DC22145189BB00493C87 /* Project object */;
+}
