@@ -1,20 +1,27 @@
-//
-//  AppDelegate.m
-//  manoa
-//
-//  Created by Emiliano Miranda on 10/21/11.
-//  Copyright (c) 2011 Imber Studios LLC. All rights reserved.
-//
-
 #import "AppDelegate.h"
 
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window = mWindow;
+@synthesize viewController = mViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    if (mWindow == nil)
+    {
+        mWindow = [[UIWindow alloc] init];
+    }
+    
+    if (mViewController == nil)
+    {
+        mViewController = [[ManoaViewController alloc] init];
+    }
+    
+    [mWindow addSubview:mViewController.view];
+    [mWindow makeKeyAndVisible];
+    
     return YES;
 }
 							

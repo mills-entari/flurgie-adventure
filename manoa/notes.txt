@@ -1,0 +1,1 @@
+Game world (0,0) would be upper left of screen and larger values go downard for y-axis and rightward for x-axis.

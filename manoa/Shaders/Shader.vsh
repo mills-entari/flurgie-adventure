@@ -1,11 +1,3 @@
-//
-//  Shader.vsh
-//  manoa
-//
-//  Created by Emiliano Miranda on 10/21/11.
-//  Copyright (c) 2011 Imber Studios LLC. All rights reserved.
-//
-
 attribute vec4 position;
 attribute vec3 normal;
 

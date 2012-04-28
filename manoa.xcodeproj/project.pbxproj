@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8512A18B1538146A0038CB36 /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8512A18A1538146A0038CB36 /* notes.txt */; };
+		8512A1DB153E9D410038CB36 /* GameItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8512A1DA153E9D400038CB36 /* GameItem.m */; };
+		8514E2E6151C9050006DC56A /* GameBounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 8514E2E5151C9050006DC56A /* GameBounds.m */; };
+		8514E2E91525CB97006DC56A /* GameViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8514E2E81525CB97006DC56A /* GameViewFactory.m */; };
+		851782FF14FF907800FDDCDA /* libChipmunk-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 851782FE14FF907800FDDCDA /* libChipmunk-iPhone.a */; };
+		851B007F14ED269B009A4BFA /* GameViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 851B007E14ED269B009A4BFA /* GameViewManager.m */; };
+		8524A854150CC29400EDCBE9 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 8524A853150CC29400EDCBE9 /* Sprite.m */; };
+		85256C8514599AA700297D63 /* ManoaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85256C8414599AA700297D63 /* ManoaViewController.m */; };
+		852D0F3B14EC877400F7CE42 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D0F3A14EC877400F7CE42 /* MainMenu.m */; };
+		852D0F4114ECB5F600F7CE42 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D0F4014ECB5F600F7CE42 /* GameView.m */; };
+		857DF09115345D4B0039C9C8 /* GraphicsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 857DF09015345D4B0039C9C8 /* GraphicsHelper.m */; };
+		857DF0951536926A0039C9C8 /* GameRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 857DF0941536926A0039C9C8 /* GameRegion.m */; };
+		85A647FF1502326E00A00BBD /* GameZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A647FE1502326E00A00BBD /* GameZone.m */; };
 		85B7DC30145189BB00493C87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC2F145189BB00493C87 /* UIKit.framework */; };
 		85B7DC32145189BB00493C87 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC31145189BB00493C87 /* Foundation.framework */; };
 		85B7DC34145189BB00493C87 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC33145189BB00493C87 /* CoreGraphics.framework */; };
@@ -15,16 +28,23 @@
 		85B7DC3E145189BB00493C87 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC3C145189BB00493C87 /* InfoPlist.strings */; };
 		85B7DC40145189BB00493C87 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC3F145189BB00493C87 /* main.m */; };
 		85B7DC44145189BB00493C87 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC43145189BB00493C87 /* AppDelegate.m */; };
-		85B7DC47145189BB00493C87 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC45145189BB00493C87 /* MainStoryboard_iPhone.storyboard */; };
-		85B7DC4A145189BC00493C87 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC48145189BB00493C87 /* MainStoryboard_iPad.storyboard */; };
 		85B7DC4C145189BC00493C87 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC4B145189BC00493C87 /* Shader.fsh */; };
 		85B7DC4E145189BC00493C87 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC4D145189BC00493C87 /* Shader.vsh */; };
-		85B7DC51145189BC00493C87 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC50145189BC00493C87 /* ViewController.m */; };
+		85B7DC51145189BC00493C87 /* ManoaGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC50145189BC00493C87 /* ManoaGLViewController.m */; };
 		85B7DC59145189BC00493C87 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC58145189BC00493C87 /* SenTestingKit.framework */; };
 		85B7DC5A145189BC00493C87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC2F145189BB00493C87 /* UIKit.framework */; };
 		85B7DC5B145189BC00493C87 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC31145189BB00493C87 /* Foundation.framework */; };
 		85B7DC63145189BC00493C87 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85B7DC61145189BC00493C87 /* InfoPlist.strings */; };
 		85B7DC66145189BD00493C87 /* manoaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B7DC65145189BD00493C87 /* manoaTests.m */; };
+		85D8D1D315424DDE0089581B /* memoryIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 85D8D1D215424DDE0089581B /* memoryIcon.png */; };
+		85D8D1D7154418030089581B /* GameReactionTimeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D8D1D6154418030089581B /* GameReactionTimeTest.m */; };
+		85D8D1DA154BAF890089581B /* LevelMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D8D1D9154BAF890089581B /* LevelMenu.m */; };
+		85D8D1DD154BE14A0089581B /* GameButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D8D1DC154BE1490089581B /* GameButton.m */; };
+		85F4FB7C1459A24700605C3A /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F4FB7B1459A24700605C3A /* GameManager.m */; };
+		85F4FB7F1459A4D100605C3A /* GameTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F4FB7E1459A4D100605C3A /* GameTime.m */; };
+		85F4FB831459BD3600605C3A /* Vector2.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F4FB821459BD3600605C3A /* Vector2.m */; };
+		85F4FB861459BE9000605C3A /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F4FB851459BE9000605C3A /* MathHelper.m */; };
+		85F4FB8B1459C36900605C3A /* Actor2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F4FB8A1459C36900605C3A /* Actor2D.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,30 +58,97 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8512A18A1538146A0038CB36 /* notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
+		8512A1D9153E9D400038CB36 /* GameItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameItem.h; sourceTree = "<group>"; };
+		8512A1DA153E9D400038CB36 /* GameItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameItem.m; sourceTree = "<group>"; };
+		8514E2E4151C9050006DC56A /* GameBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBounds.h; sourceTree = "<group>"; };
+		8514E2E5151C9050006DC56A /* GameBounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBounds.m; sourceTree = "<group>"; };
+		8514E2E71525CB97006DC56A /* GameViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewFactory.h; sourceTree = "<group>"; };
+		8514E2E81525CB97006DC56A /* GameViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewFactory.m; sourceTree = "<group>"; };
+		851782E414FF907800FDDCDA /* chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk.h; sourceTree = "<group>"; };
+		851782E514FF907800FDDCDA /* chipmunk_ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_ffi.h; sourceTree = "<group>"; };
+		851782E614FF907800FDDCDA /* chipmunk_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_private.h; sourceTree = "<group>"; };
+		851782E714FF907800FDDCDA /* chipmunk_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_types.h; sourceTree = "<group>"; };
+		851782E814FF907800FDDCDA /* chipmunk_unsafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_unsafe.h; sourceTree = "<group>"; };
+		851782EA14FF907800FDDCDA /* cpConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpConstraint.h; sourceTree = "<group>"; };
+		851782EB14FF907800FDDCDA /* cpDampedRotarySpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpDampedRotarySpring.h; sourceTree = "<group>"; };
+		851782EC14FF907800FDDCDA /* cpDampedSpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpDampedSpring.h; sourceTree = "<group>"; };
+		851782ED14FF907800FDDCDA /* cpGearJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpGearJoint.h; sourceTree = "<group>"; };
+		851782EE14FF907800FDDCDA /* cpGrooveJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpGrooveJoint.h; sourceTree = "<group>"; };
+		851782EF14FF907800FDDCDA /* cpPinJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpPinJoint.h; sourceTree = "<group>"; };
+		851782F014FF907800FDDCDA /* cpPivotJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpPivotJoint.h; sourceTree = "<group>"; };
+		851782F114FF907800FDDCDA /* cpRatchetJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpRatchetJoint.h; sourceTree = "<group>"; };
+		851782F214FF907800FDDCDA /* cpRotaryLimitJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpRotaryLimitJoint.h; sourceTree = "<group>"; };
+		851782F314FF907800FDDCDA /* cpSimpleMotor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSimpleMotor.h; sourceTree = "<group>"; };
+		851782F414FF907800FDDCDA /* cpSlideJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSlideJoint.h; sourceTree = "<group>"; };
+		851782F514FF907800FDDCDA /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		851782F614FF907800FDDCDA /* cpArbiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpArbiter.h; sourceTree = "<group>"; };
+		851782F714FF907800FDDCDA /* cpBB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpBB.h; sourceTree = "<group>"; };
+		851782F814FF907800FDDCDA /* cpBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpBody.h; sourceTree = "<group>"; };
+		851782F914FF907800FDDCDA /* cpPolyShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpPolyShape.h; sourceTree = "<group>"; };
+		851782FA14FF907800FDDCDA /* cpShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpShape.h; sourceTree = "<group>"; };
+		851782FB14FF907800FDDCDA /* cpSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpace.h; sourceTree = "<group>"; };
+		851782FC14FF907800FDDCDA /* cpSpatialIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpatialIndex.h; sourceTree = "<group>"; };
+		851782FD14FF907800FDDCDA /* cpVect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpVect.h; sourceTree = "<group>"; };
+		851782FE14FF907800FDDCDA /* libChipmunk-iPhone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libChipmunk-iPhone.a"; sourceTree = "<group>"; };
+		851B007D14ED269B009A4BFA /* GameViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewManager.h; sourceTree = "<group>"; };
+		851B007E14ED269B009A4BFA /* GameViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewManager.m; sourceTree = "<group>"; };
+		8524A852150CC29400EDCBE9 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
+		8524A853150CC29400EDCBE9 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
+		85256C8414599AA700297D63 /* ManoaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManoaViewController.m; sourceTree = "<group>"; };
+		85256C8614599AB000297D63 /* ManoaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManoaViewController.h; sourceTree = "<group>"; };
+		852D0F3914EC877400F7CE42 /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
+		852D0F3A14EC877400F7CE42 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
+		852D0F3F14ECB5F600F7CE42 /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
+		852D0F4014ECB5F600F7CE42 /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
+		857DF08F15345D4B0039C9C8 /* GraphicsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsHelper.h; sourceTree = "<group>"; };
+		857DF09015345D4B0039C9C8 /* GraphicsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicsHelper.m; sourceTree = "<group>"; };
+		857DF0931536926A0039C9C8 /* GameRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameRegion.h; sourceTree = "<group>"; };
+		857DF0941536926A0039C9C8 /* GameRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRegion.m; sourceTree = "<group>"; };
+		85A647FD1502326E00A00BBD /* GameZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameZone.h; sourceTree = "<group>"; };
+		85A647FE1502326E00A00BBD /* GameZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameZone.m; sourceTree = "<group>"; };
+		85A648011506332B00A00BBD /* GameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameUpdate.h; sourceTree = "<group>"; };
 		85B7DC2B145189BB00493C87 /* manoa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manoa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B7DC2F145189BB00493C87 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		85B7DC31145189BB00493C87 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		85B7DC33145189BB00493C87 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		85B7DC35145189BB00493C87 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		85B7DC37145189BB00493C87 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		85B7DC3B145189BB00493C87 /* manoa-Info.plist */ = {isa = PBXFileReference; path = "manoa-Info.plist"; sourceTree = "<group>"; };
+		85B7DC3B145189BB00493C87 /* manoa-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "manoa-Info.plist"; sourceTree = "<group>"; };
 		85B7DC3D145189BB00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		85B7DC3F145189BB00493C87 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		85B7DC41145189BB00493C87 /* manoa-Prefix.pch */ = {isa = PBXFileReference; path = "manoa-Prefix.pch"; sourceTree = "<group>"; };
-		85B7DC42145189BB00493C87 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		85B7DC41145189BB00493C87 /* manoa-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "manoa-Prefix.pch"; sourceTree = "<group>"; };
+		85B7DC42145189BB00493C87 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85B7DC43145189BB00493C87 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		85B7DC46145189BB00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		85B7DC49145189BC00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		85B7DC4B145189BC00493C87 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		85B7DC4D145189BC00493C87 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
-		85B7DC4F145189BC00493C87 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
-		85B7DC50145189BC00493C87 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		85B7DC4F145189BC00493C87 /* ManoaGLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManoaGLViewController.h; sourceTree = "<group>"; };
+		85B7DC50145189BC00493C87 /* ManoaGLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManoaGLViewController.m; sourceTree = "<group>"; };
 		85B7DC57145189BC00493C87 /* manoaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = manoaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B7DC58145189BC00493C87 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		85B7DC60145189BC00493C87 /* manoaTests-Info.plist */ = {isa = PBXFileReference; path = "manoaTests-Info.plist"; sourceTree = "<group>"; };
+		85B7DC60145189BC00493C87 /* manoaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "manoaTests-Info.plist"; sourceTree = "<group>"; };
 		85B7DC62145189BC00493C87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		85B7DC64145189BD00493C87 /* manoaTests.h */ = {isa = PBXFileReference; path = manoaTests.h; sourceTree = "<group>"; };
+		85B7DC64145189BD00493C87 /* manoaTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = manoaTests.h; sourceTree = "<group>"; };
 		85B7DC65145189BD00493C87 /* manoaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = manoaTests.m; sourceTree = "<group>"; };
+		85D8D1CD1542450E0089581B /* manoa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = manoa.entitlements; sourceTree = "<group>"; };
+		85D8D1D215424DDE0089581B /* memoryIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = memoryIcon.png; sourceTree = "<group>"; };
+		85D8D1D5154418030089581B /* GameReactionTimeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameReactionTimeTest.h; sourceTree = "<group>"; };
+		85D8D1D6154418030089581B /* GameReactionTimeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameReactionTimeTest.m; sourceTree = "<group>"; };
+		85D8D1D8154BAF890089581B /* LevelMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMenu.h; sourceTree = "<group>"; };
+		85D8D1D9154BAF890089581B /* LevelMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMenu.m; sourceTree = "<group>"; };
+		85D8D1DB154BE1480089581B /* GameButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameButton.h; sourceTree = "<group>"; };
+		85D8D1DC154BE1490089581B /* GameButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameButton.m; sourceTree = "<group>"; };
+		85F4FB791459A17500605C3A /* GameGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameGlobals.h; sourceTree = "<group>"; };
+		85F4FB7A1459A20700605C3A /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
+		85F4FB7B1459A24700605C3A /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
+		85F4FB7D1459A4B100605C3A /* GameTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTime.h; sourceTree = "<group>"; };
+		85F4FB7E1459A4D100605C3A /* GameTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTime.m; sourceTree = "<group>"; };
+		85F4FB811459BCCB00605C3A /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
+		85F4FB821459BD3600605C3A /* Vector2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vector2.m; sourceTree = "<group>"; };
+		85F4FB841459BE6F00605C3A /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
+		85F4FB851459BE9000605C3A /* MathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathHelper.m; sourceTree = "<group>"; };
+		85F4FB891459C32A00605C3A /* Actor2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor2D.h; sourceTree = "<group>"; };
+		85F4FB8A1459C36900605C3A /* Actor2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actor2D.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +161,7 @@
 				85B7DC34145189BB00493C87 /* CoreGraphics.framework in Frameworks */,
 				85B7DC36145189BB00493C87 /* GLKit.framework in Frameworks */,
 				85B7DC38145189BB00493C87 /* OpenGLES.framework in Frameworks */,
+				851782FF14FF907800FDDCDA /* libChipmunk-iPhone.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +178,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		851782E314FF907800FDDCDA /* Chipmunk-iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				851782E414FF907800FDDCDA /* chipmunk.h */,
+				851782E514FF907800FDDCDA /* chipmunk_ffi.h */,
+				851782E614FF907800FDDCDA /* chipmunk_private.h */,
+				851782E714FF907800FDDCDA /* chipmunk_types.h */,
+				851782E814FF907800FDDCDA /* chipmunk_unsafe.h */,
+				851782E914FF907800FDDCDA /* constraints */,
+				851782F614FF907800FDDCDA /* cpArbiter.h */,
+				851782F714FF907800FDDCDA /* cpBB.h */,
+				851782F814FF907800FDDCDA /* cpBody.h */,
+				851782F914FF907800FDDCDA /* cpPolyShape.h */,
+				851782FA14FF907800FDDCDA /* cpShape.h */,
+				851782FB14FF907800FDDCDA /* cpSpace.h */,
+				851782FC14FF907800FDDCDA /* cpSpatialIndex.h */,
+				851782FD14FF907800FDDCDA /* cpVect.h */,
+				851782FE14FF907800FDDCDA /* libChipmunk-iPhone.a */,
+			);
+			path = "Chipmunk-iPhone";
+			sourceTree = "<group>";
+		};
+		851782E914FF907800FDDCDA /* constraints */ = {
+			isa = PBXGroup;
+			children = (
+				851782EA14FF907800FDDCDA /* cpConstraint.h */,
+				851782EB14FF907800FDDCDA /* cpDampedRotarySpring.h */,
+				851782EC14FF907800FDDCDA /* cpDampedSpring.h */,
+				851782ED14FF907800FDDCDA /* cpGearJoint.h */,
+				851782EE14FF907800FDDCDA /* cpGrooveJoint.h */,
+				851782EF14FF907800FDDCDA /* cpPinJoint.h */,
+				851782F014FF907800FDDCDA /* cpPivotJoint.h */,
+				851782F114FF907800FDDCDA /* cpRatchetJoint.h */,
+				851782F214FF907800FDDCDA /* cpRotaryLimitJoint.h */,
+				851782F314FF907800FDDCDA /* cpSimpleMotor.h */,
+				851782F414FF907800FDDCDA /* cpSlideJoint.h */,
+				851782F514FF907800FDDCDA /* util.h */,
+			);
+			path = constraints;
+			sourceTree = "<group>";
+		};
+		8524A850150CC27200EDCBE9 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				857DF08F15345D4B0039C9C8 /* GraphicsHelper.h */,
+				857DF09015345D4B0039C9C8 /* GraphicsHelper.m */,
+				8524A852150CC29400EDCBE9 /* Sprite.h */,
+				8524A853150CC29400EDCBE9 /* Sprite.m */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		852D0F3714EC872300F7CE42 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				851B007D14ED269B009A4BFA /* GameViewManager.h */,
+				851B007E14ED269B009A4BFA /* GameViewManager.m */,
+				852D0F3F14ECB5F600F7CE42 /* GameView.h */,
+				852D0F4014ECB5F600F7CE42 /* GameView.m */,
+				8514E2E71525CB97006DC56A /* GameViewFactory.h */,
+				8514E2E81525CB97006DC56A /* GameViewFactory.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		85B7DC20145189BB00493C87 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +250,7 @@
 				85B7DC5E145189BC00493C87 /* manoaTests */,
 				85B7DC2E145189BB00493C87 /* Frameworks */,
 				85B7DC2C145189BB00493C87 /* Products */,
+				851782E314FF907800FDDCDA /* Chipmunk-iPhone */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,14 +279,16 @@
 		85B7DC39145189BB00493C87 /* manoa */ = {
 			isa = PBXGroup;
 			children = (
-				85B7DC42145189BB00493C87 /* AppDelegate.h */,
-				85B7DC43145189BB00493C87 /* AppDelegate.m */,
-				85B7DC45145189BB00493C87 /* MainStoryboard_iPhone.storyboard */,
-				85B7DC48145189BB00493C87 /* MainStoryboard_iPad.storyboard */,
-				85B7DC4B145189BC00493C87 /* Shader.fsh */,
-				85B7DC4D145189BC00493C87 /* Shader.vsh */,
-				85B7DC4F145189BC00493C87 /* ViewController.h */,
-				85B7DC50145189BC00493C87 /* ViewController.m */,
+				85D8D1D215424DDE0089581B /* memoryIcon.png */,
+				85D8D1CD1542450E0089581B /* manoa.entitlements */,
+				85D8D1DE154BE1560089581B /* UI */,
+				85D8D1D4154417C60089581B /* Data */,
+				85F4FB881459C30F00605C3A /* World */,
+				85F4FAE514599BC400605C3A /* App Core */,
+				85F4FAE714599C1D00605C3A /* Game Core */,
+				8524A850150CC27200EDCBE9 /* Graphics */,
+				85F4FB801459BCAA00605C3A /* Math */,
+				852D0F3714EC872300F7CE42 /* Views */,
 				85B7DC3A145189BB00493C87 /* Supporting Files */,
 			);
 			path = manoa;
@@ -166,6 +322,85 @@
 				85B7DC61145189BC00493C87 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		85D8D1D4154417C60089581B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				85D8D1D5154418030089581B /* GameReactionTimeTest.h */,
+				85D8D1D6154418030089581B /* GameReactionTimeTest.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		85D8D1DE154BE1560089581B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				85D8D1DB154BE1480089581B /* GameButton.h */,
+				85D8D1DC154BE1490089581B /* GameButton.m */,
+				852D0F3914EC877400F7CE42 /* MainMenu.h */,
+				852D0F3A14EC877400F7CE42 /* MainMenu.m */,
+				85D8D1D8154BAF890089581B /* LevelMenu.h */,
+				85D8D1D9154BAF890089581B /* LevelMenu.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		85F4FAE514599BC400605C3A /* App Core */ = {
+			isa = PBXGroup;
+			children = (
+				85B7DC42145189BB00493C87 /* AppDelegate.h */,
+				85B7DC43145189BB00493C87 /* AppDelegate.m */,
+				85256C8614599AB000297D63 /* ManoaViewController.h */,
+				85256C8414599AA700297D63 /* ManoaViewController.m */,
+				85B7DC4B145189BC00493C87 /* Shader.fsh */,
+				85B7DC4D145189BC00493C87 /* Shader.vsh */,
+				85B7DC4F145189BC00493C87 /* ManoaGLViewController.h */,
+				85B7DC50145189BC00493C87 /* ManoaGLViewController.m */,
+			);
+			name = "App Core";
+			sourceTree = "<group>";
+		};
+		85F4FAE714599C1D00605C3A /* Game Core */ = {
+			isa = PBXGroup;
+			children = (
+				85F4FB791459A17500605C3A /* GameGlobals.h */,
+				85A648011506332B00A00BBD /* GameUpdate.h */,
+				85F4FB7D1459A4B100605C3A /* GameTime.h */,
+				85F4FB7E1459A4D100605C3A /* GameTime.m */,
+				85F4FB7A1459A20700605C3A /* GameManager.h */,
+				85F4FB7B1459A24700605C3A /* GameManager.m */,
+				85A647FD1502326E00A00BBD /* GameZone.h */,
+				85A647FE1502326E00A00BBD /* GameZone.m */,
+				857DF0931536926A0039C9C8 /* GameRegion.h */,
+				857DF0941536926A0039C9C8 /* GameRegion.m */,
+				8514E2E4151C9050006DC56A /* GameBounds.h */,
+				8514E2E5151C9050006DC56A /* GameBounds.m */,
+				8512A18A1538146A0038CB36 /* notes.txt */,
+			);
+			name = "Game Core";
+			sourceTree = "<group>";
+		};
+		85F4FB801459BCAA00605C3A /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				85F4FB841459BE6F00605C3A /* MathHelper.h */,
+				85F4FB851459BE9000605C3A /* MathHelper.m */,
+				85F4FB811459BCCB00605C3A /* Vector2.h */,
+				85F4FB821459BD3600605C3A /* Vector2.m */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		85F4FB881459C30F00605C3A /* World */ = {
+			isa = PBXGroup;
+			children = (
+				85F4FB891459C32A00605C3A /* Actor2D.h */,
+				85F4FB8A1459C36900605C3A /* Actor2D.m */,
+				8512A1D9153E9D400038CB36 /* GameItem.h */,
+				8512A1DA153E9D400038CB36 /* GameItem.m */,
+			);
+			name = World;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +448,7 @@
 		85B7DC22145189BB00493C87 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Imber Studios LLC";
 			};
 			buildConfigurationList = 85B7DC25145189BB00493C87 /* Build configuration list for PBXProject "manoa" */;
@@ -240,10 +475,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				85B7DC3E145189BB00493C87 /* InfoPlist.strings in Resources */,
-				85B7DC47145189BB00493C87 /* MainStoryboard_iPhone.storyboard in Resources */,
-				85B7DC4A145189BC00493C87 /* MainStoryboard_iPad.storyboard in Resources */,
 				85B7DC4C145189BC00493C87 /* Shader.fsh in Resources */,
 				85B7DC4E145189BC00493C87 /* Shader.vsh in Resources */,
+				8512A18B1538146A0038CB36 /* notes.txt in Resources */,
+				85D8D1D315424DDE0089581B /* memoryIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +515,26 @@
 			files = (
 				85B7DC40145189BB00493C87 /* main.m in Sources */,
 				85B7DC44145189BB00493C87 /* AppDelegate.m in Sources */,
-				85B7DC51145189BC00493C87 /* ViewController.m in Sources */,
+				85B7DC51145189BC00493C87 /* ManoaGLViewController.m in Sources */,
+				85256C8514599AA700297D63 /* ManoaViewController.m in Sources */,
+				85F4FB7C1459A24700605C3A /* GameManager.m in Sources */,
+				85F4FB7F1459A4D100605C3A /* GameTime.m in Sources */,
+				85F4FB831459BD3600605C3A /* Vector2.m in Sources */,
+				85F4FB861459BE9000605C3A /* MathHelper.m in Sources */,
+				85F4FB8B1459C36900605C3A /* Actor2D.m in Sources */,
+				852D0F3B14EC877400F7CE42 /* MainMenu.m in Sources */,
+				852D0F4114ECB5F600F7CE42 /* GameView.m in Sources */,
+				851B007F14ED269B009A4BFA /* GameViewManager.m in Sources */,
+				85A647FF1502326E00A00BBD /* GameZone.m in Sources */,
+				8524A854150CC29400EDCBE9 /* Sprite.m in Sources */,
+				8514E2E6151C9050006DC56A /* GameBounds.m in Sources */,
+				8514E2E91525CB97006DC56A /* GameViewFactory.m in Sources */,
+				857DF09115345D4B0039C9C8 /* GraphicsHelper.m in Sources */,
+				857DF0951536926A0039C9C8 /* GameRegion.m in Sources */,
+				8512A1DB153E9D410038CB36 /* GameItem.m in Sources */,
+				85D8D1D7154418030089581B /* GameReactionTimeTest.m in Sources */,
+				85D8D1DA154BAF890089581B /* LevelMenu.m in Sources */,
+				85D8D1DD154BE14A0089581B /* GameButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,22 +563,6 @@
 				85B7DC3D145189BB00493C87 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		85B7DC45145189BB00493C87 /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				85B7DC46145189BB00493C87 /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		85B7DC48145189BB00493C87 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				85B7DC49145189BC00493C87 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		85B7DC61145189BC00493C87 /* InfoPlist.strings */ = {
@@ -358,9 +596,12 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -377,10 +618,13 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -388,11 +632,18 @@
 		85B7DC6A145189BD00493C87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Chipmunk-iPhone\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -400,11 +651,18 @@
 		85B7DC6B145189BD00493C87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Chipmunk-iPhone\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -443,6 +701,66 @@
 			};
 			name = Release;
 		};
+		85D8D1CF1542464B0089581B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		85D8D1D01542464B0089581B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = manoa/manoa.entitlements;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "manoa/manoa-Info.plist";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Chipmunk-iPhone\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
+		85D8D1D11542464B0089581B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/manoa.app/manoa";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
+				INFOPLIST_FILE = "manoaTests/manoaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Ad Hoc";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -451,6 +769,7 @@
 			buildConfigurations = (
 				85B7DC67145189BD00493C87 /* Debug */,
 				85B7DC68145189BD00493C87 /* Release */,
+				85D8D1CF1542464B0089581B /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -460,16 +779,20 @@
 			buildConfigurations = (
 				85B7DC6A145189BD00493C87 /* Debug */,
 				85B7DC6B145189BD00493C87 /* Release */,
+				85D8D1D01542464B0089581B /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85B7DC6C145189BD00493C87 /* Build configuration list for PBXNativeTarget "manoaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				85B7DC6D145189BD00493C87 /* Debug */,
 				85B7DC6E145189BD00493C87 /* Release */,
+				85D8D1D11542464B0089581B /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
