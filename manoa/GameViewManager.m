@@ -28,11 +28,21 @@
 
 -(void)addGameView:(GameView*)gameView
 {
+    [self addGameView:gameView bringToFront:YES];
+}
+
+-(void)addGameView:(GameView*)gameView bringToFront:(BOOL)bringToFront
+{
     if (gameView != nil)
     {
         [self addSubview:gameView];
         [mGameViewList addObject:gameView];
         //[self setNeedsDisplay];
+        
+        if (bringToFront)
+        {
+            [self bringSubviewToFront:gameView];
+        }
     }
 }
 

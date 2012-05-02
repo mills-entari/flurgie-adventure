@@ -1,26 +1,35 @@
 #import "AppDelegate.h"
 
+@interface AppDelegate()
+{
+@private
+    UIWindow* mWindow;
+    ManoaViewController* mViewController;
+}
+
+@end
+
 @implementation AppDelegate
 
 @synthesize window = mWindow;
-@synthesize viewController = mViewController;
+//@synthesize viewController = mViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     
-    if (mWindow == nil)
-    {
-        mWindow = [[UIWindow alloc] init];
-    }
-    
-    if (mViewController == nil)
-    {
-        mViewController = [[ManoaViewController alloc] init];
-    }
-    
-    [mWindow addSubview:mViewController.view];
-    [mWindow makeKeyAndVisible];
+//    if (mWindow == nil)
+//    {
+//        mWindow = [[UIWindow alloc] init];
+//    }
+//    
+//    if (mViewController == nil)
+//    {
+//        mViewController = [[ManoaViewController alloc] init];
+//    }
+//    
+//    [mWindow addSubview:mViewController.view];
+//    [mWindow makeKeyAndVisible];
     
     return YES;
 }

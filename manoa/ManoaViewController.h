@@ -3,10 +3,6 @@
 #import "GameGlobals.h"
 
 @interface ManoaViewController : UIViewController
-{
-@private
-	GameManager* mGameMgr;
-}
 
 @end
 

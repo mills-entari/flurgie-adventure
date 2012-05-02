@@ -2,6 +2,8 @@
 #define kNumberItemRows 12
 #define kFirstItemRow 12
 
+#define kStartButtonName @"start button"
+
 typedef struct ColorData
 {
 	float r;

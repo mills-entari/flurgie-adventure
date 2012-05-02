@@ -1,5 +1,14 @@
 #import "ManoaViewController.h"
 
+@interface ManoaViewController()
+{
+@private
+	GameManager* mGameMgr;
+    BOOL mIsInit;
+}
+
+@end
+
 @implementation ManoaViewController
 
 // Implement loadView to create a view hierarchy programmatically.
@@ -20,7 +29,12 @@
 // Implement viewDidLoad to do additional setup after loading the view.
 -(void)viewDidLoad
 {
-	[mGameMgr startGame];
+    if (!mIsInit)
+    {
+        mIsInit = YES;
+        [mGameMgr initGame];
+    }
+    
     [super viewDidLoad];
 }
 

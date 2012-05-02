@@ -63,4 +63,19 @@
     cpSpaceAddStaticShape(mSpace, mShape);
 }
 
+-(void)dealloc
+{
+    if (mShape != nil)
+    {
+        cpShapeFree(mShape);
+        mShape = nil;
+    }
+    
+    if (mBody != nil)
+    {
+        cpBodyFree(mBody);
+        mBody = nil;
+    }
+}
+
 @end

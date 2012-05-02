@@ -10,6 +10,7 @@
 //    int mStartData;
 //    int mGoalData;
     BOOL mRecordTime;
+    int mExpectedTimeMarkerCt;
 }
 
 @end
@@ -18,6 +19,7 @@
 
 @synthesize elapsedSeconds = mElapsedSeconds;
 @synthesize timeMarkerList = mTimeMarkerList;
+@synthesize expectedTimerMarkerCount = mExpectedTimeMarkerCt;
 
 -(id)init
 {
@@ -63,6 +65,11 @@
 {
     NSNumber* time = [[NSNumber alloc] initWithDouble:mElapsedSeconds];
     [mTimeMarkerList addObject:time];
+}
+
+-(BOOL)isTestComplete
+{
+    return mExpectedTimeMarkerCt == mTimeMarkerList.count;
 }
 
 @end

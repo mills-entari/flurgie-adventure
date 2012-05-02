@@ -1,14 +1,16 @@
 #import <Foundation/Foundation.h>
 #import "GameTime.h"
 #import "GameViewManager.h"
-//#import "MainMenuView.h"
+#import "MainMenu.h"
 #import "GameGlobals.h"
 #import "GameZone.h"
 #import "GameUpdate.h"
+#import "GameButton.h"
+#import "GameScreen.h"
 
 @class GameZone;
 
-@interface GameManager : NSObject 
+@interface GameManager : NSObject <GameButtonDelegate>
 
 @property(nonatomic, readonly) GameViewManager* gameViewManager;
 @property(nonatomic, readonly) CGRect screenFrame;
@@ -17,10 +19,10 @@
 
 //-(id)initWithFrame:(CGRect)frame;
 
-/* Function: startGame
+/* Function: initGame
  * Desc: Main entry point to start the actual game after initialization has completed.
  */
--(void)startGame;
+-(void)initGame;
 
 //-(void)registerUpdateObject:(id)updateObj;
 //-(void)registerDrawObject:(id)drawObj;

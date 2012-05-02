@@ -6,8 +6,9 @@
 	NSTimer* mTimer; // Main timer for game.
 	GameTime* mGameTime; // Stores timing data for each iteration of timer.
 	CGRect mScreenRect; // The rectangle representing the pixel space occupied by each screen.
-    GameZone* mGameZone; // The currenet zone.
+    //GameZone* mGameZone; // The currenet zone.
     GameViewManager* mGameViewMgr; // Manages all of the views displayed in the game.
+    GameScreen* mCurrentScreen;
     //NSMutableArray* mUpdateObjList;
     //NSMutableArray* mDrawObjList;
 }
@@ -17,7 +18,7 @@
 -(void)draw:(GameTime*)gameTime;
 -(void)beginGame;
 -(void)createTestZone;
--(void)initializeMainMenu;
+
 @end
 
 @implementation GameManager
@@ -79,13 +80,14 @@
 	return self;
 }
 
-/* Function: startGame
+/* Function: initGame
  * Desc: Main entry point to start the actual game after initialization has completed.
  */
--(void)startGame
+-(void)initGame
 {
-	//[self loadMainMenu];
-    [self beginGame];
+    DLog("Initializing game...")
+	[self loadMainMenu];
+    //[self beginGame];
 }
 
 
@@ -94,43 +96,42 @@
  */
 -(void)loadMainMenu
 {
-	[self initializeMainMenu];
+    MainMenu* mainMenu = [[MainMenu alloc] initWithRect:mScreenRect];
+    mainMenu.startButton.gameButtonDelegate = self;
+    
+    [self loadCurrentScreen:mainMenu];
+    
+	//[self initializeMainMenu];
 	//[scrMgr addScreen:mainMenu];
 }
 
--(void)initializeMainMenu
+-(void)loadCurrentScreen:(GameScreen*)gameScreen
 {
-    /*
-	if (mainMenu == nil)
-	{
-		mainMenu = [[MainMenuView alloc] initWithFrame:scrFrame];
-		[mainMenu.startButton addTarget:self action:@selector(startClicked:) forControlEvents:UIControlEventTouchUpInside];
-	}
-     */
-}
-
-/* Function: startClicked
- * Desc: Handler used to detect when the start button is clicked so that the level can be loaded.
- */
--(void)startClicked:(id)sender
-{
-    /*
-	LevelGameType gameType = mainMenu.gameType;
-	[scrMgr removeScreen:mainMenu];
-	[mainMenu release];
-	mainMenu = nil;
-	[self loadLevelManager:gameType];
-     */
+    if (mCurrentScreen != nil)
+    {
+        [mGameViewMgr removeGameView:mCurrentScreen.mainView];
+        [mCurrentScreen unloadGameScreen];
+    }
+    
+    mCurrentScreen = gameScreen;
+    
+    if (mCurrentScreen != nil)
+    {
+        [mCurrentScreen loadGameScreen];
+        [mGameViewMgr addGameView:mCurrentScreen.mainView];
+    }
 }
 
 -(void)beginGame
 {
+    // Load the level.
     [self createTestZone];
 }
 
 -(void)createTestZone
 {
-    mGameZone = [[GameZone alloc] initWithRect:mScreenRect];
+    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect];
+    [self loadCurrentScreen:testZone];
 }
 
 //-(void)registerUpdateObject:(id)updateObj
@@ -155,58 +156,39 @@
 -(void)update
 {
 	[mGameTime update];
-    
-    // Update the physics state of the game world.b
-    //cpSpaceStep(mWorldLogicalSpace, mGameTime.elapsedSeconds);
-    
-//    for (id updateObj in mUpdateObjList)
-//	{
-//        [updateObj update:mGameTime];
-//    }
 	
-    [mGameZone update:mGameTime];
+    if (mCurrentScreen != nil)
+    {
+        [mCurrentScreen update:mGameTime];
+    }
+    
     [self draw:mGameTime];
 }
 
 -(void)draw:(GameTime*)gameTime
 {
-//    for (id drawObj in mDrawObjList)
-//	{
-//        [drawObj draw:mGameTime];
-//    }
-    
     [mGameViewMgr draw:gameTime];
 }
 
-/* Function: drawRect
- * Desc: Draws anything needed by the GameView (none at this time).
- */
--(void)drawRect:(CGRect)rect 
-{
-	// Do nothing.
-}
-
-/* Function: showFps
- * Desc: Updates the frame rate counter and displays the frame rate per second.
- */
-//-(void)showFps
-//{
-//    // Display fps.
-//    
-//    if (mGameTime.computeFrameRate && mFrameLbl != nil)
-//    {
-//        NSString *str = [NSString stringWithFormat:@"FPS: %i", mGameTime.currentFrameRate];
-//        mFrameLbl.text = str;
-//        [self bringSubviewToFront:mFrameLbl];
-//    }
-//}
-
-/* Function: dealloc
- * Desc: Deallocates this GameView object.
- */
 -(void)dealloc 
 {	
 	[mTimer invalidate];
+}
+
+@end
+
+@implementation GameManager(GameButtonDelegate)
+
+-(void)gameButtonClicked:(GameButton*)button
+{
+    if (button != nil)
+    {
+        if (button.name == kStartButtonName)
+        {
+            DLog("Start button pushed");
+            [self beginGame];
+        }
+    }
 }
 
 @end

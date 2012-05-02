@@ -5,6 +5,7 @@
 @private
     int mGameViewId;
     NSMutableArray* mSpriteList;
+    id<GameViewDelegate> mGameViewDelegate;
 }
 
 @end
@@ -12,12 +13,14 @@
 @implementation GameView
 
 @synthesize gameViewId = mGameViewId;
+@synthesize gameViewDelegate = mGameViewDelegate;
 
 -(id)initWithFrame:(CGRect)frame withGameViewId:(int)viewId
 {
     if (self = [super initWithFrame:frame])
     {
-        self.backgroundColor = [UIColor colorWithRed:0.53f green:0.81f blue:0.98f alpha:1.0f]; // Sky blue
+        self.backgroundColor = [UIColor clearColor];
+        //self.backgroundColor = [UIColor colorWithRed:0.53f green:0.81f blue:0.98f alpha:1.0f]; // Sky blue
         
         mGameViewId = viewId;
         mSpriteList = [[NSMutableArray alloc] initWithCapacity:4];
@@ -43,6 +46,19 @@
     {
         [sprite removeFromSuperview];
         [mSpriteList removeObjectAtIndex:index];
+    }
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [self fireGameViewDrawRectDelegate];
+}
+
+-(void)fireGameViewDrawRectDelegate
+{
+    if (mGameViewDelegate != nil)
+    {
+        [mGameViewDelegate gameViewDrawRect:self];
     }
 }
 

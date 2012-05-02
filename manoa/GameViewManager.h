@@ -13,6 +13,7 @@
 
 //-(void)update:(GameTime*)gameTime;
 -(void)addGameView:(GameView*)gameView;
+-(void)addGameView:(GameView*)gameView bringToFront:(BOOL)bringToFront;
 -(void)removeGameView:(GameView*)gameView;
 
 @end

@@ -3,18 +3,24 @@
 @interface GameButton()
 {
 @private
+    NSString* mName;
     BOOL mIsTouchDown;
+    id<GameButtonDelegate> mGameButtonDelegate;
 }
 
 @end
 
 @implementation GameButton
 
+@synthesize name = mName;
+@synthesize gameButtonDelegate = mGameButtonDelegate;
+
 -(id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
 	{
 		//self.backgroundColor = [UIColor clearColor];
+        mName = @"";
         mIsTouchDown = NO;
 //		growOnTouch = YES;
 //		drawOnTouch = YES;
@@ -61,6 +67,11 @@
 //		{
 //			[self doGrowAnimation];
 //		}
+        
+        if (mGameButtonDelegate && [mGameButtonDelegate respondsToSelector:@selector(gameButtonClicked:)])
+        { 
+            [mGameButtonDelegate gameButtonClicked:self];
+        }
 	}
 }
 

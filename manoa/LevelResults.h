@@ -4,11 +4,11 @@
 #import "GameView.h"
 #import "GameViewFactory.h"
 #import "GameButton.h"
+#import "GameReactionTimeTest.h"
 
-@interface MainMenu : GameScreen
-
-@property(nonatomic, readonly) GameButton* startButton;
+@interface LevelResults : GameScreen <GameViewDelegate>
 
 -(id)initWithRect:(CGRect)rect;
+-(void)loadResults:(GameReactionTimeTest*)testResults message:(NSString*)msg;
 
 @end

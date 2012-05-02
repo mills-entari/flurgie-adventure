@@ -5,11 +5,11 @@
 @interface GameZone()
 {
 @private
+    //CGRect mZoneRect;
     NSMutableArray* mGlobalUpdateObjList;
     NSMutableArray* mGameRegionList;
     GameRegion* mCurrentGameRegion;
     cpSpace* mSpace;
-    //float mGravityYValue;
     cpVect mCurrentGravity;
     cpVect mMinGravity;
     cpVect mMaxGravity;
@@ -17,6 +17,10 @@
     BOOL mIsZoneComplete;
     GameReactionTimeTest* mReactionTimeTest;
     UILabel* mTimeLabel;
+    int mNumGameRegions;
+    
+    BOOL mDoTimer;
+    float mTimerValue;
 }
 
 -(void)initBaseZone;
@@ -28,23 +32,22 @@
 
 -(id)initWithRect:(CGRect)rect
 {
-	if (self = [super init]) 
+	if (self = [super initWithRect:rect]) 
 	{
+        mMainView.gameViewDelegate = self;
         mGlobalUpdateObjList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameRegionList = [[NSMutableArray alloc] initWithCapacity:4];
-        //mGameBoundsList = [[NSMutableArray alloc] initWithCapacity:4];
-        //mZoneView = [GameViewFactory makeNewGameViewWithFrame:rect];
-        //mGravityYValue = 200.0f;
         mCurrentGravity = cpv(0, kDefaultGravityYValue);
         mDoUpdateGravity = NO;
         mIsZoneComplete = NO;
+        mNumGameRegions = 2;
+        
+        // Timer
+        mDoTimer = NO;
+        mTimerValue = 0;
         
         // Create base test zone.
         [self initBaseZone];
-        
-        //[[GameManager sharedGameManager].mainGameView addGameView:mZoneView];
-        
-        //[self addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
         
         UIAccelerometer* accel = [UIAccelerometer sharedAccelerometer];
         accel.updateInterval = 1.0f/30.0f;
@@ -52,6 +55,14 @@
     }
     
     return self;
+}
+
+-(void)loadGameScreen
+{
+}
+
+-(void)unloadGameScreen
+{
 }
 
 
@@ -98,7 +109,7 @@
 //    [mGameRegionList addObject:groundRegion];
     
     
-    [self createGameRegions:2];
+    [self createGameRegions:mNumGameRegions];
     GameRegion* firstRegion = [mGameRegionList objectAtIndex:0];
     
     [self setCurrentGameRegion:firstRegion];
@@ -116,6 +127,7 @@
 -(void)createGameReactionTimeTest
 {
     mReactionTimeTest = [[GameReactionTimeTest alloc] init];
+    mReactionTimeTest.expectedTimerMarkerCount = mNumGameRegions;
     [mReactionTimeTest startTest];
     [mGlobalUpdateObjList addObject:mReactionTimeTest];
     
@@ -134,6 +146,7 @@
     for (int i = 0; i < numRegions; i++)
     {
         GameRegion* region = [[GameRegion alloc] initWithGameRegionIndex:i withSize:winSize withSpace:mSpace];
+        //region.gameView.gameViewDelegate = self;
         region.gameRegionDelegate = self;
         [mGameRegionList addObject:region];
         
@@ -190,13 +203,15 @@
         if (mCurrentGameRegion != nil)
         {
             [mTimeLabel removeFromSuperview];
-            [[GameManager sharedGameManager].gameViewManager removeGameView:mCurrentGameRegion.gameView];
+            //[[GameManager sharedGameManager].gameViewManager removeGameView:mCurrentGameRegion.gameView];
+            [mCurrentGameRegion.gameView removeFromSuperview];
         }
         
         mCurrentGameRegion = newGameRegion;
         [mCurrentGameRegion registerCurrentRegionCallbacks];
-        [mCurrentGameRegion.gameView addSubview:mTimeLabel]; // Reaction time UI variable.
-        [[GameManager sharedGameManager].gameViewManager addGameView:mCurrentGameRegion.gameView];
+        //[mCurrentGameRegion.gameView addSubview:mTimeLabel]; // Reaction time UI variable.
+        //[[GameManager sharedGameManager].gameViewManager addGameView:mCurrentGameRegion.gameView];
+        [mMainView addSubview:mCurrentGameRegion.gameView];
     }
 }
 
@@ -214,6 +229,9 @@
 
 -(void)update:(GameTime*)gameTime
 {
+    [self checkResultsDisplayTimer:gameTime];
+
+    
     if (mDoUpdateGravity)
     {
         cpSpaceSetGravity(mSpace, mCurrentGravity);
@@ -238,6 +256,21 @@
     {
         //DLog("Reaction Time: %.2f", mReactionTimeTest.elapsedSeconds);
         //[self drawTime];
+    }
+}
+
+-(void)checkResultsDisplayTimer:(GameTime*)gameTime
+{
+    // Check if we need to count down a timer.
+    // TODO: Make a separate class with a callback to handle this in the future.
+    if (mDoTimer)
+    {
+        mTimerValue -= gameTime.elapsedSeconds;
+        
+        if (mTimerValue <= 0)
+        {
+            [self showLevelResults];
+        }
     }
 }
 
@@ -290,9 +323,60 @@
     }
 }
 
+-(void)setupLevelResults
+{
+    mTimerValue = 2.0f;
+    mDoTimer = YES;
+}
+
+-(void)showLevelResults
+{
+    DLog("Displaying level results...");
+    mDoTimer = NO;
+    LevelResults* lvlResults = [[LevelResults alloc] initWithRect:mScreenRect];
+    
+    NSString* lvlMsg = nil;
+    
+    if (mReactionTimeTest.isTestComplete)
+    {
+        lvlMsg = @"Test completed successfully!";
+    }
+    else
+    {
+        lvlMsg = @"Test is incomplete. Please start a new test.";
+    }
+    
+    [lvlResults loadResults:mReactionTimeTest message:lvlMsg];
+    //[[GameManager sharedGameManager].gameViewManager addGameView:lvlResults.mainView];
+    [mMainView addSubview:lvlResults.mainView];
+}
+
 -(void)dealloc 
 {
-    cpSpaceFree(mSpace);
+    if (mSpace != nil)
+    {
+        cpSpaceFree(mSpace);
+        mSpace = nil;
+    }
+}
+
+@end
+
+@implementation GameZone(GameViewDelegate)
+
+-(void)gameViewDrawRect:(GameView*)gameView
+{
+    if (mMainView == gameView)
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [self drawBackground:context];
+    }
+}
+
+-(void)drawBackground:(CGContextRef)context
+{
+    CGContextSetRGBFillColor(context, 0.53f, 0.81f, 0.98f, 1.0); // Sky blue
+    CGContextFillRect(context, CGRectMake(mMainView.bounds.origin.x, mMainView.bounds.origin.y, mMainView.bounds.size.width, mMainView.bounds.size.height));
 }
 
 @end
@@ -328,10 +412,7 @@
             mIsZoneComplete = YES;
             mCurrentGravity = cpv(0, kDefaultGravityYValue);
             
-//            if (mReactionTimeTest != nil)
-//            {
-//                [mReactionTimeTest stopTest];
-//            }
+            [self setupLevelResults];
         }
     }
 }
