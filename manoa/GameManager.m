@@ -170,9 +170,10 @@
     [mGameViewMgr draw:gameTime];
 }
 
--(void)dealloc 
+-(void)dealloc
 {	
 	[mTimer invalidate];
+    //[super dealloc];
 }
 
 @end

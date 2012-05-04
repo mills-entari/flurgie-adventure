@@ -68,6 +68,7 @@
 {
     mBody = cpBodyNew(mMass, cpMomentForBox(mMass, mSize.width, mSize.height));
     cpBodySetPos(mBody, mPosition);
+    cpBodySetVelLimit(mBody, kActorMaxVel);
     cpSpaceAddBody(mSpace, mBody);
     
     mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
@@ -105,6 +106,8 @@
 
 -(void)dealloc
 {
+    DLog("Actor2D dealloc");
+    
     if (mShape != nil)
     {
         cpShapeFree(mShape);

@@ -4,7 +4,7 @@
 {
 @private
     NSTimeInterval mElapsedSeconds;
-    NSMutableArray* mTimeMarkerList;
+    NSMutableDictionary* mTimeMarkerDict;
 //    int mStartTime;
 //    int mEndTime;
 //    int mStartData;
@@ -18,14 +18,14 @@
 @implementation GameReactionTimeTest
 
 @synthesize elapsedSeconds = mElapsedSeconds;
-@synthesize timeMarkerList = mTimeMarkerList;
+@synthesize timeMarkerDict = mTimeMarkerDict;
 @synthesize expectedTimerMarkerCount = mExpectedTimeMarkerCt;
 
 -(id)init
 {
     if (self = [super init])
     {
-        mTimeMarkerList = [[NSMutableArray alloc] initWithCapacity:4];
+        mTimeMarkerDict = [[NSMutableDictionary alloc] initWithCapacity:4];
         mElapsedSeconds = 0;
         mRecordTime = NO;
     }
@@ -61,15 +61,24 @@
     }
 }
 
--(void)addTimeMarker
+-(BOOL)addTimeMarkerForKey:(NSString*)key
 {
-    NSNumber* time = [[NSNumber alloc] initWithDouble:mElapsedSeconds];
-    [mTimeMarkerList addObject:time];
+    BOOL added = NO;
+    NSNumber* time = [mTimeMarkerDict valueForKey:key];
+    
+    if (time == nil)
+    {
+        time = [[NSNumber alloc] initWithDouble:mElapsedSeconds];
+        [mTimeMarkerDict setValue:time forKey:key];
+        added = YES;
+    }
+    
+    return added;
 }
 
 -(BOOL)isTestComplete
 {
-    return mExpectedTimeMarkerCt == mTimeMarkerList.count;
+    return mExpectedTimeMarkerCt == mTimeMarkerDict.count;
 }
 
 @end

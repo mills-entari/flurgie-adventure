@@ -22,14 +22,18 @@
     //CGRect gameFrame = CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
     //DLog(@"Screen Resolution: %.0fx%.0f", gameFrame.size.width, gameFrame.size.height);
 	//mGameMgr = [[GameManager alloc] initWithFrame:gameFrame];
-    mGameMgr = [GameManager sharedGameManager];
-	self.view = mGameMgr.gameViewManager;
+    
+    if (mGameMgr == nil)
+    {
+        mGameMgr = [GameManager sharedGameManager];
+        self.view = mGameMgr.gameViewManager;
+    }
 }
 
 // Implement viewDidLoad to do additional setup after loading the view.
 -(void)viewDidLoad
 {
-    if (!mIsInit)
+    if (!mIsInit && mGameMgr != nil)
     {
         mIsInit = YES;
         [mGameMgr initGame];

@@ -24,7 +24,7 @@
     {
         //self.backgroundColor = [UIColor yellowColor];
         
-        DLog(@"Sprite Rect: %.0fx%.0f @ (%.0f,%.0f)", frame.size.width, frame.size.height, frame.origin.x, frame.origin.y);
+        //DLog(@"Sprite Rect: %.0fx%.0f @ (%.0f,%.0f)", frame.size.width, frame.size.height, frame.origin.x, frame.origin.y);
         //mSpriteRect = frame;
         mSpriteRect = CGRectMake(0, 0, frame.size.width, frame.size.height); // Frame must be offset at (0,0) since initWithFrame already sets the origin.
         mColor = color;

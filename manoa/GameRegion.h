@@ -11,7 +11,7 @@
 @protocol GameRegionDelegate <NSObject>
 
 @optional
--(void)playerHitGameItem;
+-(void)playerHitGameItem:(GameItem*)gameItem;
 -(void)playerHitGround;
 -(void)playerExitedRegion:(Actor2D*)player;
 
@@ -22,7 +22,7 @@
 @property(nonatomic, readonly) int gameRegionIndex;
 @property(nonatomic, readonly) GameView* gameView; // Should be temporary until better designed approach can be implemented.
 @property(nonatomic, readonly) CGSize gameRegionSize;
-@property(nonatomic) id<GameRegionDelegate> gameRegionDelegate;
+@property(nonatomic, weak) id<GameRegionDelegate> gameRegionDelegate;
 @property(nonatomic, readonly) Actor2D* player;
 @property(nonatomic, readonly) BOOL isGroundRegion;
 

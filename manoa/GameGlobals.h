@@ -1,8 +1,16 @@
+// Game Region Constants
 #define kNumberItemColumns 8
 #define kNumberItemRows 12
 #define kFirstItemRow 12
 
+// Button Names
 #define kStartButtonName @"start button"
+
+//#define kDefaultGravityXValue 200.0f
+#define kDefaultGravityYValue 200.0f
+//#define kDefaultGravityYHalfValue 100.0f
+#define kActorMaxVel 200.0f
+
 
 typedef struct ColorData
 {

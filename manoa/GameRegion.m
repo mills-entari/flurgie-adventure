@@ -16,7 +16,7 @@
     Actor2D* mPlayer;
     float mRegionYOrigin;
     float mRegionYEnd;
-    id<GameRegionDelegate> mRegionDelegate;
+    __weak id<GameRegionDelegate> mRegionDelegate;
     BOOL mIsGroundRegion;
     
     int mItemGrid[kNumberItemRows][kNumberItemColumns];
@@ -225,11 +225,11 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 	}
 }
 
--(void)firePlayerHitGameItemDelegate
+-(void)firePlayerHitGameItemDelegate:(GameItem*)gameItem
 {
-    if (mRegionDelegate != nil && [mRegionDelegate respondsToSelector:@selector(playerHitGameItem)])
+    if (mRegionDelegate != nil && [mRegionDelegate respondsToSelector:@selector(playerHitGameItem:)])
 	{ 
-		[mRegionDelegate playerHitGameItem];
+		[mRegionDelegate playerHitGameItem:gameItem];
 	}
 }
 
@@ -258,12 +258,17 @@ cpBool beginItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
         
         cpArbiterGetShapes(arbiter, &a, &b);
         
-        [region firePlayerHitGameItemDelegate];
-        continueCollisionProcessing = FALSE;
+        if (a != NULL && b != NULL)
+        {
+            GameItem* gameItem = (__bridge GameItem*)cpShapeGetUserData(b);
         
-        // Add a post step callback to safely remove the body and shape from the space.
-        // Calling cpSpaceRemove*() directly from a collision handler callback can cause crashes.
-        //cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemove, b, NULL);
+            [region firePlayerHitGameItemDelegate:gameItem];
+            continueCollisionProcessing = FALSE;
+        
+            // Add a post step callback to safely remove the body and shape from the space.
+            // Calling cpSpaceRemove*() directly from a collision handler callback can cause crashes.
+            //cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemove, b, NULL);
+        }
     }
     
     return continueCollisionProcessing;

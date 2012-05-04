@@ -24,6 +24,8 @@
  */
 -(void)initGame;
 
+-(void)beginGame;
+
 //-(void)registerUpdateObject:(id)updateObj;
 //-(void)registerDrawObject:(id)drawObj;
 

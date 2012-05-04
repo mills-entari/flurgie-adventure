@@ -1,7 +1,5 @@
 #import "GameZone.h"
 
-#define kDefaultGravityYValue 200.0f
-
 @interface GameZone()
 {
 @private
@@ -10,11 +8,12 @@
     NSMutableArray* mGameRegionList;
     GameRegion* mCurrentGameRegion;
     cpSpace* mSpace;
-    cpVect mCurrentGravity;
-    cpVect mMinGravity;
-    cpVect mMaxGravity;
-    BOOL mDoUpdateGravity;
+    cpVect mPlayerForce;
+//    cpVect mMinGravity;
+//    cpVect mMaxGravity;
+    BOOL mDoUpdatePlayerForce;
     BOOL mIsZoneComplete;
+    LevelResults* mLevelResults;
     GameReactionTimeTest* mReactionTimeTest;
     UILabel* mTimeLabel;
     int mNumGameRegions;
@@ -37,8 +36,8 @@
         mMainView.gameViewDelegate = self;
         mGlobalUpdateObjList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameRegionList = [[NSMutableArray alloc] initWithCapacity:4];
-        mCurrentGravity = cpv(0, kDefaultGravityYValue);
-        mDoUpdateGravity = NO;
+        mPlayerForce = cpv(0, 0);
+        mDoUpdatePlayerForce = NO;
         mIsZoneComplete = NO;
         mNumGameRegions = 2;
         
@@ -50,7 +49,7 @@
         [self initBaseZone];
         
         UIAccelerometer* accel = [UIAccelerometer sharedAccelerometer];
-        accel.updateInterval = 1.0f/30.0f;
+        accel.updateInterval = 1.0f / 30.0f;
         accel.delegate = self;
     }
     
@@ -74,8 +73,12 @@
         //cpSpaceSetGravity(mSpace, cpvmult(cpv(accel.x, -accel.y), mGravityYValue));
         //cpSpaceSetGravity(mSpace, cpv(accel.x * 1000, mCurrentGravity.y));
         
-        mCurrentGravity = cpv(accel.x * 500.0f, 250.0f + (-accel.y * 250.0f));
-        mDoUpdateGravity = YES;
+        float xForce = accel.x * 500.0f;
+        //float yForce = kDefaultGravityYHalfValue + (-accel.y * kDefaultGravityYHalfValue);
+        float yForce = -accel.y * 500.0f;
+        
+        mPlayerForce = cpv(xForce, yForce);
+        mDoUpdatePlayerForce = YES;
     }
 }
 
@@ -86,7 +89,7 @@
     [self createGameReactionTimeTest];
     
     //CGSize winSize = [GameManager sharedGameManager].screenFrame.size;
-    cpVect gravity = cpv(0, mCurrentGravity.y);
+    cpVect gravity = cpv(0, kDefaultGravityYValue);
     
     // Initialize the logical space for the game world.
     mSpace = cpSpaceNew();
@@ -221,7 +224,12 @@
     
     if (mCurrentGameRegion != nil)
     {
-        mNextRegion = (GameRegion*)[mGameRegionList objectAtIndex:mCurrentGameRegion.gameRegionIndex + 1];
+        int nextRegionIndex = mCurrentGameRegion.gameRegionIndex + 1;
+        
+        if (nextRegionIndex < mGameRegionList.count)
+        {
+            mNextRegion = (GameRegion*)[mGameRegionList objectAtIndex:nextRegionIndex];
+        }
     }
     
     return mNextRegion;
@@ -232,9 +240,15 @@
     [self checkResultsDisplayTimer:gameTime];
 
     
-    if (mDoUpdateGravity)
+    if (mDoUpdatePlayerForce)
     {
-        cpSpaceSetGravity(mSpace, mCurrentGravity);
+        //cpSpaceSetGravity(mSpace, mCurrentGravity);
+        cpBodySetForce(mCurrentGameRegion.player.physicsBody, mPlayerForce);
+        mDoUpdatePlayerForce = NO;
+    }
+    else
+    {
+        cpBodySetForce(mCurrentGameRegion.player.physicsBody, cpv(0,0));
     }
     
     cpSpaceStep(mSpace, gameTime.elapsedSeconds);
@@ -314,11 +328,11 @@
         
         if (player.physicsBody != nil)
         {
-            //cpVect playerForce = cpBodyGetForce(player.physicsBody);
-            //DLog("Player Force: %.2f, %.2f", playerForce.x, playerForce.y);
+//            cpVect playerForce = cpBodyGetForce(player.physicsBody);
+//            DLog("Player Force: %.2f, %.2f", playerForce.x, playerForce.y);
             
-            //cpVect playerVel = cpBodyGetVel(player.physicsBody);
-            //DLog("Player Vel: %.2f, %.2f", playerVel.x, playerVel.y);
+//            cpVect playerVel = cpBodyGetVel(player.physicsBody);
+//            DLog("Player Vel: %.2f, %.2f", playerVel.x, playerVel.y);
         }
     }
 }
@@ -333,26 +347,40 @@
 {
     DLog("Displaying level results...");
     mDoTimer = NO;
-    LevelResults* lvlResults = [[LevelResults alloc] initWithRect:mScreenRect];
+    mLevelResults = [[LevelResults alloc] initWithRect:mScreenRect];
     
-    NSString* lvlMsg = nil;
+    NSMutableString* lvlMsg = [[NSMutableString alloc] initWithCapacity:100];
     
     if (mReactionTimeTest.isTestComplete)
     {
-        lvlMsg = @"Test completed successfully!";
+        [lvlMsg appendString:@"Test completed successfully!\n\n"];
+        
+        // Get the time values.
+        NSArray* timeValues = mReactionTimeTest.timeMarkerDict.allValues;
+        
+        for (int i = 0; i < timeValues.count; i++)
+        {
+            NSNumber* time = [timeValues objectAtIndex:i];
+            [lvlMsg appendFormat:@"T%i: %.4f seconds\n", i + 1, time.doubleValue];
+            
+        }
+        
+        [lvlMsg appendFormat:@"Total Time: %.4f seconds", mReactionTimeTest.elapsedSeconds];
     }
     else
     {
-        lvlMsg = @"Test is incomplete. Please start a new test.";
+        [lvlMsg appendString:@"Test is incomplete. You must touch all time markers.\n\nPlease start a new test."];
     }
     
-    [lvlResults loadResults:mReactionTimeTest message:lvlMsg];
+    [mLevelResults loadResults:mReactionTimeTest message:lvlMsg];
     //[[GameManager sharedGameManager].gameViewManager addGameView:lvlResults.mainView];
-    [mMainView addSubview:lvlResults.mainView];
+    [mMainView addSubview:mLevelResults.mainView];
 }
 
--(void)dealloc 
+-(void)dealloc
 {
+    DLog("GameZone dealloc");
+    
     if (mSpace != nil)
     {
         cpSpaceFree(mSpace);
@@ -383,14 +411,15 @@
 
 @implementation GameZone(GameRegionDelegate)
 
--(void)playerHitGameItem
+-(void)playerHitGameItem:(GameItem*)gameItem
 {
-    if (mCurrentGameRegion != nil)
+    if (mCurrentGameRegion != nil && mReactionTimeTest != nil && gameItem != nil)
     {
-        if (mReactionTimeTest != nil)
+        // Record marker.
+        NSString* key = [NSString stringWithFormat:@"gameItemRegion%i", mCurrentGameRegion.gameRegionIndex];
+        
+        if ([mReactionTimeTest addTimeMarkerForKey:key])
         {
-            // Record marker.
-            [mReactionTimeTest addTimeMarker];
             DLog("Time Marker created at %.2f seconds.", mReactionTimeTest.elapsedSeconds);
             
             if (mCurrentGameRegion.isGroundRegion)
@@ -407,10 +436,10 @@
     // Kill gravity, stop current test.
     if (mCurrentGameRegion != nil)
     {
-        if (mCurrentGameRegion.isGroundRegion)
+        if (mCurrentGameRegion.isGroundRegion && !mIsZoneComplete)
         {
             mIsZoneComplete = YES;
-            mCurrentGravity = cpv(0, kDefaultGravityYValue);
+            //mCurrentGravity = cpv(0, kDefaultGravityYValue);
             
             [self setupLevelResults];
         }

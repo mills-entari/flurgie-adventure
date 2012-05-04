@@ -5,7 +5,7 @@
 @private
     NSString* mName;
     BOOL mIsTouchDown;
-    id<GameButtonDelegate> mGameButtonDelegate;
+    __weak id<GameButtonDelegate> mGameButtonDelegate;
 }
 
 @end
@@ -30,10 +30,12 @@
 //		buttLbl.textColor = [UIColor blackColor];
 //		buttLbl.backgroundColor = [UIColor clearColor];
 //		[self addSubview:buttLbl];
-		
+
 		[self addTarget:self action:@selector(onGameButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
 		[self addTarget:self action:@selector(onGameButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
 		[self addTarget:self action:@selector(onGameButtonTouchUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+        
+        //DLog("User Interaction Mode is %s.", self.userInteractionEnabled ? "enabled" : "not enabled");
     }
 	
     return self;

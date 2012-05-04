@@ -11,7 +11,7 @@
 @interface GameView : UIView
 
 @property(nonatomic, readonly) int gameViewId;
-@property(nonatomic) id<GameViewDelegate> gameViewDelegate;
+@property(nonatomic, weak) id<GameViewDelegate> gameViewDelegate;
 
 -(id)initWithFrame:(CGRect)frame withGameViewId:(int)viewId;
 -(void)addSprite:(Sprite*)sprite;

@@ -5,7 +5,7 @@
 @private
     int mGameViewId;
     NSMutableArray* mSpriteList;
-    id<GameViewDelegate> mGameViewDelegate;
+    __weak id<GameViewDelegate> mGameViewDelegate;
 }
 
 @end

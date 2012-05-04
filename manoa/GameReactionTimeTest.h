@@ -5,13 +5,13 @@
 @interface GameReactionTimeTest : NSObject <GameUpdateDelegate>
 
 @property(nonatomic, readonly) NSTimeInterval elapsedSeconds;
-@property(nonatomic, readonly) NSMutableArray* timeMarkerList;
+@property(nonatomic, readonly) NSMutableDictionary* timeMarkerDict;
 @property(nonatomic) int expectedTimerMarkerCount;
 @property(nonatomic, readonly) BOOL isTestComplete;
 
 -(void)startTest;
 -(void)startTest:(BOOL)resetTime;
 -(void)stopTest;
--(void)addTimeMarker;
+-(BOOL)addTimeMarkerForKey:(NSString*)key;
 
 @end

@@ -65,17 +65,19 @@
 
 -(void)dealloc
 {
+    DLog("GameItem dealloc");
+    
     if (mShape != nil)
     {
         cpShapeFree(mShape);
         mShape = nil;
     }
     
-    if (mBody != nil)
-    {
-        cpBodyFree(mBody);
-        mBody = nil;
-    }
+//    if (mBody != nil)
+//    {
+//        cpBodyFree(mBody);
+//        mBody = nil;
+//    }
 }
 
 @end
