@@ -4,10 +4,12 @@
 #define kFirstItemRow 12
 
 // Button Names
-#define kStartButtonName @"start button"
+#define kStartRandomButtonName @"start button - pattern:random"
+#define kStartA1ButtonName @"start button - pattern:a1"
 
 //#define kDefaultGravityXValue 200.0f
-#define kDefaultGravityYValue 200.0f
+#define kGravityYMinValue 200.0f
+#define kGravityYMaxValue 400.0f
 //#define kDefaultGravityYHalfValue 100.0f
 #define kActorMaxVel 200.0f
 
@@ -60,3 +62,9 @@ typedef enum
     GameLayerActors = 1,
     GameLayerItems = 2
 } GameLayer;
+
+typedef enum
+{
+    GameZoneModeRandom = 1,
+    GameZoneModeA1
+} GameZoneMode;

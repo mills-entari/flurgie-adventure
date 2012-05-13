@@ -40,6 +40,8 @@
 {
     if (self = [super init])
     {
+        // worldPos should be the center position of the Actor.
+        
         mSize = size;
         mScreenYPosOffset = 0;
         
@@ -72,6 +74,10 @@
     cpSpaceAddBody(mSpace, mBody);
     
     mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
+    //mShape = cpBoxShapeNew(mBody, mSize.width, 1.0f);
+//    cpVect lowerLeftPos = cpv(mPosition.x - (mSize.width / 2.0f), mPosition.y + (mSize.height / 2.0f));
+//    cpVect lowerRightPos = cpv(mPosition.x + (mSize.width / 2.0f), mPosition.y + (mSize.height / 2.0f));
+//    mShape = cpSegmentShapeNew(mBody, lowerLeftPos, lowerRightPos, mSize.height);
     mShape->data = (__bridge void*)self;
     cpShapeSetElasticity(mShape, mElasticity);
     cpShapeSetFriction(mShape, mFriction);
@@ -106,7 +112,7 @@
 
 -(void)dealloc
 {
-    DLog("Actor2D dealloc");
+    //DLog("Actor2D dealloc");
     
     if (mShape != nil)
     {

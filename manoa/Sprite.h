@@ -3,13 +3,8 @@
 #import "GraphicsHelper.h"
 
 @interface Sprite : UIView
-{
-@private
-    Color mColor;
-    CGRect mSpriteRect;
-    UIImage* mSpriteImage;
-}
 
+@property(nonatomic) Color color;
 @property(nonatomic, readwrite) CGPoint position;
 
 //-(id)initAtWorldPosition:(CGPoint)worldPos withSize:(CGSize)size colored:(Color)color;

@@ -24,7 +24,7 @@
  */
 -(void)initGame;
 
--(void)beginGame;
+-(void)beginGameWithGameZoneMode:(GameZoneMode)gameZoneMode;
 
 //-(void)registerUpdateObject:(id)updateObj;
 //-(void)registerDrawObject:(id)drawObj;

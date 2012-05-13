@@ -21,11 +21,15 @@
 @implementation GameItem
 
 @synthesize sprite = mSprite;
+@synthesize physicsBody = mBody;
 
 -(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space
 {
     if (self = [super init])
     {
+        // worldPos should be the center pos of the GameItem.
+        //DLog("Game Item Pos: %.2f, %.2f", worldPos.x, worldPos.y);
+        
         //mWorldRect = CGRectMake(worldPos.x, worldPos.y, size.width, size.height);
         mSize = size;
         
@@ -47,12 +51,16 @@
 
 -(void)createShape
 {
-    cpVect lowerLeftPos = cpv(mPosition.x, mPosition.y + (mSize.height / 2.0f));
-    cpVect lowerRightPos = cpv(mPosition.x + mSize.width, mPosition.y + (mSize.height / 2.0f));
+    //cpVect lowerLeftPos = cpv(mPosition.x - (mSize.width / 2.0f), mPosition.y + (mSize.height / 2.0f));
+    //cpVect lowerRightPos = cpv(mPosition.x + (mSize.width / 2.0f), mPosition.y + (mSize.height / 2.0f));
     
-    mBody = cpSpaceGetStaticBody(mSpace);
+    //mBody = cpSpaceGetStaticBody(mSpace);
+    mBody = cpBodyNewStatic();
+    cpBodySetPos(mBody, mPosition);
     
-    mShape = cpSegmentShapeNew(mBody, lowerLeftPos, lowerRightPos, mSize.height);
+    //mShape = cpSegmentShapeNew(mBody, lowerLeftPos, lowerRightPos, mSize.height);
+    mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
+    //mShape = cpBoxShapeNew(mBody, mSize.width, 1.0f);
     mShape->data = (__bridge void*)self;
     //mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
     cpShapeSetElasticity(mShape, mElasticity);
@@ -65,7 +73,7 @@
 
 -(void)dealloc
 {
-    DLog("GameItem dealloc");
+    //DLog("GameItem dealloc");
     
     if (mShape != nil)
     {

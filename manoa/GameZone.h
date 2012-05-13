@@ -12,6 +12,6 @@
 
 @interface GameZone : GameScreen <GameViewDelegate, GameRegionDelegate, UIAccelerometerDelegate>
 
--(id)initWithRect:(CGRect)rect;
+-(id)initWithRect:(CGRect)rect gameZoneMode:(GameZoneMode)gameZoneMode;
 
 @end

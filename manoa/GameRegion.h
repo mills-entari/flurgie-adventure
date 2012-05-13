@@ -7,6 +7,7 @@
 #import "GameBounds.h"
 #import "GameViewFactory.h"
 #import "GameGlobals.h"
+#import "NormalDistribution.h"
 
 @protocol GameRegionDelegate <NSObject>
 
@@ -25,6 +26,8 @@
 @property(nonatomic, weak) id<GameRegionDelegate> gameRegionDelegate;
 @property(nonatomic, readonly) Actor2D* player;
 @property(nonatomic, readonly) BOOL isGroundRegion;
+@property(nonatomic, readonly) int gameRegionGameItemColumnIndex;
+@property(nonatomic) int previousGameRegionGameItemColumnIndex;
 
 -(id)initWithGameRegionIndex:(int)regionIndex withSize:(CGSize)regionSize withSpace:(cpSpace*)space;
 -(void)registerCurrentRegionCallbacks;

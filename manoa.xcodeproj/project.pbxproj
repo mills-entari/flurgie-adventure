@@ -13,6 +13,7 @@
 		8514E2E91525CB97006DC56A /* GameViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8514E2E81525CB97006DC56A /* GameViewFactory.m */; };
 		851782FF14FF907800FDDCDA /* libChipmunk-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 851782FE14FF907800FDDCDA /* libChipmunk-iPhone.a */; };
 		851B007F14ED269B009A4BFA /* GameViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 851B007E14ED269B009A4BFA /* GameViewManager.m */; };
+		851DA5F8155A5C700017F572 /* NormalDistribution.c in Sources */ = {isa = PBXBuildFile; fileRef = 851DA5F7155A5C700017F572 /* NormalDistribution.c */; };
 		8524A854150CC29400EDCBE9 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 8524A853150CC29400EDCBE9 /* Sprite.m */; };
 		85256C8514599AA700297D63 /* ManoaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85256C8414599AA700297D63 /* ManoaViewController.m */; };
 		852D0F3B14EC877400F7CE42 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D0F3A14EC877400F7CE42 /* MainMenu.m */; };
@@ -94,6 +95,8 @@
 		851782FE14FF907800FDDCDA /* libChipmunk-iPhone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libChipmunk-iPhone.a"; sourceTree = "<group>"; };
 		851B007D14ED269B009A4BFA /* GameViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewManager.h; sourceTree = "<group>"; };
 		851B007E14ED269B009A4BFA /* GameViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewManager.m; sourceTree = "<group>"; };
+		851DA5F6155A5C370017F572 /* NormalDistribution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalDistribution.h; sourceTree = "<group>"; };
+		851DA5F7155A5C700017F572 /* NormalDistribution.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NormalDistribution.c; sourceTree = "<group>"; };
 		8524A852150CC29400EDCBE9 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		8524A853150CC29400EDCBE9 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		85256C8414599AA700297D63 /* ManoaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManoaViewController.m; sourceTree = "<group>"; };
@@ -393,6 +396,8 @@
 				85F4FB851459BE9000605C3A /* MathHelper.m */,
 				85F4FB811459BCCB00605C3A /* Vector2.h */,
 				85F4FB821459BD3600605C3A /* Vector2.m */,
+				851DA5F6155A5C370017F572 /* NormalDistribution.h */,
+				851DA5F7155A5C700017F572 /* NormalDistribution.c */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 				85D8D1DA154BAF890089581B /* LevelResults.m in Sources */,
 				85D8D1DD154BE14A0089581B /* GameButton.m in Sources */,
 				85F03FFA154EA26B00D1109B /* GameScreen.m in Sources */,
+				851DA5F8155A5C700017F572 /* NormalDistribution.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +648,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
@@ -661,6 +668,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
@@ -738,6 +746,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (

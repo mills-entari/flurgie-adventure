@@ -18,8 +18,10 @@
     float mRegionYEnd;
     __weak id<GameRegionDelegate> mRegionDelegate;
     BOOL mIsGroundRegion;
+    int mGameRegionGameItemColumnIndex;
+    int mPreviousGameRegionGameItemColIndex;
     
-    int mItemGrid[kNumberItemRows][kNumberItemColumns];
+    //int mItemGrid[kNumberItemRows][kNumberItemColumns];
     CGSize mGridItemSize;
 }
 
@@ -38,6 +40,8 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 @synthesize gameRegionDelegate = mRegionDelegate;
 @synthesize player = mPlayer;
 @synthesize isGroundRegion = mIsGroundRegion;
+@synthesize gameRegionGameItemColumnIndex = mGameRegionGameItemColumnIndex;
+@synthesize previousGameRegionGameItemColumnIndex = mPreviousGameRegionGameItemColIndex;
 
 -(id)initWithGameRegionIndex:(int)regionIndex withSize:(CGSize)regionSize withSpace:(cpSpace*)space
 {
@@ -48,6 +52,7 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
         mSpace = space;
         mRegionYOrigin = mRegionSize.height * mRegionIndex;
         mRegionYEnd = mRegionYOrigin + mRegionSize.height;
+        mPreviousGameRegionGameItemColIndex = -1;
         
         mGameBoundsList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameItemList = [[NSMutableArray alloc] initWithCapacity:4];
@@ -62,8 +67,9 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 
 -(void)initItemGrid
 {
-    float itemWidth = mRegionSize.width / kNumberItemColumns;
+    //float itemWidth = mRegionSize.width / kNumberItemColumns;
     //float itemHeight = mRegionSize.height / kNumberItemRows;
+    float itemWidth = 40.0f;
     float itemHeight = 25.0f;
     mGridItemSize = CGSizeMake(itemWidth, itemHeight);
     //mGridItemSize = CGSizeMake(50, 25);
@@ -71,13 +77,13 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
     
     //int grid[kNumberItemRows][kNumberItemColumns];
     
-    for (int i = 0; i < kNumberItemRows; i++)
-    {
-        for (int j = 0; j < kNumberItemColumns; j++)
-        {
-            mItemGrid[i][j] = 0;
-        }
-    }
+//    for (int i = 0; i < kNumberItemRows; i++)
+//    {
+//        for (int j = 0; j < kNumberItemColumns; j++)
+//        {
+//            mItemGrid[i][j] = 0;
+//        }
+//    }
 }
 
 -(void)registerCurrentRegionCallbacks
@@ -152,9 +158,21 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
         rowIndex = kFirstItemRow - 1;
     }
     
-    int colIndex = arc4random() % kNumberItemColumns;
-    //int colIndex = kNumberItemColumns / 2;
-    //int colIndex = 0;
+    int colIndex = 0;
+    
+    if (mPreviousGameRegionGameItemColIndex == -1)
+    {
+        colIndex = arc4random() % kNumberItemColumns;
+        //colIndex = kNumberItemColumns / 2;
+        //colIndex = 30;
+    }
+    else
+    {
+        colIndex = [self getMirrorGaussianGameItemColumnIndex:mPreviousGameRegionGameItemColIndex];
+    }
+    
+    DLog("Col Index = %i", colIndex);
+    mGameRegionGameItemColumnIndex = colIndex;
     
     // Get position for center of item.
     //CGPoint itemPos = CGPointMake((colIndex * mGridItemSize.width) + (mGridItemSize.width / 2.0f), (rowIndex * mGridItemSize.height) + (mGridItemSize.height / 2.0f));
@@ -172,12 +190,35 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
         itemYCenterPos = mRegionSize.height - (mGridItemSize.height / 2.0f);
     }
     
-    CGPoint itemPos = CGPointMake((colIndex * mGridItemSize.width) + (mGridItemSize.width / 2.0f), itemYCenterPos);
+    float itemXPosOffset = mRegionSize.width / kNumberItemColumns;
+    CGPoint itemPos = CGPointMake((itemXPosOffset * colIndex) + (mGridItemSize.width / 2.0f), itemYCenterPos);
+    //CGPoint itemPos = CGPointMake((colIndex * mGridItemSize.width) + (mGridItemSize.width / 2.0f), itemYCenterPos);
     
     // Record this grid position.
-    mItemGrid[rowIndex][colIndex] = 1;
+    //mItemGrid[rowIndex][colIndex] = 1;
     
     return itemPos;
+}
+
+-(int)getMirrorGaussianGameItemColumnIndex:(int)previousGameItemColIndex
+{
+    // Assumes that kNumberItemColumns is an even number.
+    
+    double dGauss = drand_gauss(0, 1);
+    int gauss = getDiscreteGauss(dGauss, -2, 2);
+    DLog("dGauss = %.4f, gauss = %i", dGauss, gauss);
+    
+    //int mirrorColIndex = ((previousGameItemColIndex + (kNumberItemColumns / 2)) + gauss) % kNumberItemColumns;
+    int mirrorColIndex = (kNumberItemColumns - previousGameItemColIndex - 1 + gauss) % kNumberItemColumns;
+    
+    if (mirrorColIndex < 0)
+    {
+        mirrorColIndex += kNumberItemColumns;
+    }
+    
+    //DLog("mirrorColIndex = %i", mirrorColIndex);
+    
+    return mirrorColIndex;
 }
 
 -(void)createGameItemAtLocalPosition:(CGPoint)localPos
@@ -261,7 +302,10 @@ cpBool beginItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
         if (a != NULL && b != NULL)
         {
             GameItem* gameItem = (__bridge GameItem*)cpShapeGetUserData(b);
-        
+            
+            // Change color of the GameItem to let the user know they hit it.
+            gameItem.sprite.color = ColorMakeFromUIColor([UIColor yellowColor]);
+            
             [region firePlayerHitGameItemDelegate:gameItem];
             continueCollisionProcessing = FALSE;
         

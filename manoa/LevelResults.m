@@ -4,7 +4,8 @@
 {
 @private
     UILabel* mResultMsg;
-    GameButton* mRestartButton;
+    GameButton* mStartRandomButton;
+    GameButton* mStartA1Button;
 }
 
 @end
@@ -34,15 +35,24 @@
         [mMainView addSubview:mResultMsg];
         
         
-        float buttonWidth = 100.0f;
+        float buttonWidth = 200.0f;
         float buttonHeight = 50.0f;
         
         CGRect restartButtonRect = CGRectMake((rect.size.width / 2.0f) - (buttonWidth / 2.0f), msgYPos + msgHeight + 40.0f, buttonWidth, buttonHeight);
-        mRestartButton = [[GameButton alloc] initWithFrame:restartButtonRect];
-        mRestartButton.backgroundColor = [UIColor greenColor];
-        mRestartButton.name = kStartButtonName;
-        [mMainView addSubview:mRestartButton];
-        mRestartButton.gameButtonDelegate = self;
+        mStartRandomButton = [[GameButton alloc] initWithFrame:restartButtonRect];
+        mStartRandomButton.backgroundColor = [UIColor greenColor];
+        mStartRandomButton.name = kStartRandomButtonName;
+        mStartRandomButton.text = @"Random";
+        [mMainView addSubview:mStartRandomButton];
+        mStartRandomButton.gameButtonDelegate = self;
+        
+        CGRect startA1ButtonRect = CGRectMake((rect.size.width / 2.0f) - (buttonWidth / 2.0f), restartButtonRect.origin.y + buttonHeight + 20.0f, buttonWidth, buttonHeight);
+        mStartA1Button = [[GameButton alloc] initWithFrame:startA1ButtonRect];
+        mStartA1Button.backgroundColor = [UIColor greenColor];
+        mStartA1Button.name = kStartA1ButtonName;
+        mStartA1Button.text = @"A1";
+        [mMainView addSubview:mStartA1Button];
+        mStartA1Button.gameButtonDelegate = self;
     }
     
     return self;
@@ -95,12 +105,19 @@
 -(void)gameButtonClicked:(GameButton*)button
 {
     if (button != nil)
-    {
-        if (button.name == kStartButtonName)
+    {        
+        GameZoneMode gameZoneMode;
+        
+        if (button.name == kStartRandomButtonName)
         {
-            DLog("Restart button pushed");
-            [[GameManager sharedGameManager] beginGame];
+            gameZoneMode = GameZoneModeRandom;
         }
+        else if (button.name == kStartA1ButtonName)
+        {
+            gameZoneMode = GameZoneModeA1;
+        }
+        
+        [[GameManager sharedGameManager] beginGameWithGameZoneMode:gameZoneMode];
     }
 }
 

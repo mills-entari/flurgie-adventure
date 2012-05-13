@@ -6,6 +6,7 @@
     NSString* mName;
     BOOL mIsTouchDown;
     __weak id<GameButtonDelegate> mGameButtonDelegate;
+    UILabel* mButtonLabel;
 }
 
 @end
@@ -24,12 +25,12 @@
         mIsTouchDown = NO;
 //		growOnTouch = YES;
 //		drawOnTouch = YES;
-//		buttLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-//		buttLbl.textAlignment = UITextAlignmentCenter;
-//		buttLbl.font = [UIFont systemFontOfSize:frame.size.height * 0.8];
-//		buttLbl.textColor = [UIColor blackColor];
-//		buttLbl.backgroundColor = [UIColor clearColor];
-//		[self addSubview:buttLbl];
+		mButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+		mButtonLabel.textAlignment = UITextAlignmentCenter;
+		mButtonLabel.font = [UIFont systemFontOfSize:frame.size.height * 0.8];
+		mButtonLabel.textColor = [UIColor blackColor];
+		mButtonLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:mButtonLabel];
 
 		[self addTarget:self action:@selector(onGameButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
 		[self addTarget:self action:@selector(onGameButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
@@ -88,6 +89,16 @@
 //			[self setNeedsDisplay];
 //		}
 	}
+}
+
+-(NSString*)text
+{
+	return mButtonLabel.text;
+}
+
+-(void)setText:(NSString*)newText
+{
+    mButtonLabel.text = newText;
 }
 
 @end

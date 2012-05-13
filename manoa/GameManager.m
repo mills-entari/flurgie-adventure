@@ -16,8 +16,6 @@
 -(void)loadMainMenu;
 -(void)update;
 -(void)draw:(GameTime*)gameTime;
--(void)beginGame;
--(void)createTestZone;
 
 @end
 
@@ -97,7 +95,8 @@
 -(void)loadMainMenu
 {
     MainMenu* mainMenu = [[MainMenu alloc] initWithRect:mScreenRect];
-    mainMenu.startButton.gameButtonDelegate = self;
+    mainMenu.startRandomButton.gameButtonDelegate = self;
+    mainMenu.startA1Button.gameButtonDelegate = self;
     
     [self loadCurrentScreen:mainMenu];
     
@@ -122,15 +121,11 @@
     }
 }
 
--(void)beginGame
+-(void)beginGameWithGameZoneMode:(GameZoneMode)gameZoneMode
 {
     // Load the level.
-    [self createTestZone];
-}
-
--(void)createTestZone
-{
-    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect];
+    
+    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect gameZoneMode:gameZoneMode];
     [self loadCurrentScreen:testZone];
 }
 
@@ -184,11 +179,18 @@
 {
     if (button != nil)
     {
-        if (button.name == kStartButtonName)
+        GameZoneMode gameZoneMode;
+        
+        if (button.name == kStartRandomButtonName)
         {
-            DLog("Start button pushed");
-            [self beginGame];
+            gameZoneMode = GameZoneModeRandom;
         }
+        else if (button.name == kStartA1ButtonName)
+        {
+            gameZoneMode = GameZoneModeA1;
+        }
+        
+        [self beginGameWithGameZoneMode:gameZoneMode];
     }
 }
 

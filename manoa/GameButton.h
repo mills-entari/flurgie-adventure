@@ -12,6 +12,7 @@
 @interface GameButton : UIControl
 
 @property(nonatomic) NSString* name;
+@property(nonatomic) NSString *text;
 @property(nonatomic, weak) id<GameButtonDelegate> gameButtonDelegate;
 
 @end

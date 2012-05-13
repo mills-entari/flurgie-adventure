@@ -1,10 +1,19 @@
 #import "Sprite.h"
 
 @interface Sprite()
-//-(void)drawSolidColor:(Color)color;
+{
+@private
+    Color mColor;
+    CGRect mSpriteRect;
+    UIImage* mSpriteImage;
+}
+
+-(void)drawSolidColor:(Color)color;
 @end
 
 @implementation Sprite
+
+@synthesize color = mColor;
 
 //-(id)initAtWorldPosition:(CGPoint)worldPos withSize:(CGSize)size withWorldHeight:(float)worldHeight colored:(Color)color
 -(id)initWithFrame:(CGRect)frame colored:(Color)color
@@ -45,6 +54,16 @@
     return self;
 }
 
+-(void)setColor:(Color)color
+{
+    mColor = color;
+    
+    if (mSpriteImage == nil)
+    {
+        [self setNeedsDisplay];
+    }
+}
+
 -(CGPoint)position
 {
     return self.center;
@@ -58,6 +77,7 @@
 
 -(void)drawRect:(CGRect)rect
 {
+    //DLog("Sprite drawRect");
     [self drawSprite];
     //[super drawRect:rect];
 }

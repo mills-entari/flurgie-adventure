@@ -7,7 +7,8 @@
 
 @interface MainMenu : GameScreen
 
-@property(nonatomic, readonly) GameButton* startButton;
+@property(nonatomic, readonly) GameButton* startRandomButton;
+@property(nonatomic, readonly) GameButton* startA1Button;
 
 -(id)initWithRect:(CGRect)rect;
 

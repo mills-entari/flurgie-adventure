@@ -3,12 +3,14 @@
 @interface GameZone()
 {
 @private
+    GameZoneMode mGameZoneMode;
     //CGRect mZoneRect;
     NSMutableArray* mGlobalUpdateObjList;
     NSMutableArray* mGameRegionList;
     GameRegion* mCurrentGameRegion;
     cpSpace* mSpace;
     cpVect mPlayerForce;
+    cpVect mCurrentGravity;
 //    cpVect mMinGravity;
 //    cpVect mMaxGravity;
     BOOL mDoUpdatePlayerForce;
@@ -29,14 +31,16 @@
 
 @implementation GameZone
 
--(id)initWithRect:(CGRect)rect
+-(id)initWithRect:(CGRect)rect gameZoneMode:(GameZoneMode)gameZoneMode
 {
 	if (self = [super initWithRect:rect]) 
 	{
+        mGameZoneMode = gameZoneMode;
         mMainView.gameViewDelegate = self;
         mGlobalUpdateObjList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameRegionList = [[NSMutableArray alloc] initWithCapacity:4];
         mPlayerForce = cpv(0, 0);
+        mCurrentGravity = cpv(0, kGravityYMinValue);
         mDoUpdatePlayerForce = NO;
         mIsZoneComplete = NO;
         mNumGameRegions = 2;
@@ -69,15 +73,18 @@
 {
     if (mSpace != nil && !mIsZoneComplete)
     {
-        //mSpace.gravity = cpvmult(cpv(accel.x, -accel.y), 100.0f);
-        //cpSpaceSetGravity(mSpace, cpvmult(cpv(accel.x, -accel.y), mGravityYValue));
-        //cpSpaceSetGravity(mSpace, cpv(accel.x * 1000, mCurrentGravity.y));
-        
         float xForce = accel.x * 500.0f;
-        //float yForce = kDefaultGravityYHalfValue + (-accel.y * kDefaultGravityYHalfValue);
-        float yForce = -accel.y * 500.0f;
+        UIAccelerationValue yAccel = -accel.y;
         
-        mPlayerForce = cpv(xForce, yForce);
+        if (yAccel < 0)
+        {
+            yAccel = 0;
+        }
+        
+        float yGrav = yAccel * kGravityYMaxValue;
+        
+        mPlayerForce = cpv(xForce, 0);
+        mCurrentGravity = cpv(0, kGravityYMinValue + yGrav);
         mDoUpdatePlayerForce = YES;
     }
 }
@@ -89,12 +96,12 @@
     [self createGameReactionTimeTest];
     
     //CGSize winSize = [GameManager sharedGameManager].screenFrame.size;
-    cpVect gravity = cpv(0, kDefaultGravityYValue);
+    //cpVect gravity = cpv(0, kDefaultGravityYValue);
     
     // Initialize the logical space for the game world.
     mSpace = cpSpaceNew();
     
-    cpSpaceSetGravity(mSpace, gravity);
+    cpSpaceSetGravity(mSpace, mCurrentGravity);
     
     
     // Create regions.
@@ -152,6 +159,17 @@
         //region.gameView.gameViewDelegate = self;
         region.gameRegionDelegate = self;
         [mGameRegionList addObject:region];
+        
+        
+        if (mGameZoneMode == GameZoneModeA1)
+        {
+            if (i > 0)
+            {
+                GameRegion* previousRegion = [mGameRegionList objectAtIndex:i - 1];
+                region.previousGameRegionGameItemColumnIndex = previousRegion.gameRegionGameItemColumnIndex;
+            }
+        }
+        
         
         if (i + 1 < numRegions)
         {
@@ -242,7 +260,10 @@
     
     if (mDoUpdatePlayerForce)
     {
-        //cpSpaceSetGravity(mSpace, mCurrentGravity);
+        // Very crude way to update player gravity and max speed. Need to change later.
+        //DLog("Gravity: %.0f", mCurrentGravity.y);
+        cpBodySetVelLimit(mCurrentGameRegion.player.physicsBody, mCurrentGravity.y);
+        cpSpaceSetGravity(mSpace, mCurrentGravity);
         cpBodySetForce(mCurrentGameRegion.player.physicsBody, mPlayerForce);
         mDoUpdatePlayerForce = NO;
     }
@@ -328,6 +349,9 @@
         
         if (player.physicsBody != nil)
         {
+//            cpVect playerPos = player.position;
+//            DLog("Player Pos: %.2f, %.2f", playerPos.x, playerPos.y);
+            
 //            cpVect playerForce = cpBodyGetForce(player.physicsBody);
 //            DLog("Player Force: %.2f, %.2f", playerForce.x, playerForce.y);
             
@@ -345,7 +369,7 @@
 
 -(void)showLevelResults
 {
-    DLog("Displaying level results...");
+    //DLog("Displaying level results...");
     mDoTimer = NO;
     mLevelResults = [[LevelResults alloc] initWithRect:mScreenRect];
     
@@ -362,10 +386,14 @@
         {
             NSNumber* time = [timeValues objectAtIndex:i];
             [lvlMsg appendFormat:@"T%i: %.4f seconds\n", i + 1, time.doubleValue];
-            
         }
         
-        [lvlMsg appendFormat:@"Total Time: %.4f seconds", mReactionTimeTest.elapsedSeconds];
+        if (timeValues.count == 2)
+        {
+            NSNumber* t1 = [timeValues objectAtIndex:0];
+            NSNumber* t2 = [timeValues objectAtIndex:1];
+            [lvlMsg appendFormat:@"Difference: %.4f seconds", t2.doubleValue - t1.doubleValue];
+        }
     }
     else
     {
@@ -379,7 +407,7 @@
 
 -(void)dealloc
 {
-    DLog("GameZone dealloc");
+    //DLog("GameZone dealloc");
     
     if (mSpace != nil)
     {
@@ -420,12 +448,15 @@
         
         if ([mReactionTimeTest addTimeMarkerForKey:key])
         {
-            DLog("Time Marker created at %.2f seconds.", mReactionTimeTest.elapsedSeconds);
+            //DLog("Time Marker created at %.2f seconds.", mReactionTimeTest.elapsedSeconds);
+            //DLog("Player Pos: %.2f, %.2f", mCurrentGameRegion.player.position.x, mCurrentGameRegion.player.position.y);
+            //cpVect itemPos = cpBodyGetPos(gameItem.physicsBody);
+            //DLog("Item Pos: %.2f, %.2f", itemPos.x, itemPos.y);
             
             if (mCurrentGameRegion.isGroundRegion)
             {
                 [mReactionTimeTest stopTest];
-                DLog("Reaction Time Test is complete.");
+                //DLog("Reaction Time Test is complete.");
             }
         }
     }

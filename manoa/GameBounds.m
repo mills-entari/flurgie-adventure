@@ -90,7 +90,7 @@
 
 -(void)dealloc
 {
-    DLog("GameBounds dealloc");
+    //DLog("GameBounds dealloc");
     
     if (mShape != nil)
     {
