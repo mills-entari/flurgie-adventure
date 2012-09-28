@@ -24,7 +24,8 @@
 @property(nonatomic, readonly) GameView* gameView; // Should be temporary until better designed approach can be implemented.
 @property(nonatomic, readonly) CGSize gameRegionSize;
 @property(nonatomic, weak) id<GameRegionDelegate> gameRegionDelegate;
-@property(nonatomic, readonly) Actor2D* player;
+//@property(nonatomic, readonly) Actor2D* player;
+@property(nonatomic, readonly) NSMutableArray* playerList;
 @property(nonatomic, readonly) BOOL isGroundRegion;
 @property(nonatomic, readonly) int gameRegionGameItemColumnIndex;
 @property(nonatomic) int previousGameRegionGameItemColumnIndex;
@@ -34,6 +35,7 @@
 -(void)setupRandomGameRegion;
 -(void)setupGroundGameRegion;
 -(void)addPlayer:(Actor2D*)player;
+-(void)removePlayer;
 -(void)removePlayer:(Actor2D*)player;
 
 @end

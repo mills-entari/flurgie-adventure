@@ -53,7 +53,8 @@
         
         
         // Setup screen variables.
-        mScreenRect = screenFrame;
+        //mScreenRect = screenFrame;
+        mScreenRect = appFrame;
         
         
         // Initialize the main game view manager that will be responsible for displaying graphics for the game.

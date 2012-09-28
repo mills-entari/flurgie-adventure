@@ -2,6 +2,7 @@
 
 @protocol GameUpdateDelegate <NSObject>
 @required
+@property(nonatomic) BOOL isEnabled;
 -(void)update:(GameTime*)gameTime;
 @end
 

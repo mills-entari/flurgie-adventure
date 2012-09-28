@@ -6,6 +6,7 @@
     Color mColor;
     CGRect mSpriteRect;
     UIImage* mSpriteImage;
+    NSString* mSpriteImageName;
 }
 
 -(void)drawSolidColor:(Color)color;
@@ -14,6 +15,7 @@
 @implementation Sprite
 
 @synthesize color = mColor;
+@synthesize imageName = mSpriteImageName;
 
 //-(id)initAtWorldPosition:(CGPoint)worldPos withSize:(CGSize)size withWorldHeight:(float)worldHeight colored:(Color)color
 -(id)initWithFrame:(CGRect)frame colored:(Color)color
@@ -46,12 +48,29 @@
 {
     if (self = [super initWithFrame:frame])
     {
+        self.backgroundColor = [UIColor clearColor];
+        
         //mSpriteRect = frame;
         mSpriteRect = CGRectMake(0, 0, frame.size.width, frame.size.height); // Frame must be offset at (0,0) since initWithFrame already sets the origin.
-        mSpriteImage = [UIImage imageNamed:imageName];
+        
+        [self updateSpriteImage:imageName];
     }
     
     return self;
+}
+
+-(void)updateSpriteImage:(NSString*)imageName
+{
+    if (imageName != nil)
+    {
+        // Only update the sprite image if isn't the same one we already have.
+        if (![imageName isEqualToString:mSpriteImageName])
+        {
+            mSpriteImageName = imageName;
+            mSpriteImage = [UIImage imageNamed:imageName];
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 -(void)setColor:(Color)color

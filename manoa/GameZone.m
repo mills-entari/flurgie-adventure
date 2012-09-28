@@ -19,6 +19,7 @@
     GameReactionTimeTest* mReactionTimeTest;
     UILabel* mTimeLabel;
     int mNumGameRegions;
+    BOOL mDoGameUpdate;
     
     BOOL mDoTimer;
     float mTimerValue;
@@ -44,6 +45,7 @@
         mDoUpdatePlayerForce = NO;
         mIsZoneComplete = NO;
         mNumGameRegions = 2;
+        mDoGameUpdate = YES;
         
         // Timer
         mDoTimer = NO;
@@ -68,12 +70,12 @@
 {
 }
 
-
 -(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)accel
 {
     if (mSpace != nil && !mIsZoneComplete)
     {
         float xForce = accel.x * 500.0f;
+        //float xForce = accel.x * 250.0f;
         UIAccelerationValue yAccel = -accel.y;
         
         if (yAccel < 0)
@@ -85,6 +87,7 @@
         
         mPlayerForce = cpv(xForce, 0);
         mCurrentGravity = cpv(0, kGravityYMinValue + yGrav);
+        //mCurrentGravity = cpv(0, 50.0f);
         mDoUpdatePlayerForce = YES;
     }
 }
@@ -105,19 +108,6 @@
     
     
     // Create regions.
-    //[self createZoneBounds:winSize];
-    
-//    GameRegion* skyRegion1 = [[GameRegion alloc] initWithGameRegionIndex:0 withSize:winSize withSpace:mSpace];
-//    skyRegion1.gameRegionDelegate = self;
-//    [skyRegion1 setupRandomGameRegion];
-//    [mGameRegionList addObject:skyRegion1];
-//    
-//    GameRegion* groundRegion = [[GameRegion alloc] initWithGameRegionIndex:1 withSize:winSize withSpace:mSpace];
-//    //GameRegion* groundRegion = [[GameRegion alloc] initWithGameRegionIndex:0 withSize:winSize withSpace:mSpace];
-//    groundRegion.gameRegionDelegate = self;
-//    [groundRegion setupGroundGameRegion];
-//    [mGameRegionList addObject:groundRegion];
-    
     
     [self createGameRegions:mNumGameRegions];
     GameRegion* firstRegion = [mGameRegionList objectAtIndex:0];
@@ -170,7 +160,6 @@
             }
         }
         
-        
         if (i + 1 < numRegions)
         {
             [region setupRandomGameRegion];
@@ -190,10 +179,18 @@
     //CGPoint localPos = CGPointMake(40, 40);
     CGPoint worldPos = CGPointMake(gameRegion.gameRegionSize.width / 2.0f, [self getWorldYPositionForLocalYPosition:localYPos inGameRegion:mCurrentGameRegion withScreenHeight:screenHeight]);
     CGSize playerSize = CGSizeMake(50, 50);
+    
     Actor2D* player = [[Actor2D alloc] initWithSize:playerSize atWorldPosition:worldPos atScreenYPosition:localYPos withSpace:mSpace];
-    //[mZoneView addSprite:player.sprite];
     [mGlobalUpdateObjList addObject:player];
     [gameRegion addPlayer:player];
+    
+    // Make child player that will be used for screen wrapping.
+    Actor2D* childPlayer = [[Actor2D alloc] initWithSize:playerSize atWorldPosition:worldPos atScreenYPosition:localYPos withSpace:mSpace];
+    [mGlobalUpdateObjList addObject:childPlayer];
+    [gameRegion addPlayer:childPlayer];
+    
+    [player addChildActor:childPlayer];
+    childPlayer.isEnabled = NO;
 }
 
 -(float)getWorldYPositionForLocalYPosition:(float)localYPos inGameRegion:(GameRegion*)gameRegion withScreenHeight:(float)screenHeight
@@ -238,7 +235,7 @@
 
 -(GameRegion*)getNextGameRegion
 {
-    GameRegion* mNextRegion = mCurrentGameRegion;
+    GameRegion* mNextRegion = nil;
     
     if (mCurrentGameRegion != nil)
     {
@@ -255,42 +252,60 @@
 
 -(void)update:(GameTime*)gameTime
 {
-    [self checkResultsDisplayTimer:gameTime];
+    if (mDoGameUpdate)
+    {
+        [self checkResultsDisplayTimer:gameTime];
+        
+        if (mDoUpdatePlayerForce)
+        {
+            for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
+            {
+                Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
+                
+                // Very crude way to update player gravity and max speed. Need to change later.
+                //DLog("Gravity: %.0f", mCurrentGravity.y);
+                cpBodySetVelLimit(player.physicsBody, mCurrentGravity.y);
+                cpSpaceSetGravity(mSpace, mCurrentGravity);
+                cpBodySetForce(player.physicsBody, mPlayerForce);
+                mDoUpdatePlayerForce = NO;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
+            {
+                Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
+                cpBodySetForce(player.physicsBody, cpv(0,0));
+            }
+        }
+        
+        // Update physics (world space).
+        cpSpaceStep(mSpace, gameTime.elapsedSeconds);
+        
+        // TODO: Look for better place to do this, perhaps in the GameRegion itself.
+        [self checkPlayerBounds];
+        
+        for (id obj in mGlobalUpdateObjList)
+        {
+            id<GameUpdateDelegate> updateObj = (id<GameUpdateDelegate>)obj;
 
-    
-    if (mDoUpdatePlayerForce)
-    {
-        // Very crude way to update player gravity and max speed. Need to change later.
-        //DLog("Gravity: %.0f", mCurrentGravity.y);
-        cpBodySetVelLimit(mCurrentGameRegion.player.physicsBody, mCurrentGravity.y);
-        cpSpaceSetGravity(mSpace, mCurrentGravity);
-        cpBodySetForce(mCurrentGameRegion.player.physicsBody, mPlayerForce);
-        mDoUpdatePlayerForce = NO;
-    }
-    else
-    {
-        cpBodySetForce(mCurrentGameRegion.player.physicsBody, cpv(0,0));
-    }
-    
-    cpSpaceStep(mSpace, gameTime.elapsedSeconds);
-    
-    [self checkPlayerBounds];
-    
-    for (id updateObj in mGlobalUpdateObjList)
-	{
-        [updateObj update:gameTime];
-    }
-    
-    if (mCurrentGameRegion != nil)
-    {
-        [mCurrentGameRegion update:gameTime];
-        [self checkCurrentRegion];
-    }
-    
-    if (mReactionTimeTest != nil)
-    {
-        //DLog("Reaction Time: %.2f", mReactionTimeTest.elapsedSeconds);
-        //[self drawTime];
+            if (updateObj.isEnabled)
+            {
+                [updateObj update:gameTime];
+            }
+        }
+        
+        if (mCurrentGameRegion != nil)
+        {
+            [mCurrentGameRegion update:gameTime];
+            [self checkCurrentRegion];
+        }
+        
+        if (mReactionTimeTest != nil)
+        {
+            //DLog("Reaction Time: %.2f", mReactionTimeTest.elapsedSeconds);
+            //[self drawTime];
+        }
     }
 }
 
@@ -326,35 +341,124 @@
 
 -(void)checkPlayerBounds
 {
-    if (mCurrentGameRegion != nil && mCurrentGameRegion.player != nil)
+    if (mCurrentGameRegion != nil)
     {
-        Actor2D* player = mCurrentGameRegion.player;
+        // Get the main player and child objects.
+        Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:0];
+        Actor2D* child = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:1];
         
-        if (player.position.x < 0)
+        // Check if player scrolled off left or right side of screen.
+        
+        // The player position coordinates is its center.
+        float playerHalfWidth = player.size.width / 2.0f;
+        float leftBoundaryPos = player.position.x - playerHalfWidth;
+        float rightBoundaryPos = player.position.x + playerHalfWidth;
+        float boundaryEpsilon = 10.0f;
+        
+        if (leftBoundaryPos < 0)
         {
-            player.position = cpv(mCurrentGameRegion.gameRegionSize.width, player.position.y);
+            //DLog("Left Offset: %.2f", leftBoundaryPos);
+            
+            // Check if the player fully moved to the left side (completely crossed over).
+            if (leftBoundaryPos < -(player.size.width + boundaryEpsilon))
+            {
+                if (child.isEnabled)
+                {
+                    player.position = cpv(child.position.x, player.position.y);
+                    child.isEnabled = NO;
+                }
+            }
+            else
+            {
+                if (!child.isEnabled)
+                {
+                    child.isEnabled = YES;
+                }
+                
+                float childXPos = mCurrentGameRegion.gameRegionSize.width + playerHalfWidth + leftBoundaryPos;
+                child.position = cpv(childXPos, player.position.y);
+            }
         }
-        else if (player.position.x > mCurrentGameRegion.gameRegionSize.width)
+        else if (rightBoundaryPos > mCurrentGameRegion.gameRegionSize.width)
         {
-            player.position = cpv(0, player.position.y);
+            // Check if the player fully moved to the right side (completely crossed over).
+            if (rightBoundaryPos > mCurrentGameRegion.gameRegionSize.width + player.size.width + boundaryEpsilon)
+            {
+                if (child.isEnabled)
+                {
+                    player.position = cpv(child.position.x, player.position.y);
+                    child.isEnabled = NO;
+                }
+            }
+            else
+            {
+                float rightOffset = rightBoundaryPos - mCurrentGameRegion.gameRegionSize.width - playerHalfWidth;
+                //DLog("Right Offset: %.2f", rightOffset);
+                
+                if (!child.isEnabled)
+                {
+                    child.isEnabled = YES;
+                }
+                
+                child.position = cpv(rightOffset, player.position.y);
+            }
+        }
+        else
+        {
+            if (child.isEnabled)
+            {
+                player.position = cpv(child.position.x, player.position.y);
+                child.isEnabled = NO;
+            }
         }
     }
 }
 
+//-(void)checkPlayerBounds
+//{
+//    if (mCurrentGameRegion != nil)
+//    {
+//        for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
+//        {
+//            Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
+//            
+//            // Check if player scrolled off left or right side of screen.
+//            
+//            float playerHalfWidth = player.size.width / 2.0f;
+//            float leftBoundaryPos = player.position.x - playerHalfWidth;
+//            
+//            if (leftBoundaryPos < 0)
+//            {
+//                DLog("Left Boundary: %.2f", leftBoundaryPos);
+//            }
+//            
+//            
+////            if (player.position.x < 0)
+////            {
+////                player.position = cpv(mCurrentGameRegion.gameRegionSize.width, player.position.y);
+////            }
+////            else if (player.position.x > mCurrentGameRegion.gameRegionSize.width)
+////            {
+////                player.position = cpv(0, player.position.y);
+////            }
+//        }
+//    }
+//}
+
 -(void)checkCurrentRegion
 {
-    if (mCurrentGameRegion.player != nil)
+    for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
     {
-        Actor2D* player = mCurrentGameRegion.player;
+        Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
         
         if (player.physicsBody != nil)
         {
 //            cpVect playerPos = player.position;
 //            DLog("Player Pos: %.2f, %.2f", playerPos.x, playerPos.y);
-            
+//
 //            cpVect playerForce = cpBodyGetForce(player.physicsBody);
 //            DLog("Player Force: %.2f, %.2f", playerForce.x, playerForce.y);
-            
+//            
 //            cpVect playerVel = cpBodyGetVel(player.physicsBody);
 //            DLog("Player Vel: %.2f, %.2f", playerVel.x, playerVel.y);
         }
@@ -479,14 +583,31 @@
 
 -(void)playerExitedRegion:(Actor2D*)player
 {
-    GameRegion* nextRegion = [self getNextGameRegion];
-    
-    if (nextRegion != nil)
+    if (!mIsZoneComplete)
     {
-        [mCurrentGameRegion removePlayer:player];
-        player.screenYPositionOffset += mCurrentGameRegion.gameRegionSize.height;
-        [self setCurrentGameRegion:nextRegion];
-        [nextRegion addPlayer:player];
+        //DLog("Player exited region.");
+        GameRegion* nextRegion = [self getNextGameRegion];
+        
+        if (nextRegion != nil)
+        {
+            // Add all the player objects to the new region.
+            for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
+            {
+                Actor2D* regionPlayer = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
+                
+                regionPlayer.screenYPositionOffset += mCurrentGameRegion.gameRegionSize.height;
+                [nextRegion addPlayer:regionPlayer];
+            }
+            
+            // Remove all the player objects from the old region.
+            [mCurrentGameRegion removePlayer];
+            [self setCurrentGameRegion:nextRegion];
+        }
+        else
+        {
+            // No further region, player assumed to hit ground. If we are doing that through here though something went wrong (fell through world?).
+            [self playerHitGround];
+        }
     }
 }
 

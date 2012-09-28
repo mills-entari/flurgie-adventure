@@ -3,6 +3,7 @@
 @interface GameReactionTimeTest()
 {
 @private
+    BOOL mIsEnabled;
     NSTimeInterval mElapsedSeconds;
     NSMutableDictionary* mTimeMarkerDict;
 //    int mStartTime;
@@ -17,6 +18,7 @@
 
 @implementation GameReactionTimeTest
 
+@synthesize isEnabled = mIsEnabled;
 @synthesize elapsedSeconds = mElapsedSeconds;
 @synthesize timeMarkerDict = mTimeMarkerDict;
 @synthesize expectedTimerMarkerCount = mExpectedTimeMarkerCt;
@@ -25,6 +27,7 @@
 {
     if (self = [super init])
     {
+        mIsEnabled = YES;
         mTimeMarkerDict = [[NSMutableDictionary alloc] initWithCapacity:4];
         mElapsedSeconds = 0;
         mRecordTime = NO;

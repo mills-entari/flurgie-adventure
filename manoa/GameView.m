@@ -33,6 +33,7 @@
 {
     if (sprite != nil)
     {
+        // If this sprite already has a previous view it will be removed from it automatically when adding to a new subview.
         [self addSubview:sprite];
         [mSpriteList addObject:sprite];
     }
@@ -40,11 +41,20 @@
 
 -(void)removeSprite:(Sprite*)sprite
 {
+    [self removeSprite:sprite andRemoveFromSuperview:YES];
+}
+
+-(void)removeSprite:(Sprite*)sprite andRemoveFromSuperview:(BOOL)removeFromSuperView
+{
     NSUInteger index = [mSpriteList indexOfObject:sprite];
     
     if (index != NSNotFound)
     {
-        [sprite removeFromSuperview];
+        if (removeFromSuperView)
+        {
+            [sprite removeFromSuperview];
+        }
+        
         [mSpriteList removeObjectAtIndex:index];
     }
 }

@@ -68,3 +68,12 @@ typedef enum
     GameZoneModeRandom = 1,
     GameZoneModeA1
 } GameZoneMode;
+
+typedef enum
+{
+    ActorStateFalling = 1,
+    ActorStateFallingPillow,
+    ActorStateSplat,
+    ActorStateSplatPillow,
+    ActorStateSleeping
+} ActorState;

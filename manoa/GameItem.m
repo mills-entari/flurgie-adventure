@@ -23,7 +23,7 @@
 @synthesize sprite = mSprite;
 @synthesize physicsBody = mBody;
 
--(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space
+-(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space withImageNamed:(NSString*)imageName
 {
     if (self = [super init])
     {
@@ -43,7 +43,8 @@
         [self createShape];
         
         CGRect spriteRect = CGRectMake(mPosition.x - (mSize.width / 2.0f), screenYPos - (mSize.height / 2.0f), mSize.width, mSize.height);
-        mSprite = [[Sprite alloc] initWithFrame:spriteRect colored:ColorMakeFromUIColor([UIColor orangeColor])];
+        //mSprite = [[Sprite alloc] initWithFrame:spriteRect colored:ColorMakeFromUIColor([UIColor orangeColor])];
+        mSprite = [[Sprite alloc] initWithFrame:spriteRect imageNamed:imageName];
     }
 	
 	return self;

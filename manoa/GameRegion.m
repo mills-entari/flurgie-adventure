@@ -7,13 +7,15 @@
 @interface GameRegion()
 {
 @private
+    BOOL mIsEnabled;
     int mRegionIndex;
     CGSize mRegionSize;
     GameView* mRegionView;
     cpSpace* mSpace;
     NSMutableArray* mGameBoundsList;
     NSMutableArray* mGameItemList;
-    Actor2D* mPlayer;
+    //Actor2D* mPlayer;
+    NSMutableArray* mPlayerList;
     float mRegionYOrigin;
     float mRegionYEnd;
     __weak id<GameRegionDelegate> mRegionDelegate;
@@ -34,11 +36,13 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 
 @implementation GameRegion
 
+@synthesize isEnabled = mIsEnabled;
 @synthesize gameRegionIndex = mRegionIndex;
 @synthesize gameView = mRegionView;
 @synthesize gameRegionSize = mRegionSize;
 @synthesize gameRegionDelegate = mRegionDelegate;
-@synthesize player = mPlayer;
+//@synthesize player = mPlayer;
+@synthesize playerList = mPlayerList;
 @synthesize isGroundRegion = mIsGroundRegion;
 @synthesize gameRegionGameItemColumnIndex = mGameRegionGameItemColumnIndex;
 @synthesize previousGameRegionGameItemColumnIndex = mPreviousGameRegionGameItemColIndex;
@@ -47,6 +51,7 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 {
 	if (self = [super init]) 
 	{
+        mIsEnabled = YES;
         mRegionIndex = regionIndex;
         mRegionSize = regionSize;
         mSpace = space;
@@ -56,6 +61,7 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
         
         mGameBoundsList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameItemList = [[NSMutableArray alloc] initWithCapacity:4];
+        mPlayerList = [[NSMutableArray alloc] initWithCapacity:2];
         
         mRegionView = [GameViewFactory makeNewGameViewWithFrame:CGRectMake(0, 0, mRegionSize.width, mRegionSize.height)];
         
@@ -164,11 +170,12 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
     {
         colIndex = arc4random() % kNumberItemColumns;
         //colIndex = kNumberItemColumns / 2;
-        //colIndex = 30;
+        //colIndex = 0;
     }
     else
     {
         colIndex = [self getMirrorGaussianGameItemColumnIndex:mPreviousGameRegionGameItemColIndex];
+        //colIndex = 7;
     }
     
     DLog("Col Index = %i", colIndex);
@@ -228,32 +235,73 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
     //CGPoint localPos = CGPointMake(40, 40);
     CGPoint worldPos = CGPointMake(localPos.x, worldYPos);
     //CGSize itemSize = CGSizeMake(mGridItemSize.width, mGridItemSize.height);
-    GameItem* item = [[GameItem alloc] initWithSize:mGridItemSize atWorldPosition:worldPos atScreenYPosition:localPos.y withSpace:mSpace];
+    
+    NSString* itemName = nil;
+    
+    if (!mIsGroundRegion)
+    {
+        itemName = @"Pillow.png";
+    }
+    else
+    {
+        itemName = @"Basket.png";
+    }
+    
+    GameItem* item = [[GameItem alloc] initWithSize:mGridItemSize atWorldPosition:worldPos atScreenYPosition:localPos.y withSpace:mSpace withImageNamed:itemName];
+    
     [mGameItemList addObject:item];
     [mRegionView addSprite:item.sprite];
 }
 
 -(void)addPlayer:(Actor2D*)player
 {
-    mPlayer = player;
-    [mRegionView addSprite:player.sprite];
+    if (player != nil)
+    {
+        [mPlayerList addObject:player];
+        //mPlayer = player;
+        [mRegionView addSprite:player.sprite];
+    }
+}
+
+-(void)removePlayer
+{
+    // Remove all player objects in this region.
+    for (int i = 0; i < mPlayerList.count; i++)
+    {
+        Actor2D* player = (Actor2D*)[mPlayerList objectAtIndex:i];
+        
+        // Remove the sprite from the region view management, but don't remove it from the super view yet.
+        // We do this since removing a player usually only happens when the player is moving to a new region.
+        // The process of moving to a new region automatically removes a sprites super view when it is added to a new one.
+        [mRegionView removeSprite:player.sprite andRemoveFromSuperview:NO];
+    }
+    
+    [mPlayerList removeAllObjects];
 }
 
 -(void)removePlayer:(Actor2D*)player
 {
     [mRegionView removeSprite:player.sprite];
-    mPlayer = nil;
+    //mPlayer = nil;
+    [mPlayerList removeObject:player];
+    
 }
 
 -(void)update:(GameTime*)gameTime
 {
-    if (mPlayer != nil)
+    for (int i = 0; i < mPlayerList.count; i++)
     {
-        if ((mPlayer.position.y - (mPlayer.size.height / 2.0f)) > mRegionYEnd)
+        Actor2D* player = (Actor2D*)[mPlayerList objectAtIndex:i];
+
+        if (player.isParentActor)
         {
-            //DLog("player fell off screen!");
-            [self firePlayerExitedRegionDelegate:mPlayer];
-            //[self removePlayer:mPlayer];
+            // Check if player reached bottom of screen.
+            if ((player.position.y - (player.size.height / 2.0f)) > mRegionYEnd)
+            {
+                //DLog("player fell off screen!");
+                [self firePlayerExitedRegionDelegate:player];
+                //[self removePlayer:mPlayer];
+            }
         }
     }
 }
@@ -301,7 +349,23 @@ cpBool beginItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
         
         if (a != NULL && b != NULL)
         {
+            Actor2D* player = (__bridge Actor2D*)cpShapeGetUserData(a);
             GameItem* gameItem = (__bridge GameItem*)cpShapeGetUserData(b);
+            player = [Actor2D getRootActor:player];
+            
+            if (!region.isGroundRegion)
+            {
+                player.actorState = ActorStateFallingPillow;
+                gameItem.sprite.hidden = YES;
+            }
+            else
+            {
+                if (player.actorState == ActorStateFallingPillow)
+                {
+                    player.actorState = ActorStateSleeping;
+                    gameItem.sprite.hidden = YES;
+                }
+            }
             
             // Change color of the GameItem to let the user know they hit it.
             gameItem.sprite.color = ColorMakeFromUIColor([UIColor yellowColor]);
@@ -331,7 +395,25 @@ cpBool beginGroundCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
         
         cpArbiterGetShapes(arbiter, &a, &b);
         
-        [region firePlayerHitGroundDelegate];
+        if (a != NULL && b != NULL)
+        {
+            Actor2D* player = (__bridge Actor2D*)cpShapeGetUserData(a);
+            player = [Actor2D getRootActor:player];
+            
+            if (player.actorState != ActorStateSleeping && player.actorState != ActorStateSplat && player.actorState != ActorStateSplatPillow)
+            {
+                if (player.actorState == ActorStateFallingPillow)
+                {
+                    player.actorState = ActorStateSplatPillow;
+                }
+                else
+                {
+                    player.actorState = ActorStateSplat;
+                }
+            }
+            
+            [region firePlayerHitGroundDelegate];
+        }
     }
     
     return continueCollisionProcessing;

@@ -16,5 +16,6 @@
 -(id)initWithFrame:(CGRect)frame withGameViewId:(int)viewId;
 -(void)addSprite:(Sprite*)sprite;
 -(void)removeSprite:(Sprite*)sprite;
+-(void)removeSprite:(Sprite*)sprite andRemoveFromSuperview:(BOOL)removeFromSuperView;
 
 @end

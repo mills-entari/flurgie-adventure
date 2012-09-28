@@ -15,9 +15,16 @@
 @property(nonatomic, readonly) CGSize size;
 @property(nonatomic) float screenYPositionOffset;
 @property(nonatomic, readonly) cpBody* physicsBody;
+@property(nonatomic) ActorState actorState;
+@property(nonatomic, readonly) BOOL isParentActor;
+@property(nonatomic, readonly) BOOL isChildActor;
+@property(nonatomic) BOOL isHidden;
 
 -(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space;
 //-(id)initWithRect:(CGRect)rect withSpace:(cpSpace*)space;
 //-(id)initAtPosition:(CGPoint)position withSize:(CGPoint)size;
+-(void)addChildActor:(Actor2D*)child;
+
++(Actor2D*)getRootActor:(Actor2D*)child;
 
 @end
