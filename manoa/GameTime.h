@@ -8,6 +8,9 @@
 @property(nonatomic, readonly) int currentFrameRate;
 @property(nonatomic, assign, readwrite, getter = getComputeFrameRate, setter = setComputeFrameRate:) BOOL computeFrameRate;
 
+-(void)pause;
+-(void)resume;
+
 /* Function: update
  * Desc: Updates the elapsed time since the last update call.
  */

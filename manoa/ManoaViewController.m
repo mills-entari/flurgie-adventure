@@ -48,6 +48,21 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)disableView
+{
+    if (!mIsInit && mGameMgr != nil)
+    {
+        [mGameMgr pause];
+    }
+}
+
+-(void)enableView
+{
+    if (!mIsInit && mGameMgr != nil)
+    {
+        [mGameMgr resume];
+    }
+}
 
 -(void)didReceiveMemoryWarning
 {

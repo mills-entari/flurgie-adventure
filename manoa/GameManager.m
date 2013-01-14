@@ -11,6 +11,7 @@
     GameScreen* mCurrentScreen;
     //NSMutableArray* mUpdateObjList;
     //NSMutableArray* mDrawObjList;
+    BOOL mDoUpdate;
 }
 
 -(void)loadMainMenu;
@@ -50,6 +51,7 @@
         DLog(@"Screen Scale: %.1f", screenScale);
         
 		// Initialize all game resources.
+        mDoUpdate = YES;
         
         
         // Setup screen variables.
@@ -151,19 +153,40 @@
  */
 -(void)update
 {
-	[mGameTime update];
-	
-    if (mCurrentScreen != nil)
+    if (mDoUpdate)
     {
-        [mCurrentScreen update:mGameTime];
+        [mGameTime update];
+        
+        if (mCurrentScreen != nil)
+        {
+            [mCurrentScreen update:mGameTime];
+        }
+        
+        [self draw:mGameTime];
     }
-    
-    [self draw:mGameTime];
 }
 
 -(void)draw:(GameTime*)gameTime
 {
     [mGameViewMgr draw:gameTime];
+}
+
+-(void)pause
+{
+    if (mDoUpdate)
+    {
+        mDoUpdate = NO;
+        [mGameTime pause];
+    }
+}
+
+-(void)resume
+{
+    if (!mDoUpdate)
+    {
+        [mGameTime resume];
+        mDoUpdate = YES;
+    }
 }
 
 -(void)dealloc

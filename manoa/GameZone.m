@@ -150,7 +150,6 @@
         region.gameRegionDelegate = self;
         [mGameRegionList addObject:region];
         
-        
         if (mGameZoneMode == GameZoneModeA1)
         {
             if (i > 0)

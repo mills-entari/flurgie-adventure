@@ -3,6 +3,7 @@
 #import "GameGlobals.h"
 
 @interface ManoaViewController : UIViewController
-
+-(void)disableView;
+-(void)enableView;
 @end
 

@@ -41,6 +41,14 @@
 	return self;
 }
 
+-(void)pause
+{
+}
+
+-(void)resume
+{
+    lastDate = [[NSDate alloc] init];
+}
 
 /* Function: update
  * Desc: Updates the elapsed time since the last update call.
