@@ -74,8 +74,8 @@
 {
     if (mSpace != nil && !mIsZoneComplete)
     {
-        float xForce = accel.x * 500.0f;
-        //float xForce = accel.x * 250.0f;
+        //float xForce = accel.x * 500.0f;
+        float xForce = accel.x * 60.0f;
         UIAccelerationValue yAccel = -accel.y;
         
         if (yAccel < 0)
@@ -106,7 +106,6 @@
     
     cpSpaceSetGravity(mSpace, mCurrentGravity);
     
-    
     // Create regions.
     
     [self createGameRegions:mNumGameRegions];
@@ -122,6 +121,13 @@
     //[self createPlayerInGameRegion:skyRegion1];
     //[self createPlayerInGameRegion:skyRegion withScreenHeight:winSize.height];
     //[self createPlayerInGameRegion:groundRegion withScreenHeight:winSize.height];
+    
+    // Set the player velocity limit for falling.
+//    for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
+//    {
+//        Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
+//        cpBodySetVelLimit(player.physicsBody, kGravityYMaxValue);
+//    }
 }
 
 -(void)createGameReactionTimeTest
@@ -265,7 +271,9 @@
                 //DLog("Gravity: %.0f", mCurrentGravity.y);
                 cpBodySetVelLimit(player.physicsBody, mCurrentGravity.y);
                 cpSpaceSetGravity(mSpace, mCurrentGravity);
-                cpBodySetForce(player.physicsBody, mPlayerForce);
+                //cpBodySetForce(player.physicsBody, mPlayerForce);
+                //cpBodyApplyForce(player.physicsBody, mPlayerForce, cpvzero);
+                cpBodyApplyImpulse(player.physicsBody, mPlayerForce, cpvzero);
                 mDoUpdatePlayerForce = NO;
             }
         }
@@ -274,7 +282,8 @@
             for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
             {
                 Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
-                cpBodySetForce(player.physicsBody, cpv(0,0));
+                cpBodySetForce(player.physicsBody, cpvzero);
+                //cpBodyApplyForce(player.physicsBody, cpvzero, cpvzero);
             }
         }
         
@@ -475,12 +484,13 @@
     //DLog("Displaying level results...");
     mDoTimer = NO;
     mLevelResults = [[LevelResults alloc] initWithRect:mScreenRect];
+    NSString* gameZoneName = GetGameZoneModeName(mGameZoneMode);
     
     NSMutableString* lvlMsg = [[NSMutableString alloc] initWithCapacity:100];
     
     if (mReactionTimeTest.isTestComplete)
     {
-        [lvlMsg appendString:@"Test completed successfully!\n\n"];
+        [lvlMsg appendFormat:@"%@ test completed successfully!\n\n", gameZoneName];
         
         // Get the time values.
         NSArray* timeValues = mReactionTimeTest.timeMarkerDict.allValues;
@@ -500,7 +510,7 @@
     }
     else
     {
-        [lvlMsg appendString:@"Test is incomplete. You must touch all time markers.\n\nPlease start a new test."];
+        [lvlMsg appendFormat:@"%@ test is incomplete. You must touch all time markers.\n\nPlease start a new test.", gameZoneName];
     }
     
     [mLevelResults loadResults:mReactionTimeTest message:lvlMsg];

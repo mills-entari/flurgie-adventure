@@ -18,6 +18,7 @@
 		852D0F3B14EC877400F7CE42 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D0F3A14EC877400F7CE42 /* MainMenu.m */; };
 		852D0F4114ECB5F600F7CE42 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D0F4014ECB5F600F7CE42 /* GameView.m */; };
 		8539FED01611A6F40009F545 /* libChipmunk-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8539FECF1611A6F40009F545 /* libChipmunk-iPhone.a */; };
+		854F137116B4DC7100A14F8D /* GameOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 854F137016B4DC7100A14F8D /* GameOptions.m */; };
 		8577A2C615F9F59A00E6473E /* Basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2BF15F9F59A00E6473E /* Basket.png */; };
 		8577A2C715F9F59A00E6473E /* FallingPillow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2C015F9F59A00E6473E /* FallingPillow.png */; };
 		8577A2C815F9F59A00E6473E /* Falling.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2C115F9F59A00E6473E /* Falling.png */; };
@@ -113,6 +114,8 @@
 		8539FECD1611A6F40009F545 /* cpSpatialIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpatialIndex.h; sourceTree = "<group>"; };
 		8539FECE1611A6F40009F545 /* cpVect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpVect.h; sourceTree = "<group>"; };
 		8539FECF1611A6F40009F545 /* libChipmunk-iPhone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libChipmunk-iPhone.a"; sourceTree = "<group>"; };
+		854F136F16B4DC7100A14F8D /* GameOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOptions.h; sourceTree = "<group>"; };
+		854F137016B4DC7100A14F8D /* GameOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptions.m; sourceTree = "<group>"; };
 		8577A2BF15F9F59A00E6473E /* Basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Basket.png; sourceTree = "<group>"; };
 		8577A2C015F9F59A00E6473E /* FallingPillow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FallingPillow.png; sourceTree = "<group>"; };
 		8577A2C115F9F59A00E6473E /* Falling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Falling.png; sourceTree = "<group>"; };
@@ -415,6 +418,8 @@
 				8514E2E4151C9050006DC56A /* GameBounds.h */,
 				8514E2E5151C9050006DC56A /* GameBounds.m */,
 				8512A18A1538146A0038CB36 /* notes.txt */,
+				854F136F16B4DC7100A14F8D /* GameOptions.h */,
+				854F137016B4DC7100A14F8D /* GameOptions.m */,
 			);
 			name = "Game Core";
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 				85D8D1DD154BE14A0089581B /* GameButton.m in Sources */,
 				85F03FFA154EA26B00D1109B /* GameScreen.m in Sources */,
 				851DA5F8155A5C700017F572 /* NormalDistribution.c in Sources */,
+				854F137116B4DC7100A14F8D /* GameOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

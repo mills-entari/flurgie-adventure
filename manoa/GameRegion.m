@@ -174,7 +174,7 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
     }
     else
     {
-        colIndex = [self getMirrorGaussianGameItemColumnIndex:mPreviousGameRegionGameItemColIndex];
+        colIndex = [self getGaussianGameItemColumnIndex:mPreviousGameRegionGameItemColIndex asMirror:NO];
         //colIndex = 7;
     }
     
@@ -207,25 +207,34 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
     return itemPos;
 }
 
--(int)getMirrorGaussianGameItemColumnIndex:(int)previousGameItemColIndex
+-(int)getGaussianGameItemColumnIndex:(int)previousGameItemColIndex asMirror:(bool)mirror
 {
+    int colIndex = -1;
+    
     // Assumes that kNumberItemColumns is an even number.
-    
     double dGauss = drand_gauss(0, 1);
-    int gauss = getDiscreteGauss(dGauss, -2, 2);
-    DLog("dGauss = %.4f, gauss = %i", dGauss, gauss);
+    colIndex = getDiscreteGauss(dGauss, -2, 2);
+    DLog("dGauss = %.4f, colIndex = %i", dGauss, colIndex);
     
-    //int mirrorColIndex = ((previousGameItemColIndex + (kNumberItemColumns / 2)) + gauss) % kNumberItemColumns;
-    int mirrorColIndex = (kNumberItemColumns - previousGameItemColIndex - 1 + gauss) % kNumberItemColumns;
-    
-    if (mirrorColIndex < 0)
+    if (mirror)
     {
-        mirrorColIndex += kNumberItemColumns;
+        //int mirrorColIndex = ((previousGameItemColIndex + (kNumberItemColumns / 2)) + gauss) % kNumberItemColumns;
+        int mirrorColIndex = (kNumberItemColumns - previousGameItemColIndex - 1 + colIndex) % kNumberItemColumns;
+        
+        //DLog("mirrorColIndex = %i", mirrorColIndex);
+        colIndex = mirrorColIndex;
+    }
+    else
+    {
+        colIndex = (previousGameItemColIndex + colIndex) % kNumberItemColumns;
     }
     
-    //DLog("mirrorColIndex = %i", mirrorColIndex);
+    if (colIndex < 0)
+    {
+        colIndex += kNumberItemColumns;
+    }
     
-    return mirrorColIndex;
+    return colIndex;
 }
 
 -(void)createGameItemAtLocalPosition:(CGPoint)localPos

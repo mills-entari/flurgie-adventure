@@ -261,7 +261,7 @@
         if (root != nil)
         {
             temp = root.parentActor;
-            DLog("Got parent");
+            //DLog("Got parent");
         }
         else
         {

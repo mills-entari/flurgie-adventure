@@ -8,8 +8,8 @@
 #define kStartA1ButtonName @"start button - pattern:a1"
 
 //#define kDefaultGravityXValue 200.0f
-#define kGravityYMinValue 200.0f
-#define kGravityYMaxValue 400.0f
+#define kGravityYMinValue 80.0f
+#define kGravityYMaxValue 200.0f
 //#define kDefaultGravityYHalfValue 100.0f
 #define kActorMaxVel 200.0f
 
@@ -35,8 +35,7 @@ ColorMake(float r, float g, float b, float a)
     return color;
 }
 
-static inline Color
-ColorMakeFromUIColor(UIColor* uiColor)
+static inline Color ColorMakeFromUIColor(UIColor* uiColor)
 {
     Color color;
     
@@ -68,6 +67,23 @@ typedef enum
     GameZoneModeRandom = 1,
     GameZoneModeA1
 } GameZoneMode;
+
+static inline NSString* GetGameZoneModeName(GameZoneMode gameZoneMode)
+{
+    NSString* name = @"Unknown GameZoneMode";
+    
+    switch (gameZoneMode)
+    {
+        case GameZoneModeRandom:
+            name = @"Random";
+            break;
+        case GameZoneModeA1:
+            name = @"A1";
+            break;
+    }
+    
+    return name;
+}
 
 typedef enum
 {
