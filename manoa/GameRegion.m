@@ -27,8 +27,8 @@
     CGSize mGridItemSize;
 }
 
-//-(cpBool)beginCollision:(cpArbiter*)arbiter space:(cpSpace*)space userData:(void*)userData;
-cpBool beginItemCollision(cpArbiter *arb, cpSpace *space, void *unused);
+//cpBool beginItemCollision(cpArbiter *arb, cpSpace *space, void *unused);
+cpBool preSolveItemCollision(cpArbiter *arb, cpSpace *space, void *unused);
 cpBool beginGroundCollision(cpArbiter *arb, cpSpace *space, void *unused);
 void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 
@@ -94,7 +94,7 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 
 -(void)registerCurrentRegionCallbacks
 {
-    cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem, beginItemCollision, NULL, NULL, NULL, (__bridge void*)self);
+    cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem, NULL, preSolveItemCollision, NULL, NULL, (__bridge void*)self);
     //cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem, beginCollision, NULL, NULL, NULL, NULL);
 }
 
@@ -339,9 +339,10 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 	}
 }
 
-//-(cpBool)beginCollision:(cpArbiter*)arbiter space:(cpSpace*)space userData:(void*)userData
-cpBool beginItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
+//cpBool beginItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
+cpBool preSolveItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
 {
+    //DLog("touch");
     cpBool continueCollisionProcessing = TRUE;
     
     if (userData != NULL)
@@ -360,31 +361,44 @@ cpBool beginItemCollision(cpArbiter* arbiter, cpSpace* space, void* userData)
         {
             Actor2D* player = (__bridge Actor2D*)cpShapeGetUserData(a);
             GameItem* gameItem = (__bridge GameItem*)cpShapeGetUserData(b);
-            player = [Actor2D getRootActor:player];
             
-            if (!region.isGroundRegion)
+            // Check if we have reached middle of game item to be considered a real collision.
+            // This is inefficient and simplistic for now.
+            float gameItemHalfWidth = gameItem.size.width * 0.5;
+            float itemXMin = (gameItem.position.x - gameItemHalfWidth);
+            float itemXMax = (gameItem.position.x + gameItemHalfWidth);
+            //DLog("Player: %.2f", player.position.x);
+            //DLog("Box: %.2f, %.2f", itemXMin, itemXMax);
+            
+            if (player.position.x >= itemXMin && player.position.x <= itemXMax)
             {
-                player.actorState = ActorStateFallingPillow;
-                gameItem.sprite.hidden = YES;
-            }
-            else
-            {
-                if (player.actorState == ActorStateFallingPillow)
+                player = [Actor2D getRootActor:player];
+                
+                if (!region.isGroundRegion)
                 {
-                    player.actorState = ActorStateSleeping;
+                    player.actorState = ActorStateFallingPillow;
                     gameItem.sprite.hidden = YES;
                 }
+                else
+                {
+                    if (player.actorState == ActorStateFallingPillow)
+                    {
+                        player.actorState = ActorStateSleeping;
+                        gameItem.sprite.hidden = YES;
+                    }
+                }
+                
+                // Change color of the GameItem to let the user know they hit it.
+                gameItem.sprite.color = ColorMakeFromUIColor([UIColor yellowColor]);
+                
+                [region firePlayerHitGameItemDelegate:gameItem];
+                
+                // Add a post step callback to safely remove the body and shape from the space.
+                // Calling cpSpaceRemove*() directly from a collision handler callback can cause crashes.
+                //cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemove, b, NULL);
             }
             
-            // Change color of the GameItem to let the user know they hit it.
-            gameItem.sprite.color = ColorMakeFromUIColor([UIColor yellowColor]);
-            
-            [region firePlayerHitGameItemDelegate:gameItem];
             continueCollisionProcessing = FALSE;
-        
-            // Add a post step callback to safely remove the body and shape from the space.
-            // Calling cpSpaceRemove*() directly from a collision handler callback can cause crashes.
-            //cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemove, b, NULL);
         }
     }
     

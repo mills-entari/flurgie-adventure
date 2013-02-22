@@ -22,6 +22,8 @@
 
 @synthesize sprite = mSprite;
 @synthesize physicsBody = mBody;
+@synthesize position = mPosition;
+@synthesize size = mSize;
 
 -(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space withImageNamed:(NSString*)imageName
 {
