@@ -8,7 +8,7 @@
 @property(nonatomic) CGFloat x;
 @property(nonatomic) CGFloat y;
 
--(id)initWithXY:(CGFloat)x:(CGFloat)y;
+-(id)initWithXY:(CGFloat)x y:(CGFloat)y;
 -(id)initWithVector2:(Vector2*)otherVector;
 -(void)setZero;
 -(CGFloat)magnitude;
@@ -18,6 +18,6 @@
 -(void)multiplyScalar:(CGFloat)scale;
 -(void)addVector:(Vector2*)otherVector;
 -(void)subtractVector:(Vector2*)otherVector;
--(void)addScaledVector:(Vector2*)otherVector:(CGFloat)scale;
+-(void)addScaledVector:(Vector2*)otherVector scale:(CGFloat)scale;
 
 @end

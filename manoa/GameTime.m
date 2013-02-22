@@ -3,22 +3,22 @@
 @interface GameTime()
 {
 @private
-	NSDate* lastDate;
-	NSTimeInterval elapsedSecs;
-	NSTimeInterval elapsedMilli;
-	BOOL hasElapsedMilli;
-    int frameCt; // The total number of frames per second.
-    NSTimeInterval frameTime; // Stores the total time accumulated during each iteration.
-    int currentFps;
-    BOOL computeFps;
+	NSDate* mLastDate;
+	NSTimeInterval mElapsedSecs;
+	NSTimeInterval mElapsedMilliSecs;
+	BOOL mHasElapsedMilliSecs;
+    int mFrameCt; // The total number of frames per second.
+    NSTimeInterval mFrameTime; // Stores the total time accumulated during each iteration.
+    int mCurrentFps;
+    BOOL mComputeFps;
 }
 
 -(void)resetFpsCounters;
 @end
 
 @implementation GameTime
-@synthesize elapsedSeconds = elapsedSecs;
-@synthesize currentFrameRate = currentFps;
+@synthesize elapsedSeconds = mElapsedSecs;
+@synthesize currentFrameRate = mCurrentFps;
 //@synthesize computeFrameRate = computeFps;
 
 /* Function: init
@@ -28,14 +28,14 @@
 {
 	if (self = [super init])
 	{
-		lastDate = [[NSDate alloc] init];
-		hasElapsedMilli = NO;
-        elapsedSecs = 0;
-		elapsedMilli = 0;
-        frameCt = 0;
-        frameTime = 0;
-        currentFps = 0;
-        computeFps = NO;
+		mLastDate = [[NSDate alloc] init];
+		mHasElapsedMilliSecs = NO;
+        mElapsedSecs = 0;
+		mElapsedMilliSecs = 0;
+        mFrameCt = 0;
+        mFrameTime = 0;
+        mCurrentFps = 0;
+        mComputeFps = NO;
 	}
 	
 	return self;
@@ -47,7 +47,7 @@
 
 -(void)resume
 {
-    lastDate = [[NSDate alloc] init];
+    mLastDate = [[NSDate alloc] init];
 }
 
 /* Function: update
@@ -55,42 +55,42 @@
  */
 -(void)update
 {
-	elapsedSecs = [lastDate timeIntervalSinceNow] * -1;
-    hasElapsedMilli = NO;
+	mElapsedSecs = [mLastDate timeIntervalSinceNow] * -1;
+    mHasElapsedMilliSecs = NO;
 	//[lastDate release];
     
-    if (computeFps)
+    if (mComputeFps)
     {
-        frameTime += elapsedSecs;
-        frameCt++;
+        mFrameTime += mElapsedSecs;
+        mFrameCt++;
         
-        if (frameTime >= 1.0)
+        if (mFrameTime >= 1.0)
         {
-            currentFps = (int)roundf(frameCt / frameTime);
+            mCurrentFps = (int)roundf(mFrameCt / mFrameTime);
             // Notify listeners that fps value was updated.
             [self resetFpsCounters];
         }
     }
     
-	lastDate = [[NSDate alloc] init];
+	mLastDate = [[NSDate alloc] init];
 }
 
 -(void)resetFpsCounters
 {
-    frameTime = 0;
-    frameCt = 0;
+    mFrameTime = 0;
+    mFrameCt = 0;
 }
 
 -(BOOL)getComputeFrameRate
 {
-    return computeFps;
+    return mComputeFps;
 }
 
 -(void)setComputeFrameRate:(BOOL)doCompute
 {
-    if (computeFps != doCompute)
+    if (mComputeFps != doCompute)
     {
-        computeFps = doCompute;
+        mComputeFps = doCompute;
         
         if (doCompute)
         {
@@ -108,13 +108,13 @@
 {
 	// Check if we already calculated elapsed milliseconds (since no sense in wasting cycles
 	// calculating it everytime it's requested in a frame).
-	if (!hasElapsedMilli)
+	if (!mHasElapsedMilliSecs)
 	{
-		elapsedMilli = elapsedSecs * 1000.0;
-		hasElapsedMilli = YES;
+		mElapsedMilliSecs = mElapsedSecs * 1000.0;
+		mHasElapsedMilliSecs = YES;
 	}
 	
-	return elapsedMilli;
+	return mElapsedMilliSecs;
 }
 
 /* Function: dealloc
@@ -122,10 +122,10 @@
  */
 -(void)dealloc
 {
-	if (lastDate != nil)
+	if (mLastDate != nil)
 	{
 		//[lastDate release];
-		lastDate = nil;
+		mLastDate = nil;
 	}
 	
 	//[super dealloc];

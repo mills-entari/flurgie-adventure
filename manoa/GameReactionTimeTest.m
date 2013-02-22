@@ -28,7 +28,7 @@
     if (self = [super init])
     {
         mIsEnabled = YES;
-        mTimeMarkerDict = [[NSMutableDictionary alloc] initWithCapacity:4];
+        mTimeMarkerDict = [[NSMutableDictionary alloc] initWithCapacity:2];
         mElapsedSeconds = 0;
         mRecordTime = NO;
     }

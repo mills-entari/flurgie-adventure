@@ -5,6 +5,7 @@
 @private
     GameButton* mStartRandomButton;
     GameButton* mStartA1Button;
+    GameButton* mUserButton;
 }
 
 @end
@@ -13,6 +14,7 @@
 
 @synthesize startRandomButton = mStartRandomButton;
 @synthesize startA1Button = mStartA1Button;
+@synthesize userButton = mUserButton;
 
 -(id)initWithRect:(CGRect)rect
 {
@@ -22,20 +24,30 @@
         
         float buttonWidth = 200.0f;
         float buttonHeight = 50.0f;
+        float buttonXPos = (rect.size.width / 2.0f) - (buttonWidth / 2.0f);
+        float topButtonYPos = rect.size.height * 0.3f;
+        float buttonGap = 20.0f;
         
-        CGRect startButtonRect = CGRectMake((rect.size.width / 2.0f) - (buttonWidth / 2.0f), rect.size.height * 0.4f, buttonWidth, buttonHeight);
-        mStartRandomButton = [[GameButton alloc] initWithFrame:startButtonRect];
+        CGRect startRandomButtonRect = CGRectMake(buttonXPos, topButtonYPos, buttonWidth, buttonHeight);
+        mStartRandomButton = [[GameButton alloc] initWithFrame:startRandomButtonRect];
         mStartRandomButton.backgroundColor = [UIColor greenColor];
         mStartRandomButton.name = kStartRandomButtonName;
         mStartRandomButton.text = @"Random";
         [mMainView addSubview:mStartRandomButton];
         
-        CGRect startA1ButtonRect = CGRectMake((rect.size.width / 2.0f) - (buttonWidth / 2.0f), startButtonRect.origin.y + buttonHeight + 20.0f, buttonWidth, buttonHeight);
+        CGRect startA1ButtonRect = CGRectMake(buttonXPos, startRandomButtonRect.origin.y + buttonHeight + buttonGap, buttonWidth, buttonHeight);
         mStartA1Button = [[GameButton alloc] initWithFrame:startA1ButtonRect];
         mStartA1Button.backgroundColor = [UIColor greenColor];
         mStartA1Button.name = kStartA1ButtonName;
         mStartA1Button.text = @"A1";
         [mMainView addSubview:mStartA1Button];
+        
+        CGRect userButtonRect = CGRectMake(buttonXPos, startA1ButtonRect.origin.y + buttonHeight + buttonGap, buttonWidth, buttonHeight);
+        mUserButton = [[GameButton alloc] initWithFrame:userButtonRect];
+        mUserButton.backgroundColor = [UIColor orangeColor];
+        mUserButton.name = kUserButtonName;
+        mUserButton.text = @"User";
+        [mMainView addSubview:mUserButton];
     }
     
     return self;

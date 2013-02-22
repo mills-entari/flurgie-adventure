@@ -7,7 +7,7 @@
 /* Function: clamp
  * Desc: Restricts a value between a specified min and max.
  */
-+(CGFloat)clamp:(CGFloat)value:(CGFloat)min:(CGFloat)max;
++(CGFloat)clamp:(CGFloat)value minValue:(CGFloat)min maxValue:(CGFloat)max;
 
 /* Function: degreesToRadians
  * Desc: Converts a degree value to radians.

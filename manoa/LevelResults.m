@@ -6,6 +6,7 @@
     UILabel* mResultMsg;
     GameButton* mStartRandomButton;
     GameButton* mStartA1Button;
+    GameButton* mUserButton;
 }
 
 @end
@@ -34,25 +35,36 @@
         //mResultMsg.text = @"test";
         [mMainView addSubview:mResultMsg];
         
+        GameManager* gameManager = [GameManager sharedGameManager];
         
         float buttonWidth = 200.0f;
         float buttonHeight = 50.0f;
+        float buttonXPos = (rect.size.width / 2.0f) - (buttonWidth / 2.0f);
+        float buttonGap = 20.0f;
         
-        CGRect restartButtonRect = CGRectMake((rect.size.width / 2.0f) - (buttonWidth / 2.0f), msgYPos + msgHeight + 40.0f, buttonWidth, buttonHeight);
-        mStartRandomButton = [[GameButton alloc] initWithFrame:restartButtonRect];
+        CGRect startRandomButtonRect = CGRectMake(buttonXPos, msgYPos + msgHeight + 40.0f, buttonWidth, buttonHeight);
+        mStartRandomButton = [[GameButton alloc] initWithFrame:startRandomButtonRect];
         mStartRandomButton.backgroundColor = [UIColor greenColor];
         mStartRandomButton.name = kStartRandomButtonName;
         mStartRandomButton.text = @"Random";
         [mMainView addSubview:mStartRandomButton];
-        mStartRandomButton.gameButtonDelegate = self;
+        mStartRandomButton.gameButtonDelegate = gameManager;
         
-        CGRect startA1ButtonRect = CGRectMake((rect.size.width / 2.0f) - (buttonWidth / 2.0f), restartButtonRect.origin.y + buttonHeight + 20.0f, buttonWidth, buttonHeight);
+        CGRect startA1ButtonRect = CGRectMake(buttonXPos, startRandomButtonRect.origin.y + buttonHeight + buttonGap, buttonWidth, buttonHeight);
         mStartA1Button = [[GameButton alloc] initWithFrame:startA1ButtonRect];
         mStartA1Button.backgroundColor = [UIColor greenColor];
         mStartA1Button.name = kStartA1ButtonName;
         mStartA1Button.text = @"A1";
         [mMainView addSubview:mStartA1Button];
-        mStartA1Button.gameButtonDelegate = self;
+        mStartA1Button.gameButtonDelegate = gameManager;
+        
+        CGRect userButtonRect = CGRectMake(buttonXPos, startA1ButtonRect.origin.y + buttonHeight + buttonGap, buttonWidth, buttonHeight);
+        mUserButton = [[GameButton alloc] initWithFrame:userButtonRect];
+        mUserButton.backgroundColor = [UIColor orangeColor];
+        mUserButton.name = kUserButtonName;
+        mUserButton.text = @"User";
+        [mMainView addSubview:mUserButton];
+        mUserButton.gameButtonDelegate = gameManager;
     }
     
     return self;
@@ -100,25 +112,27 @@
 
 @end
 
-@implementation LevelResults(GameButtonDelegate)
-
--(void)gameButtonClicked:(GameButton*)button
-{
-    if (button != nil)
-    {        
-        GameZoneMode gameZoneMode;
-        
-        if (button.name == kStartRandomButtonName)
-        {
-            gameZoneMode = GameZoneModeRandom;
-        }
-        else if (button.name == kStartA1ButtonName)
-        {
-            gameZoneMode = GameZoneModeA1;
-        }
-        
-        [[GameManager sharedGameManager] beginGameWithGameZoneMode:gameZoneMode];
-    }
-}
-
-@end
+//@implementation LevelResults(GameButtonDelegate)
+//
+//-(void)gameButtonClicked:(GameButton*)button
+//{
+//    [[GameManager sharedGameManager] gameButtonClicked:button];
+//    
+////    if (button != nil)
+////    {        
+////        GameZoneMode gameZoneMode = GameZoneModeUnknown;
+////        
+////        if ([button.name isEqual:kStartRandomButtonName])
+////        {
+////            gameZoneMode = GameZoneModeRandom;
+////        }
+////        else if ([button.name isEqual:kStartA1ButtonName])
+////        {
+////            gameZoneMode = GameZoneModeA1;
+////        }
+////        
+////        [[GameManager sharedGameManager] beginGameWithGameZoneMode:gameZoneMode];
+////    }
+//}
+//
+//@end

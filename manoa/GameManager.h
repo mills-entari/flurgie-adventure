@@ -7,13 +7,19 @@
 #import "GameUpdate.h"
 #import "GameButton.h"
 #import "GameScreen.h"
+#import "GameOptions.h"
+#import "GameDataManager.h"
+#import "UserScreen.h"
+#import "GameUser.h"
 
-@class GameZone;
+//@class GameZone;
+//@protocol GameZoneDelegate;
 
-@interface GameManager : NSObject <GameButtonDelegate>
+@interface GameManager : NSObject <GameButtonDelegate, UserScreenDelegate>
 
 @property(nonatomic, readonly) GameViewManager* gameViewManager;
 @property(nonatomic, readonly) CGRect screenFrame;
+@property(nonatomic, readonly) GameUser* gameUser;
 
 +(GameManager*)sharedGameManager;
 
@@ -25,6 +31,7 @@
 -(void)initGame;
 
 -(void)beginGameWithGameZoneMode:(GameZoneMode)gameZoneMode;
+-(void)processGameZoneFinished:(GameZoneData*)gameZoneData;
 -(void)pause;
 -(void)resume;
 

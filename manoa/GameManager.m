@@ -12,6 +12,9 @@
     //NSMutableArray* mUpdateObjList;
     //NSMutableArray* mDrawObjList;
     BOOL mDoUpdate;
+    GameOptions* mGameOptions;
+    GameDataManager* mGameDataMgr;
+    GameUser* mGameUser;
 }
 
 -(void)loadMainMenu;
@@ -25,6 +28,7 @@
 // Synthesizers
 @synthesize gameViewManager = mGameViewMgr;
 @synthesize screenFrame = mScreenRect;
+@synthesize gameUser = mGameUser;
 
 +(GameManager*)sharedGameManager
 {
@@ -74,8 +78,12 @@
         
 		mGameTime = [[GameTime alloc] init];
 		mTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / 30.0f) target:self selector:@selector(update) userInfo:nil repeats:YES];
-        
         mGameTime.computeFrameRate = YES;
+        
+        mGameDataMgr = [[GameDataManager alloc] init];
+        
+        mGameOptions = [[GameOptions alloc] init];
+        mGameOptions.gameOptionsDelegate = mGameDataMgr;
 	}
 	
 	return self;
@@ -100,11 +108,28 @@
     MainMenu* mainMenu = [[MainMenu alloc] initWithRect:mScreenRect];
     mainMenu.startRandomButton.gameButtonDelegate = self;
     mainMenu.startA1Button.gameButtonDelegate = self;
+    mainMenu.userButton.gameButtonDelegate = self;
     
     [self loadCurrentScreen:mainMenu];
     
 	//[self initializeMainMenu];
 	//[scrMgr addScreen:mainMenu];
+}
+
+-(void)loadUserScreen:(BOOL)displayPrompt
+{
+    UserScreen* userScreen = [[UserScreen alloc] initWithRect:mScreenRect];
+    userScreen.userScreenDelegate = self;
+    [self loadCurrentScreen:userScreen];
+    
+    if (displayPrompt)
+    {
+        [userScreen displayEnterUserNamePrompt];
+    }
+    else
+    {
+        [userScreen displayUserNameInput];
+    }
 }
 
 -(void)loadCurrentScreen:(GameScreen*)gameScreen
@@ -127,9 +152,21 @@
 -(void)beginGameWithGameZoneMode:(GameZoneMode)gameZoneMode
 {
     // Load the level.
-    
-    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect gameZoneMode:gameZoneMode];
+    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect gameZoneId:[self generateUniqueGameZoneId] gameZoneMode:gameZoneMode];
     [self loadCurrentScreen:testZone];
+}
+
+-(NSString*)generateUniqueGameZoneId
+{
+    return [[NSProcessInfo processInfo] globallyUniqueString];
+}
+
+-(void)processGameZoneFinished:(GameZoneData*)gameZoneData
+{
+    if (mGameDataMgr != nil)
+    {
+        [mGameDataMgr saveGameData:gameZoneData];
+    }
 }
 
 //-(void)registerUpdateObject:(id)updateObj
@@ -203,19 +240,42 @@
 {
     if (button != nil)
     {
-        GameZoneMode gameZoneMode;
+        GameZoneMode gameZoneMode = GameZoneModeUnknown;
         
-        if (button.name == kStartRandomButtonName)
+        if ([button.name isEqualToString:kStartRandomButtonName])
         {
             gameZoneMode = GameZoneModeRandom;
         }
-        else if (button.name == kStartA1ButtonName)
+        else if ([button.name isEqualToString:kStartA1ButtonName])
         {
             gameZoneMode = GameZoneModeA1;
         }
         
-        [self beginGameWithGameZoneMode:gameZoneMode];
+        if (mGameUser == nil || [button.name isEqualToString:kUserButtonName])
+        {
+            [self loadUserScreen:(gameZoneMode != GameZoneModeUnknown)];
+        }
+        else
+        {
+            [self beginGameWithGameZoneMode:gameZoneMode];
+        }
     }
 }
+
+@end
+
+@implementation GameManager(UserScreenDelegate)
+
+-(void)okButtonClicked:(UserScreen*)sender
+{
+    mGameUser = [[GameUser alloc] initWithData:-1 userName:sender.userName];
+    [self loadMainMenu];
+}
+
+-(void)cancelButtonClicked:(UserScreen*)sender
+{
+    [self loadMainMenu];
+}
+
 
 @end

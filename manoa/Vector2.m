@@ -15,7 +15,7 @@
 	return self;
 }
 
--(id)initWithXY:(CGFloat)x:(CGFloat)y
+-(id)initWithXY:(CGFloat)x y:(CGFloat)y
 {
 	if (self = [super init]) 
 	{
@@ -32,7 +32,7 @@
     
     if (otherVector != nil)
     {
-        selfId = [self initWithXY:otherVector.x:otherVector.y];
+        selfId = [self initWithXY:otherVector.x y:otherVector.y];
     }
     
 	return selfId;
@@ -84,7 +84,7 @@
 	mYValue -= otherVector.y;
 }
 
--(void)addScaledVector:(Vector2*)otherVector:(CGFloat)scale
+-(void)addScaledVector:(Vector2*)otherVector scale:(CGFloat)scale
 {
 	mXValue += otherVector.x * scale;
 	mYValue += otherVector.y * scale;

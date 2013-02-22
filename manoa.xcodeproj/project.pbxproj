@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850D092416C84B6C006D1560 /* UserScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 850D092316C84B6C006D1560 /* UserScreen.m */; };
+		850D092716C9BA28006D1560 /* GameUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 850D092616C9BA28006D1560 /* GameUser.m */; };
 		8512A18B1538146A0038CB36 /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8512A18A1538146A0038CB36 /* notes.txt */; };
 		8512A1DB153E9D410038CB36 /* GameItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8512A1DA153E9D400038CB36 /* GameItem.m */; };
 		8514E2E6151C9050006DC56A /* GameBounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 8514E2E5151C9050006DC56A /* GameBounds.m */; };
@@ -19,6 +21,8 @@
 		852D0F4114ECB5F600F7CE42 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D0F4014ECB5F600F7CE42 /* GameView.m */; };
 		8539FED01611A6F40009F545 /* libChipmunk-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8539FECF1611A6F40009F545 /* libChipmunk-iPhone.a */; };
 		854F137116B4DC7100A14F8D /* GameOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 854F137016B4DC7100A14F8D /* GameOptions.m */; };
+		854F137516B5C5E400A14F8D /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 854F137416B5C5E400A14F8D /* GameDataManager.m */; };
+		854F137816B907CF00A14F8D /* GameZoneData.m in Sources */ = {isa = PBXBuildFile; fileRef = 854F137716B907CF00A14F8D /* GameZoneData.m */; };
 		8577A2C615F9F59A00E6473E /* Basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2BF15F9F59A00E6473E /* Basket.png */; };
 		8577A2C715F9F59A00E6473E /* FallingPillow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2C015F9F59A00E6473E /* FallingPillow.png */; };
 		8577A2C815F9F59A00E6473E /* Falling.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2C115F9F59A00E6473E /* Falling.png */; };
@@ -69,6 +73,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		850D092216C84B6C006D1560 /* UserScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScreen.h; sourceTree = "<group>"; };
+		850D092316C84B6C006D1560 /* UserScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScreen.m; sourceTree = "<group>"; };
+		850D092516C9BA28006D1560 /* GameUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUser.h; sourceTree = "<group>"; };
+		850D092616C9BA28006D1560 /* GameUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUser.m; sourceTree = "<group>"; };
 		8512A18A1538146A0038CB36 /* notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
 		8512A1D9153E9D400038CB36 /* GameItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameItem.h; sourceTree = "<group>"; };
 		8512A1DA153E9D400038CB36 /* GameItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameItem.m; sourceTree = "<group>"; };
@@ -116,6 +124,10 @@
 		8539FECF1611A6F40009F545 /* libChipmunk-iPhone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libChipmunk-iPhone.a"; sourceTree = "<group>"; };
 		854F136F16B4DC7100A14F8D /* GameOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOptions.h; sourceTree = "<group>"; };
 		854F137016B4DC7100A14F8D /* GameOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptions.m; sourceTree = "<group>"; };
+		854F137316B5C5E400A14F8D /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
+		854F137416B5C5E400A14F8D /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
+		854F137616B907CF00A14F8D /* GameZoneData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameZoneData.h; sourceTree = "<group>"; };
+		854F137716B907CF00A14F8D /* GameZoneData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameZoneData.m; sourceTree = "<group>"; };
 		8577A2BF15F9F59A00E6473E /* Basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Basket.png; sourceTree = "<group>"; };
 		8577A2C015F9F59A00E6473E /* FallingPillow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FallingPillow.png; sourceTree = "<group>"; };
 		8577A2C115F9F59A00E6473E /* Falling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Falling.png; sourceTree = "<group>"; };
@@ -366,6 +378,10 @@
 		85D8D1D4154417C60089581B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				854F137616B907CF00A14F8D /* GameZoneData.h */,
+				854F137716B907CF00A14F8D /* GameZoneData.m */,
+				854F137316B5C5E400A14F8D /* GameDataManager.h */,
+				854F137416B5C5E400A14F8D /* GameDataManager.m */,
 				85D8D1D5154418030089581B /* GameReactionTimeTest.h */,
 				85D8D1D6154418030089581B /* GameReactionTimeTest.m */,
 			);
@@ -381,6 +397,8 @@
 				852D0F3A14EC877400F7CE42 /* MainMenu.m */,
 				85D8D1D8154BAF890089581B /* LevelResults.h */,
 				85D8D1D9154BAF890089581B /* LevelResults.m */,
+				850D092216C84B6C006D1560 /* UserScreen.h */,
+				850D092316C84B6C006D1560 /* UserScreen.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -420,6 +438,8 @@
 				8512A18A1538146A0038CB36 /* notes.txt */,
 				854F136F16B4DC7100A14F8D /* GameOptions.h */,
 				854F137016B4DC7100A14F8D /* GameOptions.m */,
+				850D092516C9BA28006D1560 /* GameUser.h */,
+				850D092616C9BA28006D1560 /* GameUser.m */,
 			);
 			name = "Game Core";
 			sourceTree = "<group>";
@@ -493,7 +513,7 @@
 		85B7DC22145189BB00493C87 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Imber Studios LLC";
 			};
 			buildConfigurationList = 85B7DC25145189BB00493C87 /* Build configuration list for PBXProject "manoa" */;
@@ -591,6 +611,10 @@
 				85F03FFA154EA26B00D1109B /* GameScreen.m in Sources */,
 				851DA5F8155A5C700017F572 /* NormalDistribution.c in Sources */,
 				854F137116B4DC7100A14F8D /* GameOptions.m in Sources */,
+				854F137516B5C5E400A14F8D /* GameDataManager.m in Sources */,
+				854F137816B907CF00A14F8D /* GameZoneData.m in Sources */,
+				850D092416C84B6C006D1560 /* UserScreen.m in Sources */,
+				850D092716C9BA28006D1560 /* GameUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +662,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -651,6 +679,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -668,12 +697,17 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -717,8 +751,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Imber Studios LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Imber Studios LLC";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -731,6 +765,8 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "F28322A5-E13F-46C7-98DC-D16EE3DE47F7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F28322A5-E13F-46C7-98DC-D16EE3DE47F7";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -777,12 +813,17 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -814,8 +855,8 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "F28322A5-E13F-46C7-98DC-D16EE3DE47F7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F28322A5-E13F-46C7-98DC-D16EE3DE47F7";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

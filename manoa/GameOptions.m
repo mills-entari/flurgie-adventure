@@ -3,25 +3,42 @@
 @interface GameOptions()
 {
 @private
-    BOOL autoSendData;
+    BOOL mAutoSendGameData;
+    __weak id<GameOptionsDelegate> mGameOptionsDelegate;
 }
 
 @end
 
 @implementation GameOptions
 
--(BOOL)getAutoSendGameData
+@synthesize gameOptionsDelegate = mGameOptionsDelegate;
+
+-(id)init
 {
-    return autoSendData;
+	if (self = [super init])
+	{
+		mAutoSendGameData = YES;
+	}
+	
+	return self;
 }
 
--(void)setAutoSendGameDatae:(BOOL)doSend
+-(BOOL)getAutoSendGameData
 {
-    if (autoSendData != doSend)
+    return mAutoSendGameData;
+}
+
+-(void)setAutoSendGameData:(BOOL)doSend
+{
+    if (mAutoSendGameData != doSend)
     {
-        autoSendData = doSend;
+        mAutoSendGameData = doSend;
         
         // Notify delegates.
+        if (mGameOptionsDelegate && [mGameOptionsDelegate respondsToSelector:@selector(autoSendGameDataOptionModified:)])
+        {
+            [mGameOptionsDelegate autoSendGameDataOptionModified:self];
+        }
     }
 }
 

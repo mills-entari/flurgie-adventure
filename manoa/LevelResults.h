@@ -7,7 +7,7 @@
 #import "GameReactionTimeTest.h"
 #import "GameManager.h"
 
-@interface LevelResults : GameScreen <GameViewDelegate, GameButtonDelegate>
+@interface LevelResults : GameScreen <GameViewDelegate>
 
 -(id)initWithRect:(CGRect)rect;
 -(void)loadResults:(GameReactionTimeTest*)testResults message:(NSString*)msg;

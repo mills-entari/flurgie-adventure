@@ -6,12 +6,19 @@
 // Button Names
 #define kStartRandomButtonName @"start button - pattern:random"
 #define kStartA1ButtonName @"start button - pattern:a1"
+#define kUserButtonName @"user button"
+#define kUserScreenCancelButtonName @"user screen - cancel"
+#define kUserScreenOkButtonName @"user screen - ok"
 
 //#define kDefaultGravityXValue 200.0f
 #define kGravityYMinValue 80.0f
 #define kGravityYMaxValue 200.0f
 //#define kDefaultGravityYHalfValue 100.0f
 #define kActorMaxVel 200.0f
+
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
+#define kAddLevelResultsForUserNameURL [NSURL URLWithString:@"http://api.imberstudios.com/drunken-adventure/level-results/"]
 
 
 typedef struct ColorData
@@ -64,6 +71,7 @@ typedef enum
 
 typedef enum
 {
+    GameZoneModeUnknown,
     GameZoneModeRandom = 1,
     GameZoneModeA1
 } GameZoneMode;
@@ -79,6 +87,9 @@ static inline NSString* GetGameZoneModeName(GameZoneMode gameZoneMode)
             break;
         case GameZoneModeA1:
             name = @"A1";
+            break;
+        case GameZoneModeUnknown:
+        default:
             break;
     }
     

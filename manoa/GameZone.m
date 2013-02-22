@@ -3,6 +3,7 @@
 @interface GameZone()
 {
 @private
+    NSString* mGameZoneId; // A GUID for this level assigned in constructor.
     GameZoneMode mGameZoneMode;
     //CGRect mZoneRect;
     NSMutableArray* mGlobalUpdateObjList;
@@ -11,8 +12,6 @@
     cpSpace* mSpace;
     cpVect mPlayerForce;
     cpVect mCurrentGravity;
-//    cpVect mMinGravity;
-//    cpVect mMaxGravity;
     BOOL mDoUpdatePlayerForce;
     BOOL mIsZoneComplete;
     LevelResults* mLevelResults;
@@ -20,27 +19,31 @@
     UILabel* mTimeLabel;
     int mNumGameRegions;
     BOOL mDoGameUpdate;
+//    __weak id<GameZoneDelegate> mGameZoneDelegate;
+    NSDate* mZoneCreatedDate;
     
     BOOL mDoTimer;
     float mTimerValue;
 }
 
 -(void)initBaseZone;
-//-(void)createZoneBounds:(CGSize)zoneSize;
-//-(void)createPlayerAtWorldPosition:(CGPoint)worldPos;
 @end
 
 @implementation GameZone
 
--(id)initWithRect:(CGRect)rect gameZoneMode:(GameZoneMode)gameZoneMode
+//@synthesize gameZoneDelegate = mGameZoneDelegate;
+
+-(id)initWithRect:(CGRect)rect gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode
 {
 	if (self = [super initWithRect:rect]) 
 	{
+        mZoneCreatedDate = [[NSDate alloc] init];
+        mGameZoneId = zoneId;
         mGameZoneMode = gameZoneMode;
         mMainView.gameViewDelegate = self;
         mGlobalUpdateObjList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameRegionList = [[NSMutableArray alloc] initWithCapacity:4];
-        mPlayerForce = cpv(0, 0);
+        mPlayerForce = cpvzero;
         mCurrentGravity = cpv(0, kGravityYMinValue);
         mDoUpdatePlayerForce = NO;
         mIsZoneComplete = NO;
@@ -205,18 +208,6 @@
     
     return yOffset;
 }
-
-//-(void)createBodyAtPosition:(cpVect)position withMass:(cpFloat)mass withWidth:(cpFloat)width withHeight:(cpFloat)height
-//{
-//    cpBody* body = cpBodyNew(mass, cpMomentForBox(mass, width, height));
-//    cpBodySetPos(body, position);
-//    cpSpaceAddBody(mSpace, body);
-//    
-//    cpShape* shape = cpBoxShapeNew(body, width, height);
-//    //cpShapeSetElasticity(shape, <#cpFloat value#>);
-//    //cpShapeSetFriction(shape, <#cpFloat value#>);
-//    cpSpaceAddShape(mSpace, shape);
-//}
 
 -(void)setCurrentGameRegion:(GameRegion*)newGameRegion
 {
@@ -486,14 +477,14 @@
     mLevelResults = [[LevelResults alloc] initWithRect:mScreenRect];
     NSString* gameZoneName = GetGameZoneModeName(mGameZoneMode);
     
+    // Get the time values.
+    NSArray* timeValues = mReactionTimeTest.timeMarkerDict.allValues;
+    
     NSMutableString* lvlMsg = [[NSMutableString alloc] initWithCapacity:100];
     
     if (mReactionTimeTest.isTestComplete)
     {
         [lvlMsg appendFormat:@"%@ test completed successfully!\n\n", gameZoneName];
-        
-        // Get the time values.
-        NSArray* timeValues = mReactionTimeTest.timeMarkerDict.allValues;
         
         for (int i = 0; i < timeValues.count; i++)
         {
@@ -512,6 +503,17 @@
     {
         [lvlMsg appendFormat:@"%@ test is incomplete. You must touch all time markers.\n\nPlease start a new test.", gameZoneName];
     }
+    
+    GameManager* gameManager = [GameManager sharedGameManager];
+    
+    // Save the results by notifying delegates the zone is done.
+    GameZoneData* gameZoneData = [[GameZoneData alloc] initWithData:mGameZoneId isZoneComplete:mReactionTimeTest.isTestComplete zoneMode:mGameZoneMode zoneCreatedDate:mZoneCreatedDate gameUser:gameManager.gameUser timeValues:timeValues];
+    [gameManager processGameZoneFinished:gameZoneData];
+    
+//    if (mGameZoneDelegate && [mGameZoneDelegate respondsToSelector:@selector(gameZoneFinished:)])
+//    {
+//        [mGameZoneDelegate gameZoneFinished:gameZoneData];
+//    }
     
     [mLevelResults loadResults:mReactionTimeTest message:lvlMsg];
     //[[GameManager sharedGameManager].gameViewManager addGameView:lvlResults.mainView];
