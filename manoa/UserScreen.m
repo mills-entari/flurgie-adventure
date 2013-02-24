@@ -96,11 +96,7 @@ typedef enum
         if([buttonTitle isEqualToString:kUserScreenCancelButtonTitle])
         {
             mUserName = nil;
-            
-            if (mUserScreenDelegate && [mUserScreenDelegate respondsToSelector:@selector(cancelButtonClicked:)])
-            {
-                [mUserScreenDelegate cancelButtonClicked:self];
-            }
+            [self fireCancelButtonClickedDelegate];
         }
         else if([buttonTitle isEqualToString:kUserScreenOkButtonTitle])
         {
@@ -113,10 +109,7 @@ typedef enum
             // TODO: Make user validation more sophisticated.
             if ([mUserName length] > 0)
             {
-                if (mUserScreenDelegate && [mUserScreenDelegate respondsToSelector:@selector(okButtonClicked:)])
-                {
-                    [mUserScreenDelegate okButtonClicked:self];
-                }
+                [self fireOkButtonClickedDelegate];
             }
             else
             {
@@ -129,6 +122,22 @@ typedef enum
     {
         [self displayUserNameInput];
     }
+}
+
+-(void)fireOkButtonClickedDelegate
+{
+    if (mUserScreenDelegate != nil && [mUserScreenDelegate respondsToSelector:@selector(okButtonClicked:)])
+	{
+		[mUserScreenDelegate okButtonClicked:self];
+	}
+}
+
+-(void)fireCancelButtonClickedDelegate
+{
+    if (mUserScreenDelegate != nil && [mUserScreenDelegate respondsToSelector:@selector(cancelButtonClicked:)])
+	{
+		[mUserScreenDelegate cancelButtonClicked:self];
+	}
 }
 
 @end

@@ -56,10 +56,6 @@
         
         // Create base test zone.
         [self initBaseZone];
-        
-        UIAccelerometer* accel = [UIAccelerometer sharedAccelerometer];
-        accel.updateInterval = 1.0f / 30.0f;
-        accel.delegate = self;
     }
     
     return self;
@@ -67,10 +63,14 @@
 
 -(void)loadGameScreen
 {
+    UIAccelerometer* accel = [UIAccelerometer sharedAccelerometer];
+    accel.updateInterval = 1.0f / 30.0f;
+    accel.delegate = self;
 }
 
 -(void)unloadGameScreen
 {
+    [UIAccelerometer sharedAccelerometer].delegate = nil;
 }
 
 -(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)accel

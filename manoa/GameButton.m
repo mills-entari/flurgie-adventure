@@ -71,7 +71,7 @@
 //			[self doGrowAnimation];
 //		}
         
-        if (mGameButtonDelegate && [mGameButtonDelegate respondsToSelector:@selector(gameButtonClicked:)])
+        if (mGameButtonDelegate != nil && [mGameButtonDelegate respondsToSelector:@selector(gameButtonClicked:)])
         { 
             [mGameButtonDelegate gameButtonClicked:self];
         }
