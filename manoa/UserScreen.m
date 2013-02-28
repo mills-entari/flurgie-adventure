@@ -66,12 +66,19 @@ typedef enum
     return self;
 }
 
--(void)displayUserNameInput
+-(void)displayUserNameInput:(NSString*)currentUserName
 {
     mUserScreenMode = UserScreenModeEnterUserName;
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kUserScreenTitle message:kUserScreenMessage delegate:self cancelButtonTitle:kUserScreenCancelButtonTitle otherButtonTitles:nil];
     [alertView addButtonWithTitle:kUserScreenOkButtonTitle];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    if (currentUserName != nil)
+    {
+        UITextField* textField = [alertView textFieldAtIndex:0];
+        textField.text = currentUserName;
+    }
+    
     [alertView show];
 }
 
@@ -120,7 +127,7 @@ typedef enum
     }
     else if (mUserScreenMode == UserScreenModePromptEnterUserName)
     {
-        [self displayUserNameInput];
+        [self displayUserNameInput:nil];
     }
 }
 

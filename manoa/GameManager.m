@@ -128,7 +128,14 @@
     }
     else
     {
-        [userScreen displayUserNameInput];
+        NSString* currentUserName = nil;
+        
+        if (mGameUser != nil && mGameUser.userName != nil)
+        {
+            currentUserName = mGameUser.userName;
+        }
+        
+        [userScreen displayUserNameInput:currentUserName];
     }
 }
 

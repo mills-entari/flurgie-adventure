@@ -17,7 +17,7 @@
 @property(nonatomic) NSString* userName;
 
 -(id)initWithRect:(CGRect)rect;
--(void)displayUserNameInput;
+-(void)displayUserNameInput:(NSString*)currentUserName;
 -(void)displayEnterUserNamePrompt;
 
 @end
