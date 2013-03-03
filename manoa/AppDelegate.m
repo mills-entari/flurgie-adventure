@@ -29,6 +29,7 @@
         mViewController = [[ManoaViewController alloc] init];
     }
     
+    [mWindow setRootViewController:mViewController];
     [mWindow addSubview:mViewController.view];
     [mWindow makeKeyAndVisible];
     

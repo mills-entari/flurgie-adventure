@@ -22,6 +22,6 @@
 
 //@property(nonatomic, weak) id<GameZoneDelegate> gameZoneDelegate;
 
--(id)initWithRect:(CGRect)rect gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode;
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode;
 
 @end

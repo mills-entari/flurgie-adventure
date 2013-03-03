@@ -12,7 +12,7 @@
 @synthesize isEnabled = mIsEnabled;
 @synthesize mainView = mMainView;
 
--(id)initWithRect:(CGRect)rect
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale
 {
     if (self = [super init])
     {

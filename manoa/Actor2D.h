@@ -20,7 +20,7 @@
 @property(nonatomic, readonly) BOOL isChildActor;
 @property(nonatomic) BOOL isHidden;
 
--(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space;
+-(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(CGFloat)screenYPos withSpace:(cpSpace*)space gameScale:(CGSize)gameScale;
 //-(id)initWithRect:(CGRect)rect withSpace:(cpSpace*)space;
 //-(id)initAtPosition:(CGPoint)position withSize:(CGPoint)size;
 -(void)addChildActor:(Actor2D*)child;

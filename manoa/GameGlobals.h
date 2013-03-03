@@ -1,3 +1,6 @@
+#define kBaseGameWidth 320.0f
+#define kBaseGameHeight 480.0f
+
 // Game Region Constants
 #define kNumberItemColumns 8
 #define kNumberItemRows 12

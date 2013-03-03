@@ -30,7 +30,6 @@
 
 @property(nonatomic) Actor2D* parentActor;
 
--(void)createBody;
 -(void)setActorSpriteForState:(ActorState)actorState;
 @end
 
@@ -47,7 +46,7 @@
 @synthesize isHidden = mIsHidden;
 @synthesize parentActor = mParentActor;
 
--(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(float)screenYPos withSpace:(cpSpace*)space
+-(id)initWithSize:(CGSize)size atWorldPosition:(CGPoint)worldPos atScreenYPosition:(CGFloat)screenYPos withSpace:(cpSpace*)space gameScale:(CGSize)gameScale
 //-(id)initAtPosition:(CGPoint)position withSize:(CGSize)size withSpace:(cpSpace*)space
 {
     if (self = [super init])
@@ -68,7 +67,7 @@
         mFriction = 0.7; // 0.0 is frictionless.
         mSpace = space;
         
-        [self createBody];
+        [self createBody:gameScale];
         
         //float screenYPos = worldPos.y % 480;
         
@@ -83,11 +82,11 @@
 	return self;
 }
 
--(void)createBody
+-(void)createBody:(CGSize)gameScale
 {
     mBody = cpBodyNew(mMass, cpMomentForBox(mMass, mSize.width, mSize.height));
     cpBodySetPos(mBody, mPosition);
-    cpBodySetVelLimit(mBody, kActorMaxVel);
+    cpBodySetVelLimit(mBody, kActorMaxVel * gameScale.height);
     cpSpaceAddBody(mSpace, mBody);
     
     mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);

@@ -26,16 +26,15 @@
     float mTimerValue;
 }
 
--(void)initBaseZone;
 @end
 
 @implementation GameZone
 
 //@synthesize gameZoneDelegate = mGameZoneDelegate;
 
--(id)initWithRect:(CGRect)rect gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode
 {
-	if (self = [super initWithRect:rect]) 
+	if (self = [super initWithRect:rect screenScale:screenScale gameScale:gameScale])
 	{
         mZoneCreatedDate = [[NSDate alloc] init];
         mGameZoneId = zoneId;
@@ -44,7 +43,7 @@
         mGlobalUpdateObjList = [[NSMutableArray alloc] initWithCapacity:4];
         mGameRegionList = [[NSMutableArray alloc] initWithCapacity:4];
         mPlayerForce = cpvzero;
-        mCurrentGravity = cpv(0, kGravityYMinValue);
+        mCurrentGravity = cpv(0, kGravityYMinValue * gameScale.height);
         mDoUpdatePlayerForce = NO;
         mIsZoneComplete = NO;
         mNumGameRegions = 2;
@@ -55,7 +54,7 @@
         mTimerValue = 0;
         
         // Create base test zone.
-        [self initBaseZone];
+        [self initBaseZone:gameScale];
     }
     
     return self;
@@ -77,8 +76,9 @@
 {
     if (mSpace != nil && !mIsZoneComplete)
     {
+        CGSize gameScale = [GameManager sharedGameManager].gameScale;
         //float xForce = accel.x * 500.0f;
-        float xForce = accel.x * 60.0f;
+        cpFloat xForce = accel.x * 60.0f * gameScale.width;
         UIAccelerationValue yAccel = -accel.y;
         
         if (yAccel < 0)
@@ -86,17 +86,15 @@
             yAccel = 0;
         }
         
-        float yGrav = yAccel * kGravityYMaxValue;
-        
+        cpFloat yGrav = yAccel * (kGravityYMaxValue * gameScale.height);
         mPlayerForce = cpv(xForce, 0);
-        mCurrentGravity = cpv(0, kGravityYMinValue + yGrav);
-        //mCurrentGravity = cpv(0, 50.0f);
+        mCurrentGravity = cpv(0, (kGravityYMinValue * gameScale.height) + yGrav);
         mDoUpdatePlayerForce = YES;
     }
 }
 
 
--(void)initBaseZone
+-(void)initBaseZone:(CGSize)gameScale
 {
     // Create serial reaction time test.
     [self createGameReactionTimeTest];
@@ -107,11 +105,12 @@
     // Initialize the logical space for the game world.
     mSpace = cpSpaceNew();
     
+    DLog("Gravity: %.0f", mCurrentGravity.y);
     cpSpaceSetGravity(mSpace, mCurrentGravity);
     
     // Create regions.
     
-    [self createGameRegions:mNumGameRegions];
+    [self createGameRegions:mNumGameRegions gameScale:gameScale];
     GameRegion* firstRegion = [mGameRegionList objectAtIndex:0];
     
     [self setCurrentGameRegion:firstRegion];
@@ -135,26 +134,27 @@
 
 -(void)createGameReactionTimeTest
 {
+    CGSize gameScale = [GameManager sharedGameManager].gameScale;
     mReactionTimeTest = [[GameReactionTimeTest alloc] init];
     mReactionTimeTest.expectedTimerMarkerCount = mNumGameRegions;
     [mReactionTimeTest startTest];
     [mGlobalUpdateObjList addObject:mReactionTimeTest];
     
     // Create UI to display test time.
-    mTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, 20.0, 20.0)];
+    mTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f * gameScale.width, 10.0f * gameScale.height, 20.0f * gameScale.width, 20.0f * gameScale.height)];
     mTimeLabel.textAlignment = UITextAlignmentRight;
     mTimeLabel.font = [UIFont systemFontOfSize:14];
     mTimeLabel.textColor = [UIColor blackColor];
     mTimeLabel.backgroundColor = [UIColor clearColor];
 }
 
--(void)createGameRegions:(int)numRegions
+-(void)createGameRegions:(int)numRegions gameScale:(CGSize)gameScale
 {
     CGSize winSize = [GameManager sharedGameManager].screenFrame.size;
     
     for (int i = 0; i < numRegions; i++)
     {
-        GameRegion* region = [[GameRegion alloc] initWithGameRegionIndex:i withSize:winSize withSpace:mSpace];
+        GameRegion* region = [[GameRegion alloc] initWithGameRegionIndex:i withSize:winSize withSpace:mSpace gameScale:gameScale];
         //region.gameView.gameViewDelegate = self;
         region.gameRegionDelegate = self;
         [mGameRegionList addObject:region];
@@ -182,18 +182,19 @@
 //-(void)createPlayerAtWorldPosition:(CGPoint)worldPos
 -(void)createPlayerInGameRegion:(GameRegion*)gameRegion
 {
-    float screenHeight = gameRegion.gameRegionSize.height;
-    float localYPos = 40.0f;
+    CGSize gameScale = [GameManager sharedGameManager].gameScale;
+    CGFloat screenHeight = gameRegion.gameRegionSize.height;
+    CGFloat localYPos = 40.0f * gameScale.height;
     //CGPoint localPos = CGPointMake(40, 40);
     CGPoint worldPos = CGPointMake(gameRegion.gameRegionSize.width / 2.0f, [self getWorldYPositionForLocalYPosition:localYPos inGameRegion:mCurrentGameRegion withScreenHeight:screenHeight]);
-    CGSize playerSize = CGSizeMake(50, 50);
+    CGSize playerSize = CGSizeMake(50 * gameScale.width, 50 * gameScale.height);
     
-    Actor2D* player = [[Actor2D alloc] initWithSize:playerSize atWorldPosition:worldPos atScreenYPosition:localYPos withSpace:mSpace];
+    Actor2D* player = [[Actor2D alloc] initWithSize:playerSize atWorldPosition:worldPos atScreenYPosition:localYPos withSpace:mSpace gameScale:gameScale];
     [mGlobalUpdateObjList addObject:player];
     [gameRegion addPlayer:player];
     
     // Make child player that will be used for screen wrapping.
-    Actor2D* childPlayer = [[Actor2D alloc] initWithSize:playerSize atWorldPosition:worldPos atScreenYPosition:localYPos withSpace:mSpace];
+    Actor2D* childPlayer = [[Actor2D alloc] initWithSize:playerSize atWorldPosition:worldPos atScreenYPosition:localYPos withSpace:mSpace gameScale:gameScale];
     [mGlobalUpdateObjList addObject:childPlayer];
     [gameRegion addPlayer:childPlayer];
     
@@ -201,7 +202,7 @@
     childPlayer.isEnabled = NO;
 }
 
--(float)getWorldYPositionForLocalYPosition:(float)localYPos inGameRegion:(GameRegion*)gameRegion withScreenHeight:(float)screenHeight
+-(float)getWorldYPositionForLocalYPosition:(CGFloat)localYPos inGameRegion:(GameRegion*)gameRegion withScreenHeight:(float)screenHeight
 {
     float yOffset = screenHeight * gameRegion.gameRegionIndex;
     yOffset += localYPos;
@@ -300,11 +301,11 @@
             [self checkCurrentRegion];
         }
         
-        if (mReactionTimeTest != nil)
-        {
+//        if (mReactionTimeTest != nil)
+//        {
             //DLog("Reaction Time: %.2f", mReactionTimeTest.elapsedSeconds);
             //[self drawTime];
-        }
+//        }
     }
 }
 
@@ -342,6 +343,8 @@
 {
     if (mCurrentGameRegion != nil)
     {
+        CGSize gameScale = [GameManager sharedGameManager].gameScale;
+        
         // Get the main player and child objects.
         Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:0];
         Actor2D* child = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:1];
@@ -352,7 +355,7 @@
         float playerHalfWidth = player.size.width / 2.0f;
         float leftBoundaryPos = player.position.x - playerHalfWidth;
         float rightBoundaryPos = player.position.x + playerHalfWidth;
-        float boundaryEpsilon = 10.0f;
+        float boundaryEpsilon = 10.0f * gameScale.width;
         
         if (leftBoundaryPos < 0)
         {
@@ -413,37 +416,6 @@
     }
 }
 
-//-(void)checkPlayerBounds
-//{
-//    if (mCurrentGameRegion != nil)
-//    {
-//        for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
-//        {
-//            Actor2D* player = (Actor2D*)[mCurrentGameRegion.playerList objectAtIndex:i];
-//            
-//            // Check if player scrolled off left or right side of screen.
-//            
-//            float playerHalfWidth = player.size.width / 2.0f;
-//            float leftBoundaryPos = player.position.x - playerHalfWidth;
-//            
-//            if (leftBoundaryPos < 0)
-//            {
-//                DLog("Left Boundary: %.2f", leftBoundaryPos);
-//            }
-//            
-//            
-////            if (player.position.x < 0)
-////            {
-////                player.position = cpv(mCurrentGameRegion.gameRegionSize.width, player.position.y);
-////            }
-////            else if (player.position.x > mCurrentGameRegion.gameRegionSize.width)
-////            {
-////                player.position = cpv(0, player.position.y);
-////            }
-//        }
-//    }
-//}
-
 -(void)checkCurrentRegion
 {
     for (int i = 0; i < mCurrentGameRegion.playerList.count; i++)
@@ -473,8 +445,9 @@
 -(void)showLevelResults
 {
     //DLog("Displaying level results...");
+    GameManager* gameManager = [GameManager sharedGameManager];
     mDoTimer = NO;
-    mLevelResults = [[LevelResults alloc] initWithRect:mScreenRect];
+    mLevelResults = [[LevelResults alloc] initWithRect:mScreenRect screenScale:gameManager.screenScale gameScale:gameManager.gameScale];
     NSString* gameZoneName = GetGameZoneModeName(mGameZoneMode);
     
     // Get the time values.
@@ -503,8 +476,6 @@
     {
         [lvlMsg appendFormat:@"%@ test is incomplete. You must touch all time markers.\n\nPlease start a new test.", gameZoneName];
     }
-    
-    GameManager* gameManager = [GameManager sharedGameManager];
     
     // Save the results by notifying delegates the zone is done.
     GameZoneData* gameZoneData = [[GameZoneData alloc] initWithData:mGameZoneId isZoneComplete:mReactionTimeTest.isTestComplete zoneMode:mGameZoneMode zoneCreatedDate:mZoneCreatedDate gameUser:gameManager.gameUser timeValues:timeValues];
@@ -585,8 +556,6 @@
         if (mCurrentGameRegion.isGroundRegion && !mIsZoneComplete)
         {
             mIsZoneComplete = YES;
-            //mCurrentGravity = cpv(0, kDefaultGravityYValue);
-            
             [self setupLevelResults];
         }
     }

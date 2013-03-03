@@ -16,17 +16,17 @@
 @synthesize startA1Button = mStartA1Button;
 @synthesize userButton = mUserButton;
 
--(id)initWithRect:(CGRect)rect
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale
 {
-    if (self = [super initWithRect:rect])
+    if (self = [super initWithRect:rect screenScale:screenScale gameScale:(CGSize)gameScale])
     {
         mMainView.backgroundColor = [UIColor grayColor];
         
-        float buttonWidth = 200.0f;
-        float buttonHeight = 50.0f;
-        float buttonXPos = (rect.size.width / 2.0f) - (buttonWidth / 2.0f);
-        float topButtonYPos = rect.size.height * 0.3f;
-        float buttonGap = 20.0f;
+        CGFloat buttonWidth = 200.0f * gameScale.width;
+        CGFloat buttonHeight = 50.0f * gameScale.height;
+        CGFloat buttonGap = 20.0f * gameScale.height;
+        CGFloat buttonXPos = (rect.size.width / 2.0f) - (buttonWidth / 2.0f);
+        CGFloat topButtonYPos = rect.size.height * 0.3f;
         
         CGRect startRandomButtonRect = CGRectMake(buttonXPos, topButtonYPos, buttonWidth, buttonHeight);
         mStartRandomButton = [[GameButton alloc] initWithFrame:startRandomButtonRect];

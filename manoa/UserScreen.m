@@ -30,9 +30,9 @@ typedef enum
 @synthesize userScreenDelegate = mUserScreenDelegate;
 @synthesize userName = mUserName;
 
--(id)initWithRect:(CGRect)rect
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale
 {
-    if (self = [super initWithRect:rect])
+    if (self = [super initWithRect:rect screenScale:screenScale gameScale:gameScale])
     {
         mMainView.backgroundColor = [UIColor yellowColor];
         mUserScreenMode = UserScreenModeUnknown;

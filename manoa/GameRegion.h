@@ -30,7 +30,7 @@
 @property(nonatomic, readonly) int gameRegionGameItemColumnIndex;
 @property(nonatomic) int previousGameRegionGameItemColumnIndex;
 
--(id)initWithGameRegionIndex:(int)regionIndex withSize:(CGSize)regionSize withSpace:(cpSpace*)space;
+-(id)initWithGameRegionIndex:(int)regionIndex withSize:(CGSize)regionSize withSpace:(cpSpace*)space gameScale:(CGSize)gameScale;
 -(void)registerCurrentRegionCallbacks;
 -(void)setupRandomGameRegion;
 -(void)setupGroundGameRegion;

@@ -47,7 +47,7 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 @synthesize gameRegionGameItemColumnIndex = mGameRegionGameItemColumnIndex;
 @synthesize previousGameRegionGameItemColumnIndex = mPreviousGameRegionGameItemColIndex;
 
--(id)initWithGameRegionIndex:(int)regionIndex withSize:(CGSize)regionSize withSpace:(cpSpace*)space
+-(id)initWithGameRegionIndex:(int)regionIndex withSize:(CGSize)regionSize withSpace:(cpSpace*)space gameScale:(CGSize)gameScale
 {
 	if (self = [super init]) 
 	{
@@ -65,18 +65,18 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
         
         mRegionView = [GameViewFactory makeNewGameViewWithFrame:CGRectMake(0, 0, mRegionSize.width, mRegionSize.height)];
         
-        [self initItemGrid];
+        [self initItemGrid:gameScale];
     }
     
     return self;
 }
 
--(void)initItemGrid
+-(void)initItemGrid:(CGSize)gameScale
 {
     //float itemWidth = mRegionSize.width / kNumberItemColumns;
     //float itemHeight = mRegionSize.height / kNumberItemRows;
-    float itemWidth = 40.0f;
-    float itemHeight = 25.0f;
+    float itemWidth = 40.0f * gameScale.width;
+    float itemHeight = 25.0f * gameScale.height;
     mGridItemSize = CGSizeMake(itemWidth, itemHeight);
     //mGridItemSize = CGSizeMake(50, 25);
     //int numItemPositions = kNumberItemColumns * kNumberItemRows;

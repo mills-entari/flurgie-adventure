@@ -6,6 +6,8 @@
 	NSTimer* mTimer; // Main timer for game.
 	GameTime* mGameTime; // Stores timing data for each iteration of timer.
 	CGRect mScreenRect; // The rectangle representing the pixel space occupied by each screen.
+    CGFloat mScreenScale;
+    CGSize mGameScale;
     //GameZone* mGameZone; // The currenet zone.
     GameViewManager* mGameViewMgr; // Manages all of the views displayed in the game.
     GameScreen* mCurrentScreen;
@@ -28,6 +30,8 @@
 // Synthesizers
 @synthesize gameViewManager = mGameViewMgr;
 @synthesize screenFrame = mScreenRect;
+@synthesize screenScale = mScreenScale;
+@synthesize gameScale = mGameScale;
 @synthesize gameUser = mGameUser;
 
 +(GameManager*)sharedGameManager
@@ -48,11 +52,12 @@
 	if (self = [super init]) 
 	{
         CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-        CGFloat screenScale = [[UIScreen mainScreen] scale];
-        CGRect screenFrame = CGRectMake(appFrame.origin.x, appFrame.origin.y, appFrame.size.width * screenScale, appFrame.size.height * screenScale);
+        mScreenScale = [[UIScreen mainScreen] scale];
+        CGRect screenFrame = CGRectMake(appFrame.origin.x, appFrame.origin.y, appFrame.size.width * mScreenScale, appFrame.size.height * mScreenScale);
         DLog(@"App Frame: %.0fx%.0f", appFrame.size.width, appFrame.size.height);
         DLog(@"Screen Resolution: %.0fx%.0f", screenFrame.size.width, screenFrame.size.height);
-        DLog(@"Screen Scale: %.1f", screenScale);
+        DLog(@"Screen Scale: %.1f", mScreenScale);
+        //appFrame = CGRectMake(appFrame.origin.x, appFrame.origin.y, kBaseGameWidth, kBaseGameHeight);
         
 		// Initialize all game resources.
         mDoUpdate = YES;
@@ -61,6 +66,20 @@
         // Setup screen variables.
         //mScreenRect = screenFrame;
         mScreenRect = appFrame;
+        CGFloat gameScaleWidth = 1.0f;
+        CGFloat gameScaleHeight = 1.0f;
+        
+        if (mScreenRect.size.width != kBaseGameWidth)
+        {
+            gameScaleWidth = mScreenRect.size.width / kBaseGameWidth;
+        }
+        
+        if (mScreenRect.size.height != kBaseGameHeight)
+        {
+            gameScaleHeight = mScreenRect.size.height / kBaseGameHeight;
+        }
+        
+        mGameScale = CGSizeMake(gameScaleWidth, gameScaleHeight);
         
         
         // Initialize the main game view manager that will be responsible for displaying graphics for the game.
@@ -105,7 +124,7 @@
  */
 -(void)loadMainMenu
 {
-    MainMenu* mainMenu = [[MainMenu alloc] initWithRect:mScreenRect];
+    MainMenu* mainMenu = [[MainMenu alloc] initWithRect:mScreenRect screenScale:mScreenScale  gameScale:mGameScale];
     mainMenu.startRandomButton.gameButtonDelegate = self;
     mainMenu.startA1Button.gameButtonDelegate = self;
     mainMenu.userButton.gameButtonDelegate = self;
@@ -118,7 +137,7 @@
 
 -(void)loadUserScreen:(BOOL)displayPrompt
 {
-    UserScreen* userScreen = [[UserScreen alloc] initWithRect:mScreenRect];
+    UserScreen* userScreen = [[UserScreen alloc] initWithRect:mScreenRect screenScale:mScreenScale gameScale:mGameScale];
     userScreen.userScreenDelegate = self;
     [self loadCurrentScreen:userScreen];
     
@@ -159,7 +178,7 @@
 -(void)beginGameWithGameZoneMode:(GameZoneMode)gameZoneMode
 {
     // Load the level.
-    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect gameZoneId:[self generateUniqueGameZoneId] gameZoneMode:gameZoneMode];
+    GameZone* testZone = [[GameZone alloc] initWithRect:mScreenRect screenScale:mScreenScale gameScale:mGameScale gameZoneId:[self generateUniqueGameZoneId] gameZoneMode:gameZoneMode];
     [self loadCurrentScreen:testZone];
 }
 

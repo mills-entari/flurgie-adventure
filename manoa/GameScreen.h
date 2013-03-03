@@ -12,7 +12,7 @@
 
 @property(nonatomic, readonly) GameView* mainView;
 
--(id)initWithRect:(CGRect)rect;
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale;
 -(void)loadGameScreen;
 -(void)unloadGameScreen;
 

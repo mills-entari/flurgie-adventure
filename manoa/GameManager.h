@@ -19,6 +19,8 @@
 
 @property(nonatomic, readonly) GameViewManager* gameViewManager;
 @property(nonatomic, readonly) CGRect screenFrame;
+@property(nonatomic, readonly) CGFloat screenScale;
+@property(nonatomic, readonly) CGSize gameScale;
 @property(nonatomic, readonly) GameUser* gameUser;
 
 +(GameManager*)sharedGameManager;

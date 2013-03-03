@@ -733,6 +733,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
 				INSTALL_PATH = $HOME/Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Chipmunk-iPhone\"",
@@ -742,7 +743,7 @@
 				PROVISIONING_PROFILE = "7031BD56-363F-4902-AE09-680872A296A4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7031BD56-363F-4902-AE09-680872A296A4";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -759,6 +760,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
 				INSTALL_PATH = $HOME/Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Chipmunk-iPhone\"",
@@ -768,7 +770,7 @@
 				PROVISIONING_PROFILE = "A151F5DA-48C1-4173-A069-B1820851C5D1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A151F5DA-48C1-4173-A069-B1820851C5D1";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -849,6 +851,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "manoa/manoa-Info.plist";
 				INSTALL_PATH = $HOME/Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Chipmunk-iPhone\"",
@@ -858,7 +861,7 @@
 				PROVISIONING_PROFILE = "A151F5DA-48C1-4173-A069-B1820851C5D1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A151F5DA-48C1-4173-A069-B1820851C5D1";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";

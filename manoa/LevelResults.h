@@ -9,7 +9,6 @@
 
 @interface LevelResults : GameScreen <GameViewDelegate>
 
--(id)initWithRect:(CGRect)rect;
 -(void)loadResults:(GameReactionTimeTest*)testResults message:(NSString*)msg;
 
 @end

@@ -11,6 +11,4 @@
 @property(nonatomic, readonly) GameButton* startA1Button;
 @property(nonatomic, readonly) GameButton* userButton;
 
--(id)initWithRect:(CGRect)rect;
-
 @end

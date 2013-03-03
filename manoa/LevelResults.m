@@ -13,16 +13,16 @@
 
 @implementation LevelResults
 
--(id)initWithRect:(CGRect)rect
+-(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale
 {
-    if (self = [super initWithRect:rect])
+    if (self = [super initWithRect:rect screenScale:screenScale gameScale:gameScale])
     {
         mMainView.gameViewDelegate = self;
         
         int numResultLines = 5;
         float msgXPos = rect.size.width * 0.1;
         float msgYPos = rect.size.height * 0.08;
-        float msgHeight = numResultLines * 20.0f;
+        float msgHeight = numResultLines * 20.0f * gameScale.height;
         
         
         mResultMsg = [[UILabel alloc] initWithFrame:CGRectMake(msgXPos, msgYPos, rect.size.width - (msgXPos * 2), msgHeight)];
@@ -37,12 +37,12 @@
         
         GameManager* gameManager = [GameManager sharedGameManager];
         
-        float buttonWidth = 200.0f;
-        float buttonHeight = 50.0f;
+        float buttonWidth = 200.0f * gameScale.width;
+        float buttonHeight = 50.0f * gameScale.height;
         float buttonXPos = (rect.size.width / 2.0f) - (buttonWidth / 2.0f);
-        float buttonGap = 20.0f;
+        float buttonGap = 20.0f * gameScale.height;
         
-        CGRect startRandomButtonRect = CGRectMake(buttonXPos, msgYPos + msgHeight + 40.0f, buttonWidth, buttonHeight);
+        CGRect startRandomButtonRect = CGRectMake(buttonXPos, msgYPos + msgHeight + (40.0f * gameScale.height), buttonWidth, buttonHeight);
         mStartRandomButton = [[GameButton alloc] initWithFrame:startRandomButtonRect];
         mStartRandomButton.backgroundColor = [UIColor greenColor];
         mStartRandomButton.name = kStartRandomButtonName;

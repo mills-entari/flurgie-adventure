@@ -16,7 +16,6 @@
 @property(nonatomic, weak) id<UserScreenDelegate> userScreenDelegate;
 @property(nonatomic) NSString* userName;
 
--(id)initWithRect:(CGRect)rect;
 -(void)displayUserNameInput:(NSString*)currentUserName;
 -(void)displayEnterUserNamePrompt;
 
