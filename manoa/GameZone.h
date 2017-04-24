@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <CoreMotion/CoreMotion.h>
 #import "chipmunk.h"
 //#import "GameManager.h"
 #import "GameBounds.h"
@@ -21,7 +22,10 @@
 @interface GameZone : GameScreen <GameViewDelegate, GameRegionDelegate, UIAccelerometerDelegate>
 
 //@property(nonatomic, weak) id<GameZoneDelegate> gameZoneDelegate;
+@property (strong, nonatomic) CMMotionManager* motionManager;
 
 -(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode;
+
+-(void)updateAccelerometerData;
 
 @end

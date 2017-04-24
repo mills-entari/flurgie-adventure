@@ -32,6 +32,7 @@
 		8577A2CC15F9F59A00E6473E /* Splat.png in Resources */ = {isa = PBXBuildFile; fileRef = 8577A2C515F9F59A00E6473E /* Splat.png */; };
 		857DF09115345D4B0039C9C8 /* GraphicsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 857DF09015345D4B0039C9C8 /* GraphicsHelper.m */; };
 		857DF0951536926A0039C9C8 /* GameRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 857DF0941536926A0039C9C8 /* GameRegion.m */; };
+		8587ADAE1EADCB1200D86F56 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8587ADAD1EADCB1200D86F56 /* CoreMotion.framework */; };
 		85A647FF1502326E00A00BBD /* GameZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A647FE1502326E00A00BBD /* GameZone.m */; };
 		85B7505A160D31CF00AA71CA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85B75059160D31CF00AA71CA /* Default-568h@2x.png */; };
 		85B7DC30145189BB00493C87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7DC2F145189BB00493C87 /* UIKit.framework */; };
@@ -139,6 +140,7 @@
 		857DF09015345D4B0039C9C8 /* GraphicsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicsHelper.m; sourceTree = "<group>"; };
 		857DF0931536926A0039C9C8 /* GameRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameRegion.h; sourceTree = "<group>"; };
 		857DF0941536926A0039C9C8 /* GameRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRegion.m; sourceTree = "<group>"; };
+		8587ADAD1EADCB1200D86F56 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		85A647FD1502326E00A00BBD /* GameZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameZone.h; sourceTree = "<group>"; };
 		85A647FE1502326E00A00BBD /* GameZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameZone.m; sourceTree = "<group>"; };
 		85A648011506332B00A00BBD /* GameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameUpdate.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				85B7DC30145189BB00493C87 /* UIKit.framework in Frameworks */,
 				85B7DC32145189BB00493C87 /* Foundation.framework in Frameworks */,
 				85B7DC34145189BB00493C87 /* CoreGraphics.framework in Frameworks */,
+				8587ADAE1EADCB1200D86F56 /* CoreMotion.framework in Frameworks */,
 				85B7DC36145189BB00493C87 /* GLKit.framework in Frameworks */,
 				85B7DC38145189BB00493C87 /* OpenGLES.framework in Frameworks */,
 				8539FED01611A6F40009F545 /* libChipmunk-iPhone.a in Frameworks */,
@@ -316,6 +319,7 @@
 		85B7DC2E145189BB00493C87 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8587ADAD1EADCB1200D86F56 /* CoreMotion.framework */,
 				85B7DC2F145189BB00493C87 /* UIKit.framework */,
 				85B7DC31145189BB00493C87 /* Foundation.framework */,
 				85B7DC33145189BB00493C87 /* CoreGraphics.framework */,
@@ -517,7 +521,7 @@
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					85B7DC2A145189BB00493C87 = {
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -731,7 +735,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
@@ -760,7 +764,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";
@@ -853,7 +857,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "manoa/manoa-Prefix.pch";

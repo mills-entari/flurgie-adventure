@@ -36,6 +36,9 @@
 {
 	if (self = [super initWithRect:rect screenScale:screenScale gameScale:gameScale])
 	{
+        _motionManager = [[CMMotionManager alloc] init];
+        _motionManager.accelerometerUpdateInterval = 1.0f / 30.0f;
+        
         mZoneCreatedDate = [[NSDate alloc] init];
         mGameZoneId = zoneId;
         mGameZoneMode = gameZoneMode;
@@ -61,25 +64,32 @@
 }
 
 -(void)loadGameScreen
-{
-    UIAccelerometer* accel = [UIAccelerometer sharedAccelerometer];
-    accel.updateInterval = 1.0f / 30.0f;
-    accel.delegate = self;
+{    
+    //UIAccelerometer* accel = [UIAccelerometer sharedAccelerometer];
+    //accel.updateInterval = 1.0f / 30.0f;
+    //accel.delegate = self;
+    
+    [_motionManager startAccelerometerUpdates];
 }
 
 -(void)unloadGameScreen
 {
-    [UIAccelerometer sharedAccelerometer].delegate = nil;
+    //[UIAccelerometer sharedAccelerometer].delegate = nil;
+    [_motionManager stopAccelerometerUpdates];
 }
 
--(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)accel
+//-(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)accel
+-(void)updateAccelerometerData
 {
     if (mSpace != nil && !mIsZoneComplete)
     {
         CGSize gameScale = [GameManager sharedGameManager].gameScale;
         //float xForce = accel.x * 500.0f;
-        cpFloat xForce = accel.x * 60.0f * gameScale.width;
-        UIAccelerationValue yAccel = -accel.y;
+        //cpFloat xForce = accel.x * 60.0f * gameScale.width;
+        //UIAccelerationValue yAccel = -accel.y;
+
+        cpFloat xForce = _motionManager.accelerometerData.acceleration.x * 60.0f * gameScale.width;
+        UIAccelerationValue yAccel = -_motionManager.accelerometerData.acceleration.y;
         
         if (yAccel < 0)
         {
@@ -251,6 +261,7 @@
 {
     if (mDoGameUpdate)
     {
+        [self updateAccelerometerData];
         [self checkResultsDisplayTimer:gameTime];
         
         if (mDoUpdatePlayerForce)
