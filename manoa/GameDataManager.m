@@ -6,7 +6,7 @@
     BOOL mSaveDataRemote;
     //NSMutableArray* mGameDataList;
     //NSMutableData* mReceiveData;
-    NSMapTable* mConnDataMap; // Stores NSURLConnection/NSMutableData pairs.
+    //NSMapTable* mConnDataMap; // Stores NSURLConnection/NSMutableData pairs.
 }
 
 //void doSendGameDataRemote(void* args);
@@ -21,7 +21,7 @@
 	{
 		mSaveDataRemote = YES;
         //mGameDataList = [[NSMutableArray alloc] initWithCapacity:4];
-        mConnDataMap = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory capacity:2];
+        //mConnDataMap = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory capacity:2];
 	}
 	
 	return self;
@@ -113,22 +113,43 @@
     // Set the body of the POST request to the multipart MIME encoded dictionary.
     //NSString* postStr = [self multipartMIMEStringWithDictionary:postData boundary:boundary];
     //NSString* postStr = [[NSString alloc] initWithFormat:@"procedure=ADD&gameData=%@", jsonStr];
-    NSString* postStr = [[NSString alloc] initWithFormat:@"gameData=%@", [jsonStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    //NSString* postStr = [[NSString alloc] initWithFormat:@"gameData=%@", [jsonStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString* postStr = [[NSString alloc] initWithFormat:@"gameData=%@", [jsonStr stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet]];
+    
     //DLog("%@", postStr);
     [urlRequest setHTTPBody:[postStr dataUsingEncoding:NSUTF8StringEncoding]];
     
     //DLog("Creating connection to send game data remotely.");
     
-    @synchronized(mConnDataMap)
+    //@synchronized(mConnDataMap)
     {
         // Creating the connection starts the request automatically.
-        NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+//        NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+//        
+//        if (connection != nil)
+//        {
+//            NSMutableData* receiveData = [[NSMutableData alloc] init];
+//            [mConnDataMap setObject:receiveData forKey:connection];
+//        }
+//        
         
-        if (connection != nil)
-        {
-            NSMutableData* receiveData = [[NSMutableData alloc] init];
-            [mConnDataMap setObject:receiveData forKey:connection];
-        }
+        NSURLSession* session = [NSURLSession sharedSession];
+        //NSURLSession* session = [NSURLSession sessionWithConfiguration: NSURLSessionConfiguration.defaultSessionConfiguration];
+        
+        NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:urlRequest
+         completionHandler:^(NSData* data, NSURLResponse* response, NSError* error)
+         {
+             if (error != nil)
+             {
+                 DLog("Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+             }
+             else
+             {
+                 // Assume success.
+             }
+         }];
+        
+        [dataTask resume];
     }
 }
 
@@ -180,70 +201,70 @@
 //
 //@end
 
-@implementation GameDataManager(NSURLConnectionDelegate)
-
-//-(NSCachedURLResponse*)connection:(NSURLConnection*)connection willCacheResponse:(NSCachedURLResponse*)cachedResponse
+//@implementation GameDataManager(NSURLConnectionDelegate)
+//
+////-(NSCachedURLResponse*)connection:(NSURLConnection*)connection willCacheResponse:(NSCachedURLResponse*)cachedResponse
+////{
+////    return nil;
+////}
+//
+//-(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 //{
-//    return nil;
+//    //DLog("didReceiveResponse");
+//    
+//    if (connection != nil)
+//    {
+//        NSMutableData* receiveData = [mConnDataMap objectForKey:connection];
+//        
+//        if (receiveData != nil)
+//        {
+//            // Erase all previous data.
+//            [receiveData setLength:0];
+//        }
+//    }
 //}
-
--(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-{
-    //DLog("didReceiveResponse");
-    
-    if (connection != nil)
-    {
-        NSMutableData* receiveData = [mConnDataMap objectForKey:connection];
-        
-        if (receiveData != nil)
-        {
-            // Erase all previous data.
-            [receiveData setLength:0];
-        }
-    }
-}
-
--(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-{
-    //DLog("didReceiveData");
-    
-    if (connection != nil)
-    {
-        NSMutableData* receiveData = [mConnDataMap objectForKey:connection];
-        
-        if (receiveData != nil)
-        {
-            // Add the data.
-            [receiveData appendData:data];
-        }
-    }
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection*)connection
-{
-    if (connection != nil)
-    {
-        NSMutableData* receiveData = [mConnDataMap objectForKey:connection];
-        
-        if (receiveData != nil)
-        {
-            //DLog("Succeeded! Received %d bytes of data", [receiveData length]);
-            //NSString* receiveStr = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
-            //DLog("Recieved Data: %@", receiveStr);
-        }
-        
-        [mConnDataMap removeObjectForKey:connection];
-    }
-}
-
--(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
-{
-    DLog("Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    
-    if (connection != nil)
-    {
-        [mConnDataMap removeObjectForKey:connection];
-    }
-}
-
-@end
+//
+//-(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
+//{
+//    //DLog("didReceiveData");
+//    
+//    if (connection != nil)
+//    {
+//        NSMutableData* receiveData = [mConnDataMap objectForKey:connection];
+//        
+//        if (receiveData != nil)
+//        {
+//            // Add the data.
+//            [receiveData appendData:data];
+//        }
+//    }
+//}
+//
+//-(void)connectionDidFinishLoading:(NSURLConnection*)connection
+//{
+//    if (connection != nil)
+//    {
+//        NSMutableData* receiveData = [mConnDataMap objectForKey:connection];
+//        
+//        if (receiveData != nil)
+//        {
+//            //DLog("Succeeded! Received %d bytes of data", [receiveData length]);
+//            //NSString* receiveStr = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
+//            //DLog("Recieved Data: %@", receiveStr);
+//        }
+//        
+//        [mConnDataMap removeObjectForKey:connection];
+//    }
+//}
+//
+//-(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
+//{
+//    DLog("Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+//    
+//    if (connection != nil)
+//    {
+//        [mConnDataMap removeObjectForKey:connection];
+//    }
+//}
+//
+//@end

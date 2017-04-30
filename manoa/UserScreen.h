@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "UIAlertController+Window.h"
 #import "GameScreen.h"
 
 @class UserScreen;
@@ -11,12 +12,14 @@
 
 @end
 
-@interface UserScreen : GameScreen <UIAlertViewDelegate>
+@interface UserScreen : GameScreen
 
 @property(nonatomic, weak) id<UserScreenDelegate> userScreenDelegate;
 @property(nonatomic) NSString* userName;
 
 -(void)displayUserNameInput:(NSString*)currentUserName;
 -(void)displayEnterUserNamePrompt;
+-(void)fireOkButtonClickedDelegate;
+-(void)fireCancelButtonClickedDelegate;
 
 @end

@@ -26,7 +26,7 @@
 //		growOnTouch = YES;
 //		drawOnTouch = YES;
 		mButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-		mButtonLabel.textAlignment = UITextAlignmentCenter;
+		mButtonLabel.textAlignment = NSTextAlignmentCenter;
 		mButtonLabel.font = [UIFont systemFontOfSize:frame.size.height * 0.8];
 		mButtonLabel.textColor = [UIColor blackColor];
 		mButtonLabel.backgroundColor = [UIColor clearColor];

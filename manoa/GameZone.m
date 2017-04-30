@@ -89,7 +89,7 @@
         //UIAccelerationValue yAccel = -accel.y;
 
         cpFloat xForce = _motionManager.accelerometerData.acceleration.x * 60.0f * gameScale.width;
-        UIAccelerationValue yAccel = -_motionManager.accelerometerData.acceleration.y;
+        double yAccel = -_motionManager.accelerometerData.acceleration.y;
         
         if (yAccel < 0)
         {
@@ -152,7 +152,7 @@
     
     // Create UI to display test time.
     mTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f * gameScale.width, 10.0f * gameScale.height, 20.0f * gameScale.width, 20.0f * gameScale.height)];
-    mTimeLabel.textAlignment = UITextAlignmentRight;
+    mTimeLabel.textAlignment = NSTextAlignmentRight;
     mTimeLabel.font = [UIFont systemFontOfSize:14];
     mTimeLabel.textColor = [UIColor blackColor];
     mTimeLabel.backgroundColor = [UIColor clearColor];

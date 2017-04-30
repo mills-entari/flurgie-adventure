@@ -51,7 +51,7 @@
 {
 	if (self = [super init]) 
 	{
-        CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+        CGRect appFrame = [[UIScreen mainScreen] bounds];
         mScreenScale = [[UIScreen mainScreen] scale];
         CGRect screenFrame = CGRectMake(appFrame.origin.x, appFrame.origin.y, appFrame.size.width * mScreenScale, appFrame.size.height * mScreenScale);
         DLog(@"App Frame: %.0fx%.0f", appFrame.size.width, appFrame.size.height);

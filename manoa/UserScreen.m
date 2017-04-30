@@ -69,82 +69,162 @@ typedef enum
 -(void)displayUserNameInput:(NSString*)currentUserName
 {
     mUserScreenMode = UserScreenModeEnterUserName;
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kUserScreenTitle message:kUserScreenMessage delegate:self cancelButtonTitle:kUserScreenCancelButtonTitle otherButtonTitles:nil];
-    [alertView addButtonWithTitle:kUserScreenOkButtonTitle];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
-    if (currentUserName != nil)
-    {
-        UITextField* textField = [alertView textFieldAtIndex:0];
-        textField.text = currentUserName;
-    }
+    //UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kUserScreenTitle message:kUserScreenMessage delegate:self cancelButtonTitle:kUserScreenCancelButtonTitle otherButtonTitles:nil];
     
-    [alertView show];
+    //[alertView addButtonWithTitle:kUserScreenOkButtonTitle];
+    //alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    //if (currentUserName != nil)
+    //{
+    //    UITextField* textField = [alertView textFieldAtIndex:0];
+    //    textField.text = currentUserName;
+    //}
+    
+    //[alertView show];
+    
+    
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:kUserScreenTitle message:kUserScreenMessage preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField* textField)
+     {
+         textField.placeholder = NSLocalizedString(@"UserNamePlaceholder", @"User Name");
+     }];
+    
+    UIAlertAction* okAction = [UIAlertAction
+                               actionWithTitle:kUserScreenOkButtonTitle
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   UITextField* userNameTextField = alertController.textFields.firstObject;
+                                   mUserName = userNameTextField.text;
+                                   
+                                   DLog("User Name: %@", mUserName);
+                                   
+                                   // Validate the user name. Very simple for now, just make sure they put in something.
+                                   // TODO: Make user validation more sophisticated.
+                                   if ([mUserName length] > 0)
+                                   {
+                                       [self fireOkButtonClickedDelegate];
+                                   }
+                                   else
+                                   {
+                                       // Invalid user name, let the user know.
+                                       [self displayEnterUserNamePrompt];
+                                   }
+
+                               }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction
+                                   actionWithTitle:kUserScreenCancelButtonTitle
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       mUserName = nil;
+                                       [self fireCancelButtonClickedDelegate];
+                                   }];
+    
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    //[self presentViewController:alertController animated:YES completion:nil];
+    [alertController show];
 }
 
 -(void)displayEnterUserNamePrompt
 {
     mUserScreenMode = UserScreenModePromptEnterUserName;
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kUserScreenTitle message:kUserScreenUserNameMessage delegate:self cancelButtonTitle:kUserScreenOkButtonTitle otherButtonTitles:nil];
-    alertView.alertViewStyle = UIAlertViewStyleDefault;
-    [alertView show];
-}
-
-@end
-
-@implementation UserScreen(UIAlertViewDelegate)
-
--(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString* buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
     
-    if (mUserScreenMode == UserScreenModeEnterUserName)
-    {
-        if([buttonTitle isEqualToString:kUserScreenCancelButtonTitle])
-        {
-            mUserName = nil;
-            [self fireCancelButtonClickedDelegate];
-        }
-        else if([buttonTitle isEqualToString:kUserScreenOkButtonTitle])
-        {
-            UITextField* textField = [alertView textFieldAtIndex:0];
-            mUserName = textField.text;
-            
-            DLog("User Name: %@", mUserName);
-            
-            // Validate the user name. Very simple for now, just make sure they put in something.
-            // TODO: Make user validation more sophisticated.
-            if ([mUserName length] > 0)
-            {
-                [self fireOkButtonClickedDelegate];
-            }
-            else
-            {
-                // Invalid user name, let the user know.
-                [self displayEnterUserNamePrompt];
-            }
-        }
-    }
-    else if (mUserScreenMode == UserScreenModePromptEnterUserName)
-    {
-        [self displayUserNameInput:nil];
-    }
+//    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kUserScreenTitle message:kUserScreenUserNameMessage delegate:self cancelButtonTitle:kUserScreenOkButtonTitle otherButtonTitles:nil];
+//    alertView.alertViewStyle = UIAlertViewStyleDefault;
+//    [alertView show];
+    
+    
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:kUserScreenTitle message:kUserScreenUserNameMessage preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* okAction = [UIAlertAction
+                               actionWithTitle:kUserScreenOkButtonTitle
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   [self displayUserNameInput:nil];
+                               }];
+    
+    [alertController addAction:okAction];
+    //[self presentViewController:alertController animated:YES completion:nil];
+    [alertController show];
 }
 
 -(void)fireOkButtonClickedDelegate
 {
     if (mUserScreenDelegate != nil && [mUserScreenDelegate respondsToSelector:@selector(okButtonClicked:)])
-	{
-		[mUserScreenDelegate okButtonClicked:self];
-	}
+    {
+        [mUserScreenDelegate okButtonClicked:self];
+    }
 }
 
 -(void)fireCancelButtonClickedDelegate
 {
     if (mUserScreenDelegate != nil && [mUserScreenDelegate respondsToSelector:@selector(cancelButtonClicked:)])
-	{
-		[mUserScreenDelegate cancelButtonClicked:self];
-	}
+    {
+        [mUserScreenDelegate cancelButtonClicked:self];
+    }
 }
 
 @end
+
+//@implementation UserScreen(UIAlertViewDelegate)
+//
+//-(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    NSString* buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
+//    
+//    if (mUserScreenMode == UserScreenModeEnterUserName)
+//    {
+//        if([buttonTitle isEqualToString:kUserScreenCancelButtonTitle])
+//        {
+//            mUserName = nil;
+//            [self fireCancelButtonClickedDelegate];
+//        }
+//        else if([buttonTitle isEqualToString:kUserScreenOkButtonTitle])
+//        {
+//            UITextField* textField = [alertView textFieldAtIndex:0];
+//            mUserName = textField.text;
+//            
+//            DLog("User Name: %@", mUserName);
+//            
+//            // Validate the user name. Very simple for now, just make sure they put in something.
+//            // TODO: Make user validation more sophisticated.
+//            if ([mUserName length] > 0)
+//            {
+//                [self fireOkButtonClickedDelegate];
+//            }
+//            else
+//            {
+//                // Invalid user name, let the user know.
+//                [self displayEnterUserNamePrompt];
+//            }
+//        }
+//    }
+//    else if (mUserScreenMode == UserScreenModePromptEnterUserName)
+//    {
+//        [self displayUserNameInput:nil];
+//    }
+//}
+
+//-(void)fireOkButtonClickedDelegate
+//{
+//    if (mUserScreenDelegate != nil && [mUserScreenDelegate respondsToSelector:@selector(okButtonClicked:)])
+//	{
+//		[mUserScreenDelegate okButtonClicked:self];
+//	}
+//}
+
+//-(void)fireCancelButtonClickedDelegate
+//{
+//    if (mUserScreenDelegate != nil && [mUserScreenDelegate respondsToSelector:@selector(cancelButtonClicked:)])
+//	{
+//		[mUserScreenDelegate cancelButtonClicked:self];
+//	}
+//}
+
+//@end

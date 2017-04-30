@@ -16,7 +16,7 @@
         
         // Setup FPS variables.
 		mFrameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, frame.size.width - 20.0, 20.0)];
-		mFrameLbl.textAlignment = UITextAlignmentRight;
+		mFrameLbl.textAlignment = NSTextAlignmentRight;
 		mFrameLbl.font = [UIFont systemFontOfSize:14];
 		mFrameLbl.textColor = [UIColor blackColor];
 		mFrameLbl.backgroundColor = [UIColor clearColor];

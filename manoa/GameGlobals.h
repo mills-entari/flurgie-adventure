@@ -26,14 +26,14 @@
 
 typedef struct ColorData
 {
-	float r;
-	float g;
-	float b;
-	float a;
+	CGFloat r;
+	CGFloat g;
+	CGFloat b;
+	CGFloat a;
 } Color;
 
 static inline Color
-ColorMake(float r, float g, float b, float a)
+ColorMake(CGFloat r, CGFloat g, CGFloat b, CGFloat a)
 {
     Color color;
     

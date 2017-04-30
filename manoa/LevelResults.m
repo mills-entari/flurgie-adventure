@@ -26,8 +26,8 @@
         
         
         mResultMsg = [[UILabel alloc] initWithFrame:CGRectMake(msgXPos, msgYPos, rect.size.width - (msgXPos * 2), msgHeight)];
-		mResultMsg.textAlignment = UITextAlignmentLeft;
-        mResultMsg.lineBreakMode = UILineBreakModeWordWrap;
+		mResultMsg.textAlignment = NSTextAlignmentLeft;
+        mResultMsg.lineBreakMode = NSLineBreakByWordWrapping;
         mResultMsg.numberOfLines = numResultLines;
 		mResultMsg.font = [UIFont systemFontOfSize:14];
 		mResultMsg.textColor = [UIColor whiteColor];

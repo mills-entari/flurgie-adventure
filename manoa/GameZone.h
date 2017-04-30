@@ -19,13 +19,12 @@
 //
 //@end
 
-@interface GameZone : GameScreen <GameViewDelegate, GameRegionDelegate, UIAccelerometerDelegate>
+@interface GameZone : GameScreen <GameViewDelegate, GameRegionDelegate>
 
 //@property(nonatomic, weak) id<GameZoneDelegate> gameZoneDelegate;
 @property (strong, nonatomic) CMMotionManager* motionManager;
 
 -(id)initWithRect:(CGRect)rect screenScale:(CGFloat)screenScale gameScale:(CGSize)gameScale gameZoneId:(NSString*)zoneId gameZoneMode:(GameZoneMode)gameZoneMode;
-
 -(void)updateAccelerometerData;
 
 @end

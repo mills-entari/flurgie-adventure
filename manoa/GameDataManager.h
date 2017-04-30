@@ -2,7 +2,7 @@
 #import "GameZoneData.h"
 #import "GameOptions.h"
 
-@interface GameDataManager : NSObject <GameOptionsDelegate, NSURLConnectionDelegate>
+@interface GameDataManager : NSObject <GameOptionsDelegate>
 
 -(void)saveGameData:(GameZoneData*)gameData;
 

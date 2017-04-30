@@ -17,7 +17,7 @@
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     // Override point for customization after application launch.
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect appFrame = [[UIScreen mainScreen] bounds];
     
     if (mWindow == nil)
     {
