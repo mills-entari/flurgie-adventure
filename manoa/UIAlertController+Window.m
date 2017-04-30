@@ -8,6 +8,24 @@
 
 #import "UIAlertController+Window.h"
 
+
+@implementation UIAlertController (Private)
+
+@dynamic alertWindow;
+
+-(void)setAlertWindow:(UIWindow *)alertWindow
+{
+    objc_setAssociatedObject(self, @selector(alertWindow), alertWindow, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(UIWindow *)alertWindow
+{
+    return objc_getAssociatedObject(self, @selector(alertWindow));
+}
+
+@end
+
+
 @implementation UIAlertController (Window)
 
 -(void)show

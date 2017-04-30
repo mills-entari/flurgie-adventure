@@ -4,6 +4,7 @@
 //
 //  Created by Emiliano Miranda on 4/25/17.
 //
+//  This solution was derived from "agilityvision" in the post http://stackoverflow.com/questions/26554894/how-to-present-uialertcontroller-when-not-in-a-view-controller
 //
 
 #import <Foundation/Foundation.h>
@@ -18,6 +19,6 @@
 
 @interface UIAlertController (Private)
 
-@property (nonatomic, strong) UIWindow* alertWindow;
+@property(nonatomic, strong) UIWindow* alertWindow;
 
 @end

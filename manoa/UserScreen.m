@@ -88,7 +88,7 @@ typedef enum
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField* textField)
      {
-         textField.placeholder = NSLocalizedString(@"UserNamePlaceholder", @"User Name");
+         textField.placeholder = NSLocalizedString(@"User Name", @"User Name");
      }];
     
     UIAlertAction* okAction = [UIAlertAction
