@@ -85,22 +85,31 @@
 -(void)createBody:(CGSize)gameScale
 {
     mBody = cpBodyNew(mMass, cpMomentForBox(mMass, mSize.width, mSize.height));
-    cpBodySetPos(mBody, mPosition);
-    cpBodySetVelLimit(mBody, kActorMaxVel * gameScale.height);
+    cpBodySetPosition(mBody, mPosition);
+    cpVect vel;
+    vel.x = 0.0f;
+    vel.y = kActorMaxVel * gameScale.height;
+    cpBodySetVelocity(mBody, vel);
     cpSpaceAddBody(mSpace, mBody);
     
-    mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
+    mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height, 1.0f);
     //mShape = cpBoxShapeNew(mBody, mSize.width, 1.0f);
 //    cpVect lowerLeftPos = cpv(mPosition.x - (mSize.width / 2.0f), mPosition.y + (mSize.height / 2.0f));
 //    cpVect lowerRightPos = cpv(mPosition.x + (mSize.width / 2.0f), mPosition.y + (mSize.height / 2.0f));
 //    mShape = cpSegmentShapeNew(mBody, lowerLeftPos, lowerRightPos, mSize.height);
-    mShape->data = (__bridge void*)self;
+    //mShape->data = (__bridge void*)self;
+    cpShapeSetUserData(mShape, (__bridge void*)self);
     cpShapeSetElasticity(mShape, mElasticity);
     cpShapeSetFriction(mShape, mFriction);
     //cpShapeSetGroup(mShape, CP_NO_GROUP);
-    cpShapeSetGroup(mShape, (unsigned long)self);
+    //cpShapeSetGroup(mShape, (unsigned long)self);
+    //cpShapeSetGroup(mShape, (unsigned long)self);
     //DLog("Address of Actor2D obj = %lu", (unsigned long)self);
-    cpShapeSetLayers(mShape, CP_ALL_LAYERS);
+    //cpShapeSetLayers(mShape, CP_ALL_LAYERS);
+    
+    cpShapeFilter allFilter = cpShapeFilterNew((unsigned long)self, CP_ALL_CATEGORIES, CP_ALL_CATEGORIES);
+    cpShapeSetFilter(mShape, allFilter);
+    
     cpShapeSetCollisionType(mShape, GameCollisionTypeActor);
     cpSpaceAddShape(mSpace, mShape);
 }
@@ -153,7 +162,7 @@
 {
     if (mBody != nil)
     {
-        mPosition = cpBodyGetPos(mBody);
+        mPosition = cpBodyGetPosition(mBody);
         [self updateSpritePosition];
     }
 }
@@ -161,7 +170,7 @@
 -(void)setPosition:(cpVect)pos
 {
     mPosition = pos;
-    cpBodySetPos(mBody, mPosition);
+    cpBodySetPosition(mBody, mPosition);
     [self updateSpritePosition];
 }
 
@@ -191,7 +200,10 @@
         mParentActor = parent;
         
         // Set the physics shape group.
-        cpShapeSetGroup(mShape, (unsigned long)parent);
+        //cpShapeSetGroup(mShape, (unsigned long)parent);
+        
+        cpShapeFilter allFilter = cpShapeFilterNew((unsigned long)parent, CP_ALL_CATEGORIES, CP_ALL_CATEGORIES);
+        cpShapeSetFilter(mShape, allFilter);
     }
 }
 

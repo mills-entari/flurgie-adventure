@@ -272,11 +272,12 @@
                 
                 // Very crude way to update player gravity and max speed. Need to change later.
                 //DLog("Gravity: %.0f", mCurrentGravity.y);
-                cpBodySetVelLimit(player.physicsBody, mCurrentGravity.y);
+                //cpBodySetVelLimit(player.physicsBody, mCurrentGravity.y);
+                cpBodyUpdateVelocity(player.physicsBody, mCurrentGravity, 0.0f, gameTime.elapsedSeconds);
                 cpSpaceSetGravity(mSpace, mCurrentGravity);
                 //cpBodySetForce(player.physicsBody, mPlayerForce);
                 //cpBodyApplyForce(player.physicsBody, mPlayerForce, cpvzero);
-                cpBodyApplyImpulse(player.physicsBody, mPlayerForce, cpvzero);
+                cpBodyApplyImpulseAtLocalPoint(player.physicsBody, mPlayerForce, cpvzero);
                 mDoUpdatePlayerForce = NO;
             }
         }

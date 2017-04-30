@@ -94,7 +94,11 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 
 -(void)registerCurrentRegionCallbacks
 {
-    cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem, NULL, preSolveItemCollision, NULL, NULL, (__bridge void*)self);
+    cpCollisionHandler* collisionHandler = cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem);
+    collisionHandler->preSolveFunc = &preSolveItemCollision;
+    collisionHandler->userData = (__bridge void*)self;
+    
+    //cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem, NULL, preSolveItemCollision, NULL, NULL, (__bridge void*)self);
     //cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeItem, beginCollision, NULL, NULL, NULL, NULL);
 }
 
@@ -108,7 +112,12 @@ void postStepRemove(cpSpace* space, cpShape* shape, void* userData);
 {
     //[self createZoneBounds];
     [self createGround];
-    cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeGround, beginGroundCollision, NULL, NULL, NULL, (__bridge void*)self);
+    //cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeGround, beginGroundCollision, NULL, NULL, NULL, (__bridge void*)self);
+    
+    cpCollisionHandler* collisionHandler = cpSpaceAddCollisionHandler(mSpace, GameCollisionTypeActor, GameCollisionTypeGround);
+    collisionHandler->preSolveFunc = &beginGroundCollision;
+    collisionHandler->userData = (__bridge void*)self;
+    
     mIsGroundRegion = YES;
     
     [self createRandomGameItems];

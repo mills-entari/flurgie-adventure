@@ -59,9 +59,13 @@
         
         cpShapeSetElasticity(mShape, 1.0f);
         cpShapeSetFriction(mShape, 1.0f);
-        cpShapeSetGroup(mShape, CP_NO_GROUP);
-        cpShapeSetLayers(mShape, CP_ALL_LAYERS);
+        //cpShapeSetGroup(mShape, CP_NO_GROUP);
+        //cpShapeSetLayers(mShape, CP_ALL_LAYERS);
         //cpShapeSetCollisionType(mShape, (cpCollisionType)[GameBounds class]);
+        
+        cpShapeFilter noneFilter = cpShapeFilterNew(CP_NO_GROUP, CP_ALL_CATEGORIES, CP_ALL_CATEGORIES);
+        cpShapeSetFilter(mShape, noneFilter);
+        
         
         cpCollisionType collisionType = GameCollisionTypeBounds;
         
@@ -73,7 +77,7 @@
         cpShapeSetCollisionType(mShape, collisionType);
         
         //cpSpaceAddShape(mSpace, mShape);
-        cpSpaceAddStaticShape(mSpace, mShape);
+        cpSpaceAddShape(mSpace, mShape);
     }
     
     return self;

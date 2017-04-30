@@ -59,19 +59,24 @@
     
     //mBody = cpSpaceGetStaticBody(mSpace);
     mBody = cpBodyNewStatic();
-    cpBodySetPos(mBody, mPosition);
+    cpBodySetPosition(mBody, mPosition);
     
     //mShape = cpSegmentShapeNew(mBody, lowerLeftPos, lowerRightPos, mSize.height);
-    mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
+    mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height, 1.0f);
     //mShape = cpBoxShapeNew(mBody, mSize.width, 1.0f);
-    mShape->data = (__bridge void*)self;
+    //mShape->data = (__bridge void*)self;
+    cpShapeSetUserData(mShape, (__bridge void*)self);
     //mShape = cpBoxShapeNew(mBody, mSize.width, mSize.height);
     cpShapeSetElasticity(mShape, mElasticity);
     cpShapeSetFriction(mShape, mFriction);
-    cpShapeSetGroup(mShape, CP_NO_GROUP);
-    cpShapeSetLayers(mShape, CP_ALL_LAYERS);
+    //cpShapeSetGroup(mShape, CP_NO_GROUP);
+    //cpShapeSetLayers(mShape, CP_ALL_LAYERS);
+    
+    cpShapeFilter noneFilter = cpShapeFilterNew(CP_NO_GROUP, CP_ALL_CATEGORIES, CP_ALL_CATEGORIES);
+    cpShapeSetFilter(mShape, noneFilter);
+    
     cpShapeSetCollisionType(mShape, GameCollisionTypeItem);
-    cpSpaceAddStaticShape(mSpace, mShape);
+    cpSpaceAddShape(mSpace, mShape);
 }
 
 -(void)dealloc
