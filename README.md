@@ -195,3 +195,16 @@ Table 1. Number of Trials and Reaction Times for Participants
 | Participant 1 | 147           | 16        | 2.0690                      | 0.3455                      | 2.4298                  | 0.6948                  |
 | Participant 2 | 74            | 22        | 2.4916                      | 0.3010                      | 2.7147                  | 0.5439                  |
 | Participant 3 | 51            | 7         | 2.7252                      | 0.7782                      | 2.8330                  | 0.7924                  |
+
+## 8. Conclusion
+In this project we created a design for a video game where the reaction times of a player’s responses to a probability distribution embedded within the game could be measured. This game was designed to be very simplistic in order to test our assumption that as a person learns a distribution in the game, they will have a faster reaction time to complete the game’s goal after activating a stimulus when compared to a random distribution of the same thing.
+
+A secondary objective of our project was to attract more people to participate in experiments carefully designed as video games and we targeted Apple’s iOS platform to achieve this. Mobile device hardware features, such as accelerometers, were included in our design to improve the reaction times of players. We showed that several people were attracted to the idea of playing a game that also had a research angle tied to it.
+
+Data collected in the game was sent over the Internet to our central database for analysis where a small difference in the reaction times between the A1 and Random game modes was observed. Better tuning of the game to allow finer controls over the character may allow us to expand upon this effect. An examination of the failure rates for each game mode was also discussed. Future work will expand upon our data collection process, by eliminating initialization period failures, to obtain a more accurate failure rate analysis.
+
+
+## References
+Lembcke, S. (2013). Chipmunk Physics. In *Chipmunk Game Dynamics*. Retrieved January 1, 2013, from http://chipmunk-physics.net.
+
+Hunt, R., Aslin, R. (2001).Statistical Learning in a Serial Reaction Time Task: Access to Separable Statistical Cues by Individual Learners. *Journal of Experimental Psychology: General*, 130 (4). 658-680. American Psychological Association.
