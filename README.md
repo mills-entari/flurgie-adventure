@@ -29,9 +29,9 @@ Can we implement SRTTs in software and can we then analyze the data to the same 
 ## 2. Background
 Our work is inspired by the research done by Hunt & Aslin (2001) studying statistical learning in a serial reaction time task. In their experiments, a box with illuminable buttons up was constructed. Figure 1 illustrates one of their designs for a box from their paper.
 
-![Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up.](https://www.imberstudios.com/images/slvg/light_box_2.png)
-
-(Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up.)
+| ![Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up.](https://www.imberstudios.com/images/slvg/light_box_2.png) |
+|:--:|
+| Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up. |
 
 The purpose of this device was to construct a language of words, where each word consisted of elements that were a sequence of buttons that lit up. For example, the letter “A” may consist of the buttons 1 and 7 lighting up in sequence. A word itself may contain several elements, though typically two to three were used in the experiments. Words were arranged with certain probabilities in the language to see if people could learn them. This setup allowed Hunt & Aslin to find which distributions people would use to enhance their performance. In one of their experiments, for words with two elements, they showed that the mean reaction times for the first element were higher than the second element, and that the difference increased with more training. The implication of this is that people were learning the patterns of the elements for words and were able to predict the second element based on their observation of the first one. Another observation noted by Hunt & Aslin was that the reaction time for the first element decreased and eventually reached an average value, which the authors accounted as a change due to motor learning. This is an interesting observation because the first element cannot be predicted and demonstrates how participants got physically better at the task until they reached a level of physical performance they could not surpass.
 
@@ -70,3 +70,24 @@ Players should not feel encumbered by the controls of the game, nor spend a sign
 
 ### 4.3 Selected Target Device
 With the specified hardware requirements, two platforms standout as candidates to develop our research game, Apple’s iOS and Google’s Android operating systems. We chose to develop on iOS due to its wide availability, standardized hardware, streamlined development process and its familiarity with the author. This operating system will allow us to support iPhone, iPod Touch and iPad devices.
+
+
+## 5. Design Considerations
+We must be careful to create a design that has the right balance of gathering useful research data and having a game that is fun. It is difficult to prescribe an exact recipe for a fun game, so we will first focus our design considerations on what we need to gather data for SRTT experiments. Our intention is to then evolve a fun game out of this.
+
+### 5.1 Motor Learning
+Based on the prior work done by Hunt & Aslin (2001) we know that we need to find a way to measure the reaction time it takes for a player to react correctly to a stimulus. This is the time needed to learn the statistical structure, which is the time from a stimulus to a location dependent on it. In order to capture the reaction time as accurately as possible we must remove motor learning as described in section 2.
+
+For example, when using our target device with an accelerometer, the player may not necessarily know how the movement will work for their character until they try tilting their device in a few directions. The time it takes to get used to the accelerometer should not be factored into their reaction time. In general, this motor learning time should decrease with experience in the game.
+
+It is important to keep the motor learning process similar to what must be done during the reaction time period. In the previously mentioned accelerometer example, if the sensitivity of the accelerometer were drastically changed after activating the stimulus, it would affect how the player reacts to the game world and not accurately reflect their response time to the stimulus. Ideally, by the time the player activates the stimulus they will have adjusted and be ready to react. If the player for some reason fails to complete the motor learning phase, then the test is invalid and can be restarted.
+
+### 5.2 Learning Probability Distributions
+The primary matter at hand when conducting these experiments is whether players can learn the underlying probability distribution in games. A major question that must be answered in any design is how to embed distributions into the gameplay. It should be possible for players to detect probabilistic patterns based on what they observe with the stimulus in order to predict how to respond correctly to it.
+
+In summary, we want players think about P(S2|S1), that is, the probability of S2 given S1, where:
+
+* S1 = Stimulus
+* S2 = Correct response to the stimulus (S1)
+
+Mapping this as a probability distribution within a game is one of the major design challenges.
