@@ -57,3 +57,16 @@ Integrating reaction time experiments into software allows us to easily collect 
 
 ### 3.3 Engaging Experience
 It may not always be enough to simply ask participants to conduct experiments through software. A research experiment can be made to feel less artificial and more immersive when designed as a game. A game can give players meaningful goals that they are motivated to achieve. This serves two important points: first, there is more opportunity for participants to contribute data because players will want to play the game more. Secondly, because it is important for participants to not directly focus on what they may be learning in SRTTs. The challenge with making a game however is whether it is fun and that is not something that can be easily measured as making a game fun is more of a black art than a recipe to follow.
+
+
+## 4. Hardware Requirements
+With our goals outlined, we will detail the hardware requirements needed for the game.
+
+### 4.1 Mobile Access & Web Enabled
+The game should be developed for a mobile device, providing for ease of access. We want players to be able to play and stop at any time, so the tests conducted in the game should be kept short, perhaps to less than 30 seconds. As mentioned in our goals to target more participants and store collected data remotely, a device capable of accessing the Internet will be necessary. Ultimately, the purpose of this requirement is to allow data to flow in from a person at any time they can play the game.
+
+### 4.2 Accelerometer
+Players should not feel encumbered by the controls of the game, nor spend a significant amount of time trying to learn them. The rules of the game should be self-explanatory without the requirement of a tutorial, as is common in traditional games. While there may be a need for a user interface, it should be minimal to avoid any cognitive load on players. Utilizing the accelerometer of a device allows for natural gestures based on hand movements and removes the need for certain buttons. Players can also benefit from this with faster reactions than what may be possible with traditional interfaces.
+
+### 4.3 Selected Target Device
+With the specified hardware requirements, two platforms standout as candidates to develop our research game, Apple’s iOS and Google’s Android operating systems. We chose to develop on iOS due to its wide availability, standardized hardware, streamlined development process and its familiarity with the author. This operating system will allow us to support iPhone, iPod Touch and iPad devices.
