@@ -187,3 +187,11 @@ In Figure 6 we see the menu screen where the game modes can be selected after co
 It may be that people are more drawn to press the top button as a reflex reaction when wanting to play another level. This could be a side effect of having a game with fast gameplay and people wanting to quickly restart a new level after they have completed one. If this is true, then a simple fix could be to randomize the order of the placement for the Random and A1 buttons when drawn on the screen, so that even if a person always presses the top button, it will alternate between the different modes.
 
 Because there was insufficient data from the other participants to plot graphs we opted to highlight key points in tabular form. Table 1 summarizes the number of trials for each game mode and their mean reaction times.
+
+Table 1. Number of Trials and Reaction Times for Participants
+| Participant   | Random Trials | A1 Trials | Mean Reaction Time (Random) | Standard Deviation (Random) | Mean Reaction Time (A1) | Standard Deviation (A1) |
+|---------------|---------------|-----------|-----------------------------|-----------------------------|-------------------------|-------------------------|
+| Author        | 500           | 500       | 1.9520                      | 0.2269                      | 1.8679                  | 0.1921                  |
+| Participant 1 | 147           | 16        | 2.0690                      | 0.3455                      | 2.4298                  | 0.6948                  |
+| Participant 2 | 74            | 22        | 2.4916                      | 0.3010                      | 2.7147                  | 0.5439                  |
+| Participant 3 | 51            | 7         | 2.7252                      | 0.7782                      | 2.8330                  | 0.7924                  |
