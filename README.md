@@ -1,7 +1,7 @@
 # flurgie-adventure
 Game Learning project in the Machine Learning Laboratory at the University of Hawaii at Manoa.
 
-PDF link to report on project: [Statistical Learning in Video Games](https://goo.gl/kzFBbE)
+PDF link to report on project: [Statistical Learning in Video Games](https://1drv.ms/b/c/c17a4c2e81200995/EZMq4mXhl4tBnL0oREYJtQ0BZSglz2cF_RojWvHdbJB9VQ)
 
 
 # Statistical Learning in Video Games
