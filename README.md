@@ -29,7 +29,7 @@ Can we implement SRTTs in software and can we then analyze the data to the same 
 ## 2. Background
 Our work is inspired by the research done by Hunt & Aslin (2001) studying statistical learning in a serial reaction time task. In their experiments, a box with illuminable buttons up was constructed. Figure 1 illustrates one of their designs for a box from their paper.
 
-| ![Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up.](https://www.imberstudios.com/images/slvg/light_box_2.png) |
+| ![Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/light_box_2.png) |
 |:--:|
 | Figure 1. Light box device illustration from Hunt & Aslin (2001). This figure illustrates the light box with eight buttons used in their 3rd experiment and a sequence of how the buttons could light up. |
 
@@ -105,7 +105,7 @@ The game world is partitioned into two screens. The first screen contains the pi
 ### 6.1 Positioning of the Pillow & Basket
 The method in which the pillow and basket are positioned is determined based on the game mode used. Two game modes are currently available, which we have dubbed Random and A1. In the Random mode, the position of the basket is completely random and has no correlation to the position of the pillow. In A1, a Normal distribution is used to position the basket based on where the pillow was located. To keep the implementation as simple as possible, the distribution is mapped directly onto the game world. Figure 2 demonstrates a scenario of how the pillow and basket could be placed in the game.
 
-| ![Figure 2. Pillow and basket screens in A1 game mode. This figure shows an example of the A1 game mode and where the basket was placed in relation to the pillow. Note that the Normal distribution curve is not actually displayed in the game and is shown here for illustration purposes. This particular curve is always centered with the highest probability at the center of the pillow. The x-axis represents the horizontal location of where the basket will appear and the y-axis represents the probability of the basket appearing at that horizontal location based on where the pillow was.](https://www.imberstudios.com/images/slvg/normal_overlay_1.png) ![Figure 2. Pillow and basket screens in A1 game mode. This figure shows an example of the A1 game mode and where the basket was placed in relation to the pillow. Note that the Normal distribution curve is not actually displayed in the game and is shown here for illustration purposes. This particular curve is always centered with the highest probability at the center of the pillow. The x-axis represents the horizontal location of where the basket will appear and the y-axis represents the probability of the basket appearing at that horizontal location based on where the pillow was.](https://www.imberstudios.com/images/slvg/normal_overlay_2.png) |
+| ![Figure 2. Pillow and basket screens in A1 game mode. This figure shows an example of the A1 game mode and where the basket was placed in relation to the pillow. Note that the Normal distribution curve is not actually displayed in the game and is shown here for illustration purposes. This particular curve is always centered with the highest probability at the center of the pillow. The x-axis represents the horizontal location of where the basket will appear and the y-axis represents the probability of the basket appearing at that horizontal location based on where the pillow was.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/normal_overlay_1.png) ![Figure 2. Pillow and basket screens in A1 game mode. This figure shows an example of the A1 game mode and where the basket was placed in relation to the pillow. Note that the Normal distribution curve is not actually displayed in the game and is shown here for illustration purposes. This particular curve is always centered with the highest probability at the center of the pillow. The x-axis represents the horizontal location of where the basket will appear and the y-axis represents the probability of the basket appearing at that horizontal location based on where the pillow was.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/normal_overlay_2.png) |
 |:--:|
 | Figure 2. Pillow and basket screens in A1 game mode. This figure shows an example of the A1 game mode and where the basket was placed in relation to the pillow. Note that the Normal distribution curve is not actually displayed in the game and is shown here for illustration purposes. This particular curve is always centered with the highest probability at the center of the pillow. The x-axis represents the horizontal location of where the basket will appear and the y-axis represents the probability of the basket appearing at that horizontal location based on where the pillow was. |
 
@@ -120,7 +120,7 @@ Tuning of the game is still an ongoing effort in the project. This includes conf
 
 Tuning the character movement can affect the difficulty of our game. If the character moves fast it will require greater skill to make an accurate prediction and maneuver the character correctly in the world. While this could allow for the ability to make the game more interesting, it is not something we will pursue at this time. In terms of game difficulty, we would like it to be only affected by the statistical distribution used. In section 6.1 we described how the Normal distribution was mapped onto our game world to adjust the positioning of the basket. We are not limited to just this distribution of course. Any statistical distribution that can be mapped onto the same space could also be used. For example, we originally had our A1 distribution implemented as a mirrored Normal distribution. This is a Normal distribution that is reflected. Using the example in the previous section, the graph of the reflected curve for this mirrored version would look like Figure 3.
 
-| ![Figure 3. Mirrored A1 game mode screen. This figure shows the Normal distribution curve for a mirrored version of the pillow screen show in Figure 3. Note that the basket was not actually moved as mirrored mode is disabled in the game.](https://www.imberstudios.com/images/slvg/normal_overlay_2_mirror.png) |
+| ![Figure 3. Mirrored A1 game mode screen. This figure shows the Normal distribution curve for a mirrored version of the pillow screen show in Figure 3. Note that the basket was not actually moved as mirrored mode is disabled in the game.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/normal_overlay_2_mirror.png) |
 |:--:|
 | Figure 3. Mirrored A1 game mode screen. This figure shows the Normal distribution curve for a mirrored version of the pillow screen show in Figure 3. Note that the basket was not actually moved as mirrored mode is disabled in the game. |
 
@@ -152,7 +152,7 @@ The preliminary results of our project will be discussed to get an intuition if 
 ### 7.1 Reaction Time
 Figure 4 displays the mean reaction time results (y-axis) over 500 trials (x-axis) for the dataset generated by the author. The Random trials are colored in blue while the A1 trials are red. The reaction times on the y-axis for this plot were computed by iterating the dataset with a sliding window of ten data points. Error bars were computed with the same procedure to obtain the standard deviation for each point.
 
-| ![Figure 4. Reaction time vs. trials for Random and A1 game modes. This figure displays the reaction time (in seconds) over 500 trials with error bars for the data obtained from the author.](https://www.imberstudios.com/images/slvg/figure_2a.png) |
+| ![Figure 4. Reaction time vs. trials for Random and A1 game modes. This figure displays the reaction time (in seconds) over 500 trials with error bars for the data obtained from the author.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/figure_2a.png) |
 |:--:|
 | Figure 4. Reaction time vs. trials for Random and A1 game modes. This figure displays the reaction time (in seconds) over 500 trials with error bars for the data obtained from the author. |
 
@@ -165,7 +165,7 @@ Nonetheless, there is a small difference between the two modes. Table 1 contains
 ### 7.2 Failure Rate
 What the graph of the reaction times does not tell us is how many times a player failed a level because they missed a pillow, basket, or both. If any of those situations arise, we do not count the data towards our reaction time analysis since the analysis requires activating the stimulus (pillow) and correctly responding to it (reaching the basket).
 
-| ![Figure 5. Failure rate for the Random and A1 game modes. This figure displays the failure rate of each game mode for the data obtained from the author after 615 trials.](https://www.imberstudios.com/images/slvg/error_percent.png) |
+| ![Figure 5. Failure rate for the Random and A1 game modes. This figure displays the failure rate of each game mode for the data obtained from the author after 615 trials.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/error_percent.png) |
 |:--:|
 | Figure 5. Failure rate for the Random and A1 game modes. This figure displays the failure rate of each game mode for the data obtained from the author after 615 trials. |
 
@@ -180,7 +180,7 @@ The goal was to get a set of data from different sources to confirm or deny our 
 
 In Figure 6 we see the menu screen where the game modes can be selected after completing a level.
 
-| ![Figure 6. Result screen with menu. This figure shows the position of the menu buttons when the results of a level being completed are displayed.](https://www.imberstudios.com/images/slvg/a1_test_complete_sample_1.png) |
+| ![Figure 6. Result screen with menu. This figure shows the position of the menu buttons when the results of a level being completed are displayed.](https://github.com/mills-entari/flurgie-adventure/blob/master/slvg/a1_test_complete_sample_1.png) |
 |:--:|
 | Figure 6. Result screen with menu. This figure shows the position of the menu buttons when the results of a level being completed are displayed. |
 
